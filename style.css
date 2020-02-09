@@ -1,0 +1,46 @@
+.grid-container {
+  	display: grid;
+  	grid-template-columns: 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem;
+  	background-color: #0070DE;
+  	padding: 0.625rem;
+    width: 51.25rem;
+}
+
+.grid-item {
+  	background-color: #ABD473;
+  	border: 0.0625rem solid rgba(0, 0, 0, 0.8);
+  	font-size: 1.25rem;
+  	text-align: center;
+  	height: 5rem;
+  	width:  5rem;
+	position: relative;
+}
+
+.player {
+	position: absolute;
+	left: 10%;
+	top: 10%;
+	height: 80%;
+	width: 80%;
+	cursor: grabbing;
+}
+	
+.player--finn {
+	background: #C79C6E;
+	color: black;
+}
+
+.player--solveig {
+	background: #F58CBA;
+	color: black;
+}
+
+.player--rats {
+	background: #3CE13F;
+	color: black;
+}
+
+.player--pig {
+	background: #FF3F40;
+	color: white;
+}

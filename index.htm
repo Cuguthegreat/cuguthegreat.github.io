@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script language="javascript" type="text/javascript" src="logic.js"></script>
+        <title>Battle Map</title>
+    </head>
+    <body>
+        <div class="grid-container">
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)">
+				<div id="finn" class="player player--finn" draggable="true" ondragstart="drag(event)">Finn</div>
+			</div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)">
+				<div id="solveig" class="player player--solveig" draggable="true" ondragstart="drag(event)">Solveig</div>
+			</div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)">
+				<div id="rats01" class="player player--rats" draggable="true" ondragstart="drag(event)">Rats</div>
+			</div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>			
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)">
+				<div id="pig03" class="player player--pig" draggable="true" ondragstart="drag(event)">Pig</div>
+			</div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)">
+				<div id="pig01" class="player player--pig" draggable="true" ondragstart="drag(event)">Pig</div>
+			</div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)">
+				<div id="pig02" class="player player--pig" draggable="true" ondragstart="drag(event)">Pig</div>
+			</div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+			<div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+            <div class="grid-item" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+        </div> 
+    </body>
+</html>
