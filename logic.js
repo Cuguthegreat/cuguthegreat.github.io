@@ -1,11 +1,13 @@
 var ENTITIES = {
-    25: {id: 'finn', name: 'finn', text: 'Finn'},
-    28: {id: 'solveig', name: 'solveig', text: 'Solveig'},
-    30: {id: 'rats01', name: 'rats', text: 'Rats'},
-    566: {id: 'pig01', name: 'pig', text: 'Pig'},
-    548: {id: 'pig02', name: 'pig', text: 'Pig'},
-    570: {id: 'pig03', name: 'pig', text: 'Pig'}
+    25: {id: '5e409e27ee7ee6001715c7b2', name: 'finn', text: 'Finn'},
+    28: {id: '5e409e27ee7ee6001715c7b3', name: 'solveig', text: 'Solveig'},
+    30: {id: '5e409e27ee7ee6001715c7b4', name: 'rats', text: 'Rats'},
+    566: {id: '5e409e27ee7ee6001715c7b6', name: 'pig', text: 'Pig'},
+    548: {id: '5e409e27ee7ee6001715c7b5', name: 'pig', text: 'Pig'},
+    570: {id: '5e409e27ee7ee6001715c7b7', name: 'pig', text: 'Pig'}
 };
+
+var draggedEntityId = null;
 
 setTimeout(render, 0);
 
@@ -21,34 +23,53 @@ function render() {
 		squareNode.className = 'grid-item';
 		squareNode.id = `grid-item-${i}`;
 		squareNode.setAttribute('ondragover', 'allowDrop(event)');
-		squareNode.setAttribute('ondrop', 'drop(event, i)');
+		squareNode.setAttribute('ondrop', `drop(event, ${i})`);
 	}
 
 	for (squareId in ENTITIES) {
+		const entityId = `${ENTITIES[squareId].id}`;
 		var entityNode = document.createElement("div");
 		document.getElementById(`grid-item-${squareId}`).appendChild(entityNode);
 		entityNode.className = `player player--${ENTITIES[squareId].name}`;
-		entityNode.id = `${ENTITIES[squareId].id}`;
+		entityNode.id = entityId;
 		entityNode.textContent = `${ENTITIES[squareId].text}`;
 		entityNode.setAttribute('draggable', 'true');
-		entityNode.setAttribute('ondragstart', 'drag(event)');
+		entityNode.setAttribute('ondragstart', `drag(event, "${entityId}")`);
 	}
 }
 
-function drag(event) {
+function drag(event, id) {
     event.dataTransfer.setData("text", event.target.id);
+	draggedEntityId = id;
 }
 
 function allowDrop(event) {
-    if (event.target.childElementCount == 0 && event.target.className == "grid-item") {
+    if (event.target.childElementCount === 0 && event.target.className === "grid-item") {
         event.preventDefault();
     }
 }
 
-function drop(event) {
+function drop(event, squareId) {
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
-    if (event.target.childElementCount == 0 && event.target.className == "grid-item") {
+    if (event.target.childElementCount === 0 && event.target.className === "grid-item") {
         event.target.appendChild(document.getElementById(data));
     }
+
+	const body = { $set: { position: String(squareId) }};
+
+	fetch(`https://pathfinder-battle-map.herokuapp.com/api/entities/${draggedEntityId}`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(body)
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			console.log('Success:', data);
+		})
+		.catch((error) => {
+			console.error('Error:', error);
+		});
 }
