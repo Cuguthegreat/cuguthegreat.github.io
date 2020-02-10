@@ -1,15 +1,28 @@
-var ENTITIES = {
-    25: {id: '5e409e27ee7ee6001715c7b2', name: 'finn', text: 'Finn'},
-    28: {id: '5e409e27ee7ee6001715c7b3', name: 'solveig', text: 'Solveig'},
-    30: {id: '5e409e27ee7ee6001715c7b4', name: 'rats', text: 'Rats'},
-    566: {id: '5e409e27ee7ee6001715c7b6', name: 'pig', text: 'Pig'},
-    548: {id: '5e409e27ee7ee6001715c7b5', name: 'pig', text: 'Pig'},
-    570: {id: '5e409e27ee7ee6001715c7b7', name: 'pig', text: 'Pig'}
-};
+var ENTITIES = {};
+
+fetch('https://pathfinder-battle-map.herokuapp.com/api/entities', {
+	method: 'GET',
+	headers: {
+		'Content-Type': 'application/json',
+	}
+})
+	.then((response) => response.json())
+	.then((data) => {
+		setEntities(data);
+		render();
+	})
+	.catch((error) => {
+		console.error('Error:', error);
+	});
+
+function setEntities(data) {
+	for (i in data) {
+		const key = data[i].position;
+		ENTITIES[key] = {id: data[i]._id, name: data[i].name, text: data[i].text};
+	}
+}
 
 var draggedEntityId = null;
-
-setTimeout(render, 0);
 
 function render() {
 	var battleMapNode = document.createElement('div');
