@@ -42,7 +42,7 @@ function render() {
     battleMapNode.className = 'grid-container';
 
     for (i = 0; i < 600; i++) {
-        var squareNode = document.createElement("div");
+        var squareNode = document.createElement('div');
         battleMapNode.appendChild(squareNode);
         squareNode.className = 'grid-item';
         squareNode.id = `grid-item-${i}`;
@@ -52,7 +52,7 @@ function render() {
 
     for (squareId in ENTITIES) {
         const entityId = `${ENTITIES[squareId].id}`;
-        var entityNode = document.createElement("div");
+        var entityNode = document.createElement('div');
         document.getElementById(`grid-item-${squareId}`).appendChild(entityNode);
         entityNode.className = `player player--${ENTITIES[squareId].name}`;
         entityNode.id = entityId;
@@ -68,7 +68,7 @@ function drag(event, id) {
 }
 
 function allowDrop(event) {
-    if (event.target.childElementCount === 0 && event.target.className === "grid-item") {
+    if (event.target.childElementCount === 0 && event.target.className === 'grid-item') {
         event.preventDefault();
     }
 }
@@ -76,7 +76,7 @@ function allowDrop(event) {
 function drop(event, squareId) {
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
-    if (event.target.childElementCount === 0 && event.target.className === "grid-item") {
+    if (event.target.childElementCount === 0 && event.target.className === 'grid-item') {
         event.target.appendChild(document.getElementById(data));
     }
 
