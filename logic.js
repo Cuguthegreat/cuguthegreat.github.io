@@ -46,7 +46,7 @@ function render() {
         var squareNode = document.createElement('div');
         battleMapNode.appendChild(squareNode);
 
-        if (i % 20 < 14 && i % 20 > 5 && i > 479) {
+        if (i % 20 < 13 && i % 20 > 5 && i > 479) {
             squareNode.className = 'grid-item grid-item--four';
         } else {
             squareNode.className = 'grid-item';
