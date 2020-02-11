@@ -1,7 +1,7 @@
 .grid-container {
     display: grid;
     grid-template-columns: 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem;
-    background-color: #0070DE;
+    background-color: darkblue; /* #0070DE; */
     padding: 0.625rem;
     width: 102.5rem;
 }
@@ -43,4 +43,31 @@
 .player--pig {
     background: #FF3F40;
     color: white;
+}
+
+.player--red-four {
+    background-color: red;
+    border-radius: 50%;
+}
+
+.player--yellow-four {
+    background-color: yellow;
+    border-radius: 50%;
+}
+
+.grid-item--four {
+    background-color: deepskyblue;
+    border-radius: 50%;
+    left: 10%;
+    top: 10%;
+    height: 80%;
+    width: 80%;
+    z-index: 1;
+}
+
+.grid-item--four > .player {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
 }

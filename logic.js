@@ -25,8 +25,9 @@ function setEntities(data) {
 var socket = io.connect('https://pathfinder-battle-map.herokuapp.com');
 socket.on('update', function (data) {
     const id = data.documentKey._id;
-    const update = data.updateDescription.updatedFields;
-    if (update.position) {
+    const update = data.updateDescription && data.updateDescription.updatedFields;
+
+    if (update && update.position) {
         document.getElementById(`grid-item-${update.position}`).appendChild(
             document.getElementById(`${id}`)
         );
@@ -44,7 +45,13 @@ function render() {
     for (i = 0; i < 600; i++) {
         var squareNode = document.createElement('div');
         battleMapNode.appendChild(squareNode);
-        squareNode.className = 'grid-item';
+
+        if (i % 20 < 14 && i % 20 > 5 && i > 479) {
+            squareNode.className = 'grid-item grid-item--four';
+        } else {
+            squareNode.className = 'grid-item';
+        }
+
         squareNode.id = `grid-item-${i}`;
         squareNode.setAttribute('ondragover', 'allowDrop(event)');
         squareNode.setAttribute('ondrop', `drop(event, ${i})`);
@@ -67,8 +74,11 @@ function drag(event, id) {
     draggedEntityId = id;
 }
 
+const isValidDropTarget = (event) => event.target.childElementCount === 0
+    && (event.target.className === 'grid-item' || event.target.className === 'grid-item grid-item--four');
+
 function allowDrop(event) {
-    if (event.target.childElementCount === 0 && event.target.className === 'grid-item') {
+    if (isValidDropTarget) {
         event.preventDefault();
     }
 }
@@ -76,21 +86,23 @@ function allowDrop(event) {
 function drop(event, squareId) {
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
-    if (event.target.childElementCount === 0 && event.target.className === 'grid-item') {
+
+    if (isValidDropTarget(event)) {
         event.target.appendChild(document.getElementById(data));
+
+
+        const body = {$set: {position: String(squareId)}};
+
+        fetch(`https://pathfinder-battle-map.herokuapp.com/api/entities/${draggedEntityId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+        })
+            .then((response) => response.json())
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
-
-    const body = {$set: {position: String(squareId)}};
-
-    fetch(`https://pathfinder-battle-map.herokuapp.com/api/entities/${draggedEntityId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body)
-    })
-        .then((response) => response.json())
-        .catch((error) => {
-            console.error('Error:', error);
-        });
 }
