@@ -77,7 +77,9 @@ fetch(`${URL}/api/squares`, {
     });
 
 const setSquareColors = data => {
-    for (squareId in data) {
+    for (i in data) {
+        const squareId = data[i].squareId;
+        
         Squares[squareId] = {color: data[squareId].color};
         setSquareColor(squareId, data[squareId].color);
     }
