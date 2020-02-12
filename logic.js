@@ -59,7 +59,7 @@ fetch(`${URL}/api/entities`, {
         console.error('Error:', error);
     });
 
-fetch(`${URL}/squares`, {
+fetch(`${URL}/api/squares`, {
     method: 'GET',
     headers: HEADERS
 })
