@@ -80,8 +80,8 @@ const setSquareColors = data => {
     for (i in data) {
         const squareId = data[i].squareId;
         
-        Squares[squareId] = {color: data[squareId].color};
-        setSquareColor(squareId, data[squareId].color);
+        Squares[squareId] = {color: data[i].color};
+        setSquareColor(squareId, data[i].color);
     }
 };
 
