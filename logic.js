@@ -12,6 +12,10 @@ const HEADERS = {
 const getSquareNode = squareId => document.getElementById(`grid-item-${squareId}`);
 
 const setSquareColor = (squareId, colorObj) => {
+    if (!colorObj) {
+        return;
+    }
+    
     const color = colorObj.toString();
 
     if (Squares[squareId]) {
@@ -27,7 +31,7 @@ const setSquareColor = (squareId, colorObj) => {
                 console.error('Error:', error);
             });
     } else {
-        const body = {[squareId]: color};
+        const body = {squareId, color};
 
         fetch(`${URL}/api/squares`, {
             method: 'POST',
