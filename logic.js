@@ -1,10 +1,54 @@
 var ENTITIES = {};
+var Squares = {};
+var draggedEntityId = null;
+var squareNodeWithColorPicker = null;
+const NO_COLOR = 'ffffff';
 
-fetch('https://pathfinder-battle-map.herokuapp.com/api/entities', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
+const URL = 'https://pathfinder-battle-map.herokuapp.com';
+const HEADERS = {
+    'Content-Type': 'application/json',
+};
+
+const getSquareNode = squareId => document.getElementById(`grid-item-${squareId}`);
+
+const setSquareColor = (squareId, colorObj) => {
+    const color = colorObj.toString();
+
+    if (Squares[squareId]) {
+        const body = {$set: {color}};
+
+        fetch(`${URL}/api/squares/${squareId}`, {
+            method: 'PUT',
+            headers: HEADERS,
+            body: JSON.stringify(body)
+        })
+            .then((response) => response.json())
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    } else {
+        const body = {[squareId]: color};
+
+        fetch(`${URL}/api/squares`, {
+            method: 'POST',
+            headers: HEADERS,
+            body: JSON.stringify(body)
+        })
+            .then((response) => response.json())
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
+
+    Squares[squareId] = {...Squares[squareId], color};
+    getSquareNode(squareId).style.backgroundColor = '#' + color
+};
+
+const getSquareColor = squareId => Squares[squareId] && Squares[squareId].color || NO_COLOR;
+
+fetch(`${URL}/api/entities`, {
+    method: 'GET',
+    headers: HEADERS
 })
     .then((response) => response.json())
     .then((data) => {
@@ -15,6 +59,26 @@ fetch('https://pathfinder-battle-map.herokuapp.com/api/entities', {
         console.error('Error:', error);
     });
 
+fetch(`${URL}/squares`, {
+    method: 'GET',
+    headers: HEADERS
+})
+    .then((response) => response.json())
+    .then((data) => {
+        setSquareColors(data);
+        render();
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+
+const setSquareColors = data => {
+    for (squareId in data) {
+        Squares[squareId] = {color: data[squareId].color};
+        setSquareColor(squareId, data[squareId].color);
+    }
+};
+
 function setEntities(data) {
     for (i in data) {
         const key = data[i].position;
@@ -22,7 +86,7 @@ function setEntities(data) {
     }
 }
 
-var socket = io.connect('https://pathfinder-battle-map.herokuapp.com');
+var socket = io.connect(URL);
 socket.on('update', function (data) {
     const id = data.documentKey._id;
     const update = data.updateDescription && data.updateDescription.updatedFields;
@@ -34,7 +98,24 @@ socket.on('update', function (data) {
     }
 });
 
-var draggedEntityId = null;
+const getColorPicker = () => document.getElementById('jscolor');
+
+const showColorPicker = (event, squareId) => {
+    const colorPicker = getColorPicker();
+
+    getSquareNode(squareId).appendChild(colorPicker);
+    squareNodeWithColorPicker = squareId;
+
+    colorPicker.jscolor.fromString(getSquareColor(squareId));
+    colorPicker.jscolor.hide();
+
+
+    colorPicker.jscolor.show();
+    colorPicker.focus();
+    colorPicker.jscolor.show();
+};
+
+const onColorPickerChange = color => setSquareColor(squareNodeWithColorPicker, color);
 
 function render() {
     var battleMapNode = document.createElement('div');
@@ -45,16 +126,12 @@ function render() {
     for (i = 0; i < 600; i++) {
         var squareNode = document.createElement('div');
         battleMapNode.appendChild(squareNode);
-
-        if (i % 20 < 13 && i % 20 > 5 && i > 479) {
-            squareNode.className = 'grid-item grid-item--four';
-        } else {
-            squareNode.className = 'grid-item';
-        }
+        squareNode.className = 'grid-item';
 
         squareNode.id = `grid-item-${i}`;
         squareNode.setAttribute('ondragover', 'allowDrop(event)');
         squareNode.setAttribute('ondrop', `drop(event, ${i})`);
+        squareNode.setAttribute('ondblclick', `showColorPicker(event, ${i})`);
     }
 
     for (squareId in ENTITIES) {
@@ -67,6 +144,8 @@ function render() {
         entityNode.setAttribute('draggable', 'true');
         entityNode.setAttribute('ondragstart', `drag(event, "${entityId}")`);
     }
+
+    getColorPicker().setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
 }
 
 function drag(event, id) {
@@ -74,8 +153,7 @@ function drag(event, id) {
     draggedEntityId = id;
 }
 
-const isValidDropTarget = (event) => event.target.childElementCount === 0
-    && (event.target.className === 'grid-item' || event.target.className === 'grid-item grid-item--four');
+const isValidDropTarget = (event) => event.target.childElementCount === 0 && (event.target.className === 'grid-item');
 
 function allowDrop(event) {
     if (isValidDropTarget) {
@@ -93,11 +171,9 @@ function drop(event, squareId) {
 
         const body = {$set: {position: String(squareId)}};
 
-        fetch(`https://pathfinder-battle-map.herokuapp.com/api/entities/${draggedEntityId}`, {
+        fetch(`${URL}/api/entities/${draggedEntityId}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: HEADERS,
             body: JSON.stringify(body)
         })
             .then((response) => response.json())

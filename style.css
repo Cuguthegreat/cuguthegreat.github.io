@@ -55,19 +55,14 @@
     border-radius: 50%;
 }
 
-.grid-item--four {
-    background-color: deepskyblue;
-    border-radius: 50%;
-    left: 10%;
-    top: 10%;
-    height: 80%;
-    width: 80%;
-    z-index: 1;
+.jscolor:not(.jscolor-active) {
+    display: none;
 }
 
-.grid-item--four > .player {
-    top: 0;
-    left: 0;
+.jscolor {
     height: 100%;
     width: 100%;
+    border: none;
+    text-align: center;
+    padding: 0;
 }
