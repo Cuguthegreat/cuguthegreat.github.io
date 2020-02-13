@@ -111,6 +111,8 @@ socket.on('update', function (data) {
     const update = data.updateDescription && data.updateDescription.updatedFields;
 
     if (update && update.position) {
+        alert('Update!')
+
         document.getElementById(`grid-item-${update.position}`).appendChild(
             document.getElementById(`${id}`)
         );
