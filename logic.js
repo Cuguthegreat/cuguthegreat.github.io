@@ -1,3 +1,5 @@
+import {getTombstone, getSquareNode} from './get-element.js';
+
 var ENTITIES = {};
 var Squares = {};
 var draggedEntityId = null;
@@ -10,10 +12,6 @@ const HEADERS = {
 };
 
 const PROTECTED_ENTITIES = ['5e409e27ee7ee6001715c7b4', '5e409e27ee7ee6001715c7b3', '5e409e27ee7ee6001715c7b2'];
-
-const getTombstone = () => document.getElementById('tombstone-drop-zone');
-
-const getSquareNode = squareId => document.getElementById(`grid-item-${squareId}`);
 
 const setSquareColor = (squareId, colorObj) => {
     if (!colorObj) {
@@ -90,7 +88,7 @@ fetch(`${URL}/api/squares`, {
     });
 
 const setSquareColors = data => {
-    for (i in data) {
+    for (const i in data) {
         const squareId = data[i].squareId;
         
         Squares[squareId] = {color: data[i].color};
@@ -99,7 +97,7 @@ const setSquareColors = data => {
 };
 
 function setEntities(data) {
-    for (i in data) {
+    for (const i in data) {
         const key = data[i].position;
         ENTITIES[key] = {id: data[i]._id, name: data[i].name, text: data[i].text};
     }
@@ -141,7 +139,7 @@ function render() {
     battleMapNode.id = 'battle-map';
     battleMapNode.className = 'grid-container';
 
-    for (i = 0; i < 600; i++) {
+    for (let i = 0; i < 600; i++) {
         var squareNode = document.createElement('div');
         battleMapNode.appendChild(squareNode);
         squareNode.className = 'grid-item';
@@ -152,7 +150,7 @@ function render() {
         squareNode.setAttribute('ondblclick', `showColorPicker(event, ${i})`);
     }
 
-    for (squareId in ENTITIES) {
+    for (const squareId in ENTITIES) {
         const entityId = `${ENTITIES[squareId].id}`;
         var entityNode = document.createElement('div');
         document.getElementById(`grid-item-${squareId}`).appendChild(entityNode);
@@ -231,3 +229,5 @@ const deleteEntity = event => {
                 console.error('Error:', error);
             });
 }
+
+// export () => {};
