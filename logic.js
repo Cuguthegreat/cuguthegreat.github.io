@@ -9,6 +9,10 @@ const HEADERS = {
     'Content-Type': 'application/json',
 };
 
+const PROTECTED_ENTITIES = ['5e409e27ee7ee6001715c7b4', '5e409e27ee7ee6001715c7b3', '5e409e27ee7ee6001715c7b2'];
+
+const getTombstone = () => document.getElementById('tombstone-drop-zone');
+
 const getSquareNode = squareId => document.getElementById(`grid-item-${squareId}`);
 
 const setSquareColor = (squareId, colorObj) => {
@@ -159,6 +163,9 @@ function render() {
         entityNode.setAttribute('ondragstart', `drag(event, "${entityId}")`);
     }
 
+    getTombstone().setAttribute('ondragover', 'allowDrop(event)');
+    getTombstone().setAttribute('ondrop', 'deleteEntity(event)');
+
     getColorPicker().setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
 }
 
@@ -167,10 +174,19 @@ function drag(event, id) {
     draggedEntityId = id;
 }
 
-const isValidDropTarget = (event) => event.target.childElementCount === 0 && (event.target.className === 'grid-item');
+const isValidDropTarget = (event) => {
+    if (event.target.className === 'tombstone-drop-zone') {
+        return true
+    }
+
+    if (event.target.childElementCount === 0 && (event.target.className === 'grid-item')) {
+        return true;
+    }
+     return false;
+}
 
 function allowDrop(event) {
-    if (isValidDropTarget) {
+    if (isValidDropTarget(event)) {
         event.preventDefault();
     }
 }
@@ -195,4 +211,23 @@ function drop(event, squareId) {
                 console.error('Error:', error);
             });
     }
+}
+
+const deleteEntity = event => {
+    if (PROTECTED_ENTITIES.indexOf(draggedEntityId) >= 0 ) {
+        alert('Not even in your dreams, bitch!')
+        return;
+    }
+    event.preventDefault();
+
+    document.getElementById(draggedEntityId) && document.getElementById(draggedEntityId).remove();
+
+        fetch(`${URL}/api/entities/${draggedEntityId}`, {
+            method: 'DELETE',
+            headers: HEADERS
+        })
+            .then((response) => response.json())
+            .catch((error) => {
+                console.error('Error:', error);
+            });
 }

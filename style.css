@@ -45,16 +45,6 @@
     color: white;
 }
 
-.player--red-four {
-    background-color: red;
-    border-radius: 50%;
-}
-
-.player--yellow-four {
-    background-color: yellow;
-    border-radius: 50%;
-}
-
 .jscolor:not(.jscolor-active) {
     display: none;
 }
@@ -65,4 +55,26 @@
     border: none;
     text-align: center;
     padding: 0;
+}
+
+.tombstone {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 10rem;
+    height: 10rem;
+    z-index: 1;
+    background-color: ghostwhite;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.tombstone-drop-zone {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 10rem;
+    height: 10rem;
+    z-index: 1;
+    background-color: transparent;
 }
