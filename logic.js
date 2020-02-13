@@ -18,6 +18,19 @@ const setSquareColor = (squareId, colorObj) => {
     
     const color = colorObj.toString();
 
+    Squares[squareId] = {...Squares[squareId], color};
+    getSquareNode(squareId).style.backgroundColor = '#' + color
+};
+
+const updateSquareColor = (squareId, colorObj) => {
+    setSquareColor(squareId, colorObj);
+
+    if (!colorObj) {
+        return;
+    }
+
+    const color = colorObj.toString();
+
     if (Squares[squareId]) {
         const body = {$set: {color}};
 
@@ -43,10 +56,7 @@ const setSquareColor = (squareId, colorObj) => {
                 console.error('Error:', error);
             });
     }
-
-    Squares[squareId] = {...Squares[squareId], color};
-    getSquareNode(squareId).style.backgroundColor = '#' + color
-};
+}
 
 const getSquareColor = squareId => Squares[squareId] && Squares[squareId].color || NO_COLOR;
 
@@ -70,7 +80,6 @@ fetch(`${URL}/api/squares`, {
     .then((response) => response.json())
     .then((data) => {
         setSquareColors(data);
-        render();
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -115,13 +124,12 @@ const showColorPicker = (event, squareId) => {
     colorPicker.jscolor.fromString(getSquareColor(squareId));
     colorPicker.jscolor.hide();
 
-
     colorPicker.jscolor.show();
     colorPicker.focus();
     colorPicker.jscolor.show();
 };
 
-const onColorPickerChange = color => setSquareColor(squareNodeWithColorPicker, color);
+const onColorPickerChange = color => updateSquareColor(squareNodeWithColorPicker, color);
 
 function render() {
     var battleMapNode = document.createElement('div');
