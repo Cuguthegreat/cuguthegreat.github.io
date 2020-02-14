@@ -112,6 +112,7 @@ const showColorPicker = (event, squareId) => {
 
     colorPicker.jscolor.show();
     colorPicker.focus();
+    colorPicker.select();
     colorPicker.jscolor.show();
 };
 
