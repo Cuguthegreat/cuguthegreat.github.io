@@ -30,7 +30,7 @@ const updateSquareColor = (squareId, colorObj) => {
     if (Squares[squareId]) {
         const body = {$set: {color}};
 
-        fetch(`${URL}/api/squares/${squareId}`, {
+        fetch(`${URL}/api/squares/${Squares[squareId]._id}`, {
             method: 'PUT',
             headers: HEADERS,
             body: JSON.stringify(body)
@@ -62,8 +62,9 @@ const setSquareColors = data => {
     for (const i in data) {
         const squareId = data[i].squareId;
         const color = data[i].color;
+        const _id = data[i]._id;
 
-        Squares[squareId] = {color};
+        Squares[squareId] = {color, _id};
         setSquareColor(squareId, color);
     }
 };
