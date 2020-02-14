@@ -1,15 +1,11 @@
 import {getTombstone, getSquareNode} from './get-element.js';
+import {URL, HEADERS, fetchAll} from './backend/backend-calls.js';
 
 var ENTITIES = {};
 var Squares = {};
 var draggedEntityId = null;
 var squareNodeWithColorPicker = null;
 const NO_COLOR = 'ffffff';
-
-const URL = 'https://pathfinder-battle-map.herokuapp.com';
-const HEADERS = {
-    'Content-Type': 'application/json',
-};
 
 const PROTECTED_ENTITIES = ['5e409e27ee7ee6001715c7b4', '5e409e27ee7ee6001715c7b3', '5e409e27ee7ee6001715c7b2'];
 
@@ -25,8 +21,6 @@ const setSquareColor = (squareId, colorObj) => {
 };
 
 const updateSquareColor = (squareId, colorObj) => {
-    setSquareColor(squareId, colorObj);
-
     if (!colorObj) {
         return;
     }
@@ -58,50 +52,39 @@ const updateSquareColor = (squareId, colorObj) => {
                 console.error('Error:', error);
             });
     }
+
+    setSquareColor(squareId, colorObj);
 }
 
 const getSquareColor = squareId => Squares[squareId] && Squares[squareId].color || NO_COLOR;
 
-fetch(`${URL}/api/entities`, {
-    method: 'GET',
-    headers: HEADERS
-})
-    .then((response) => response.json())
-    .then((data) => {
-        setEntities(data);
-        render();
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-
-fetch(`${URL}/api/squares`, {
-    method: 'GET',
-    headers: HEADERS
-})
-    .then((response) => response.json())
-    .then((data) => {
-        setSquareColors(data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-
 const setSquareColors = data => {
     for (const i in data) {
         const squareId = data[i].squareId;
-        
-        Squares[squareId] = {color: data[i].color};
-        setSquareColor(squareId, data[i].color);
+        const color = data[i].color;
+
+        Squares[squareId] = {color};
+        setSquareColor(squareId, color);
     }
 };
 
-function setEntities(data) {
+const setEntities = data => {
     for (const i in data) {
         const key = data[i].position;
+
         ENTITIES[key] = {id: data[i]._id, name: data[i].name, text: data[i].text};
     }
 }
+
+Promise.all([
+        fetchAll('entities'),
+        fetchAll('squares')
+    ])
+    .then(([entitiesData, squaresData]) => {
+        setEntities(entitiesData);
+        render();
+        setSquareColors(squaresData);
+    })
 
 var socket = io.connect(URL);
 socket.on('update', function (data) {
@@ -230,4 +213,9 @@ const deleteEntity = event => {
             });
 }
 
-// export () => {};
+window.allowDrop = allowDrop;
+window.drag = drag;
+window.drop = drop;
+window.showColorPicker = showColorPicker;
+window.deleteEntity = deleteEntity;
+window.onColorPickerChange = onColorPickerChange;
