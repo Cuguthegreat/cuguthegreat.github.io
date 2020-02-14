@@ -1,5 +1,6 @@
-import {getTombstone, getSquareNode} from './get-element.js';
-import {URL, HEADERS, fetchAll} from './backend/backend-calls.js';
+import {getTombstone, getSquareNode} from './services/html-selectors.js';
+import * as backend from './services/backend-calls.js';
+import * as colorPicker from './services/color-picker.js';
 
 var ENTITIES = {};
 var Squares = {};
@@ -28,29 +29,9 @@ const updateSquareColor = (squareId, colorObj) => {
     const color = colorObj.toString();
 
     if (Squares[squareId]) {
-        const body = {$set: {color}};
-
-        fetch(`${URL}/api/squares/${Squares[squareId]._id}`, {
-            method: 'PUT',
-            headers: HEADERS,
-            body: JSON.stringify(body)
-        })
-            .then((response) => response.json())
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        backend.update(`squares/${Squares[squareId]._id}`, {$set: {color}})
     } else {
-        const body = {squareId, color};
-
-        fetch(`${URL}/api/squares`, {
-            method: 'POST',
-            headers: HEADERS,
-            body: JSON.stringify(body)
-        })
-            .then((response) => response.json())
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        backend.create('squares', {squareId, color})
     }
 
     setSquareColor(squareId, colorObj);
@@ -78,8 +59,8 @@ const setEntities = data => {
 }
 
 Promise.all([
-        fetchAll('entities'),
-        fetchAll('squares')
+        backend.read('entities'),
+        backend.read('squares')
     ])
     .then(([entitiesData, squaresData]) => {
         setEntities(entitiesData);
@@ -87,7 +68,7 @@ Promise.all([
         setSquareColors(squaresData);
     })
 
-var socket = io.connect(URL);
+var socket = io.connect(backend.URL);
 socket.on('update', function (data) {
     const id = data.documentKey._id;
     const update = data.updateDescription && data.updateDescription.updatedFields;
@@ -99,26 +80,9 @@ socket.on('update', function (data) {
     }
 });
 
-const getColorPicker = () => document.getElementById('jscolor');
-
-const showColorPicker = (event, squareId) => {
-    const colorPicker = getColorPicker();
-
-    getSquareNode(squareId).appendChild(colorPicker);
-    squareNodeWithColorPicker = squareId;
-
-    colorPicker.jscolor.fromString(getSquareColor(squareId));
-    colorPicker.jscolor.hide();
-
-    colorPicker.jscolor.show();
-    colorPicker.focus();
-    colorPicker.select();
-    colorPicker.jscolor.show();
-};
-
 const onColorPickerChange = color => updateSquareColor(squareNodeWithColorPicker, color);
 
-function render() {
+const render = () => {
     var battleMapNode = document.createElement('div');
     document.body.appendChild(battleMapNode);
     battleMapNode.id = 'battle-map';
@@ -132,7 +96,8 @@ function render() {
         squareNode.id = `grid-item-${i}`;
         squareNode.setAttribute('ondragover', 'allowDrop(event)');
         squareNode.setAttribute('ondrop', `drop(event, ${i})`);
-        squareNode.setAttribute('ondblclick', `showColorPicker(event, ${i})`);
+        squareNode.setAttribute('oncontextmenu', `showColorPicker(event, ${i})`);
+//        squareNode.setAttribute('ondblclick', '');
     }
 
     for (const squareId in ENTITIES) {
@@ -149,10 +114,10 @@ function render() {
     getTombstone().setAttribute('ondragover', 'allowDrop(event)');
     getTombstone().setAttribute('ondrop', 'deleteEntity(event)');
 
-    getColorPicker().setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
+    colorPicker.getColorPicker().setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
 }
 
-function drag(event, id) {
+const drag = (event, id) => {
     event.dataTransfer.setData("text", event.target.id);
     draggedEntityId = id;
 }
@@ -168,31 +133,20 @@ const isValidDropTarget = (event) => {
      return false;
 }
 
-function allowDrop(event) {
+const allowDrop = (event) => {
     if (isValidDropTarget(event)) {
         event.preventDefault();
     }
 }
 
-function drop(event, squareId) {
+const drop = (event, squareId) => {
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
 
     if (isValidDropTarget(event)) {
         event.target.appendChild(document.getElementById(data));
 
-
-        const body = {$set: {position: String(squareId)}};
-
-        fetch(`${URL}/api/entities/${draggedEntityId}`, {
-            method: 'PUT',
-            headers: HEADERS,
-            body: JSON.stringify(body)
-        })
-            .then((response) => response.json())
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        backend.update(`entities/${draggedEntityId}`, {$set: {position: String(squareId)}})
     }
 }
 
@@ -205,14 +159,15 @@ const deleteEntity = event => {
 
     document.getElementById(draggedEntityId) && document.getElementById(draggedEntityId).remove();
 
-        fetch(`${URL}/api/entities/${draggedEntityId}`, {
-            method: 'DELETE',
-            headers: HEADERS
-        })
-            .then((response) => response.json())
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+    backend.remove(`entities/${draggedEntityId}`)
+}
+
+const showColorPicker = (event, squareId) => {
+    if (squareNodeWithColorPicker !== squareId) {
+        event.preventDefault();
+        colorPicker.showColorPicker(squareId, getSquareColor(squareId))
+        squareNodeWithColorPicker = squareId;
+    }
 }
 
 window.allowDrop = allowDrop;
