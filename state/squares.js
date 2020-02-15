@@ -7,21 +7,24 @@ const getValidColor = color => color === NO_COLOR ? null : color;
 const getValidData = (color, label) => ({...(color && {color}), ...(label && {label})})
 
 const updateSquare = (squareId, data) => {
+    const squareNode = htmlSelectors.getSquareNode(squareId)
+    const entityNode = squareNode.firstElementChild;
+
     store.updateSquare(squareId, data);
 
     if (data.color) {
-        htmlSelectors.getSquareNode(squareId).style.backgroundColor = '#' + data.color;
+        squareNode.style.backgroundColor = '#' + data.color;
     } else {
-        htmlSelectors.getSquareNode(squareId).style.backgroundColor = '#' + selectors.NO_COLOR;
+        squareNode.style.backgroundColor = '#' + selectors.NO_COLOR;
     }
 
-    if (!selectors.getEntity(squareId)) {
-        if (data.label) {
-                htmlSelectors.getSquareNode(squareId).textContent = data.label;
-            } else {
-                htmlSelectors.getSquareNode(squareId).textContent = '';
-            }
+    if (data.label) {
+        squareNode.textContent = data.label;
+    } else {
+        squareNode.textContent = '';
     }
+
+    entityNode && squareNode.appendChild(entityNode);
 
     if (!data.color && !data.label) {
         store.deleteSquare(squareId);
