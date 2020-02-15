@@ -15,10 +15,12 @@ const updateSquare = (squareId, data) => {
         htmlSelectors.getSquareNode(squareId).style.backgroundColor = '#' + selectors.NO_COLOR;
     }
 
-    if (data.label) {
-        htmlSelectors.getSquareNode(squareId).textContent = data.label;
-    } else {
-        htmlSelectors.getSquareNode(squareId).textContent = '';
+    if (!selectors.getEntity(squareId)) {
+        if (data.label) {
+                htmlSelectors.getSquareNode(squareId).textContent = data.label;
+            } else {
+                htmlSelectors.getSquareNode(squareId).textContent = '';
+            }
     }
 
     if (!data.color && !data.label) {
