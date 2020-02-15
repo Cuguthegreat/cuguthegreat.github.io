@@ -31,6 +31,11 @@ Promise.all([
         battleMap.render();
         squares.setSquares(squaresData);
     })
+    .then(() => {
+        colorPicker.getColorPicker().setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
+        getTombstone().setAttribute('ondragover', 'allowDrop(event)');
+        getTombstone().setAttribute('ondrop', 'deleteEntity(event)');
+    })
 
 var socket = io.connect(backend.URL);
 socket.on('update', function (data) {

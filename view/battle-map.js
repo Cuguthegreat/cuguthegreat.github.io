@@ -1,6 +1,4 @@
 import * as store from '../state/store.js';
-import {getTombstone} from '../services/html-selectors.js';
-import * as colorPicker from '../services/color-picker.js';
 
 export const render = () => {
     var battleMapNode = document.createElement('div');
@@ -30,9 +28,4 @@ export const render = () => {
         entityNode.setAttribute('draggable', 'true');
         entityNode.setAttribute('ondragstart', `drag(event, "${entityId}")`);
     }
-
-    getTombstone().setAttribute('ondragover', 'allowDrop(event)');
-    getTombstone().setAttribute('ondrop', 'deleteEntity(event)');
-
-    colorPicker.getColorPicker().setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
 }
