@@ -1,4 +1,4 @@
-import {getSquareNode} from './html-selectors.js';
+import {getSquareNode} from '../services/html-selectors.js';
 
 export const getColorPicker = () => document.getElementById('jscolor');
 

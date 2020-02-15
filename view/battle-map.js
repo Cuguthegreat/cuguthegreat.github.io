@@ -1,4 +1,8 @@
 import * as store from '../state/store.js';
+import * as dragAndDrop from './drag-and-drop.js';
+import * as colorPicker from './color-picker.js';
+import * as squareLabelPicker from './square-label-picker.js';
+import * as htmlSelectors from '../services/html-selectors.js';
 
 export const render = () => {
     var battleMapNode = document.createElement('div');
@@ -28,4 +32,15 @@ export const render = () => {
         entityNode.setAttribute('draggable', 'true');
         entityNode.setAttribute('ondragstart', `drag(event, "${entityId}")`);
     }
+
+    htmlSelectors.getColorPicker().setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
+    htmlSelectors.getTombstone().setAttribute('ondragover', 'allowDrop(event)');
+    htmlSelectors.getTombstone().setAttribute('ondrop', 'deleteEntity(event)');
 }
+
+window.allowDrop = dragAndDrop.allowDrop;
+window.drag = dragAndDrop.drag;
+window.drop = dragAndDrop.drop;
+window.showColorPicker = colorPicker.showColorPicker;
+window.showSquareLabelPicker = squareLabelPicker.showSquareLabelPicker;
+window.onColorPickerChange = colorPicker.onColorPickerChange;
