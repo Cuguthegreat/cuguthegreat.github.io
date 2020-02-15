@@ -1,4 +1,5 @@
 import * as selectors from '../state/selectors.js';
+import * as entities from '../state/selectors.js';
 import * as dragAndDrop from './drag-and-drop.js';
 import * as colorPicker from './color-picker.js';
 import * as squareLabelPicker from './square-label-picker.js';
@@ -38,7 +39,20 @@ export const render = () => {
     htmlSelectors.getTombstone().setAttribute('ondrop', 'deleteEntity(event)');
 }
 
+const deleteEntity = event => {
+    if (PROTECTED_ENTITIES.indexOf(draggedEntityId) >= 0 ) {
+        alert('Not even in your dreams, bitch!')
+        return;
+    }
+    event.preventDefault();
+
+    document.getElementById(draggedEntityId) && document.getElementById(draggedEntityId).remove();
+
+    entities.removeEntity(draggedEntityId)
+}
+
 window.allowDrop = dragAndDrop.allowDrop;
+window.deleteEntity = deleteEntity;
 window.drag = dragAndDrop.drag;
 window.drop = dragAndDrop.drop;
 window.onColorPickerChange = colorPicker.onColorPickerChange;

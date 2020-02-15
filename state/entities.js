@@ -12,3 +12,7 @@ export const setEntities = data => {
 export const updateEntity = (entityId, data) => {
     backend.update(`entities/${entityId}`, data)
 }
+
+export const removeEntity = (entityId) => {
+    backend.remove(`entities/${entityId}`)
+}
