@@ -1,25 +1,10 @@
-import {getTombstone, getSquareNode} from './services/html-selectors.js';
 import * as backend from './services/backend-calls.js';
-import * as colorPicker from './view/color-picker.js';
 import * as entities from './state/entities.js';
 import * as squares from './state/squares.js';
 import * as battleMap from './view/battle-map.js';
 import * as socket from './socket/socket.js';
 
-import * as store from './state/store.js';
-import * as selectors from './state/selectors.js';
-
 const PROTECTED_ENTITIES = ['5e409e27ee7ee6001715c7b4', '5e409e27ee7ee6001715c7b3', '5e409e27ee7ee6001715c7b2'];
-
-const updateSquareLabel = (event, squareId) => {
-    const squareLabelPicker = getSquareLabelPicker();
-    const label = squareLabelPicker.value;
-
-    squareLabelPicker.remove();
-    store.setSquareNodeWithLabelPicker(null);
-
-    squares.updateSquareLabel(squareId, label);
-}
 
 Promise.all([
         backend.read('entities'),
@@ -33,8 +18,6 @@ Promise.all([
 
 socket.start();
 
-const onColorPickerChange = color => color && squares.updateSquareColor(selectors.getSquareNodeWithColorPicker(), color.toString());
-
 const deleteEntity = event => {
     if (PROTECTED_ENTITIES.indexOf(draggedEntityId) >= 0 ) {
         alert('Not even in your dreams, bitch!')
@@ -47,14 +30,4 @@ const deleteEntity = event => {
     backend.remove(`entities/${draggedEntityId}`)
 }
 
-const showColorPicker = (event, squareId) => {
-    if (selectors.getSquareNodeWithColorPicker() !== squareId && selectors.getSquareNodeWithLabelPicker() !== squareId) {
-        event.preventDefault();
-
-        colorPicker.showColorPicker(squareId, getSquareColor(squareId))
-        selectors.setSquareNodeWithColorPicker(squareId);
-    }
-}
-
-window.updateSquareLabel = updateSquareLabel;
 window.deleteEntity = deleteEntity;

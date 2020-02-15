@@ -41,6 +41,6 @@ export const render = () => {
 window.allowDrop = dragAndDrop.allowDrop;
 window.drag = dragAndDrop.drag;
 window.drop = dragAndDrop.drop;
+window.onColorPickerChange = colorPicker.onColorPickerChange;
 window.showColorPicker = colorPicker.showColorPicker;
 window.showSquareLabelPicker = squareLabelPicker.showSquareLabelPicker;
-window.onColorPickerChange = colorPicker.onColorPickerChange;

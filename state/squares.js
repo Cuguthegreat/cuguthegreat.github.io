@@ -47,6 +47,8 @@ export const updateSquareColor = (squareId, color) => {
 }
 
 export const updateSquareLabel = (squareId, label) => {
+    store.setSquareNodeWithLabelPicker(null);
+
     if (label && !selectors.getSquare(squareId)) {
         backend.create('squares', {squareId, label})
     }
