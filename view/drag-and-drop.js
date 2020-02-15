@@ -1,5 +1,6 @@
-import * as store from '../state/store.js';
+import * as selectors from '../state/selectors.js';
 import * as entities from '../state/entities.js';
+import * as store from '../state/store.js';
 
 const isValidDropTarget = (event) => {
     if (event.target.className === 'tombstone-drop-zone') {
@@ -30,6 +31,6 @@ export const drop = (event, squareId) => {
     if (isValidDropTarget(event)) {
         event.target.appendChild(document.getElementById(data));
 
-        entities.updateEntity(store.getDraggedEntityId(), {$set: {position: String(squareId)}})
+        entities.updateEntity(selectors.getDraggedEntityId(), {$set: {position: String(squareId)}})
     }
 }

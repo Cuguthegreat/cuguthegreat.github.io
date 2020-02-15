@@ -1,3 +1,4 @@
+import * as selectors from './selectors.js';
 import * as store from './store.js';
 import {getSquareNode} from '../services/html-selectors.js';
 
@@ -11,7 +12,7 @@ const updateSquare = (squareId, data) => {
     if (data.color) {
         getSquareNode(squareId).style.backgroundColor = '#' + data.color;
     } else {
-        getSquareNode(squareId).style.backgroundColor = '#' + store.NO_COLOR;
+        getSquareNode(squareId).style.backgroundColor = '#' + selectors.NO_COLOR;
     }
 
     if (data.label) {
@@ -26,40 +27,40 @@ const updateSquare = (squareId, data) => {
 };
 
 export const updateSquareColor = (squareId, color) => {
-    if (color && !store.getSquare(squareId)) {
+    if (color && !selectors.getSquare(squareId)) {
         backend.create('squares', {squareId, color})
      }
 
-    if (color && store.getSquare(squareId)) {
-        if (color === store.getSquareColor(squareId)) {
+    if (color && selectors.getSquare(squareId)) {
+        if (color === selectors.getSquareColor(squareId)) {
             return;
         }
 
-        backend.update(`squares/${store.getSquareId(squareId)}`, {$set: {color}})
+        backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {color}})
      }
 
-    if (!color && store.getSquare(squareId) && !store.getSquareLabel(squareId)) {
-        backend.remove(`squares/${store.getSquareId(squareId)}`)
+    if (!color && selectors.getSquare(squareId) && !selectors.getSquareLabel(squareId)) {
+        backend.remove(`squares/${selectors.getSquareId(squareId)}`)
     }
 
     color && updateSquare(squareId, {color});
 }
 
 export const updateSquareLabel = (squareId, label) => {
-    if (label && !store.getSquare(squareId)) {
+    if (label && !selectors.getSquare(squareId)) {
         backend.create('squares', {squareId, label})
     }
 
-    if (label && store.getSquare([squareId])) {
-        if (label === store.getSquareLabel(squareId)) {
+    if (label && selectors.getSquare([squareId])) {
+        if (label === selectors.getSquareLabel(squareId)) {
             return;
         }
 
-        backend.update(`squares/${store.getSquareId(squareId)}`, {$set: {label}})
+        backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {label}})
     }
 
-    if (!label && store.getSquareId(squareId) && !store.getSquareColor(squareId)) {
-        backend.remove(`squares/${store.getSquareId(squareId)}`)
+    if (!label && selectors.getSquareId(squareId) && !selectors.getSquareColor(squareId)) {
+        backend.remove(`squares/${selectors.getSquareId(squareId)}`)
     }
 
     label && updateSquare(squareId, {label});

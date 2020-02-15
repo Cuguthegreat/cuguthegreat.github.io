@@ -6,6 +6,9 @@ import * as squares from './state/squares.js';
 import * as battleMap from './view/battle-map.js';
 import * as socket from './socket/socket.js';
 
+import * as store from './state/store.js';
+import * as selectors from './state/selectors.js';
+
 const PROTECTED_ENTITIES = ['5e409e27ee7ee6001715c7b4', '5e409e27ee7ee6001715c7b3', '5e409e27ee7ee6001715c7b2'];
 
 const updateSquareLabel = (event, squareId) => {
@@ -30,7 +33,7 @@ Promise.all([
 
 socket.start();
 
-const onColorPickerChange = color => color && squares.updateSquareColor(store.getSquareNodeWithColorPicker(), color.toString());
+const onColorPickerChange = color => color && squares.updateSquareColor(selectors.getSquareNodeWithColorPicker(), color.toString());
 
 const deleteEntity = event => {
     if (PROTECTED_ENTITIES.indexOf(draggedEntityId) >= 0 ) {
@@ -45,11 +48,11 @@ const deleteEntity = event => {
 }
 
 const showColorPicker = (event, squareId) => {
-    if (store.getSquareNodeWithColorPicker() !== squareId && store.getSquareNodeWithLabelPicker() !== squareId) {
+    if (selectors.getSquareNodeWithColorPicker() !== squareId && selectors.getSquareNodeWithLabelPicker() !== squareId) {
         event.preventDefault();
 
         colorPicker.showColorPicker(squareId, getSquareColor(squareId))
-        store.setSquareNodeWithColorPicker(squareId);
+        selectors.setSquareNodeWithColorPicker(squareId);
     }
 }
 

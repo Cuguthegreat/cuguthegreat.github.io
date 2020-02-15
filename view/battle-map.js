@@ -1,4 +1,4 @@
-import * as store from '../state/store.js';
+import * as selectors from '../state/selectors.js';
 import * as dragAndDrop from './drag-and-drop.js';
 import * as colorPicker from './color-picker.js';
 import * as squareLabelPicker from './square-label-picker.js';
@@ -22,13 +22,13 @@ export const render = () => {
         squareNode.setAttribute('ondblclick', `showSquareLabelPicker(event, ${i})`);
     }
 
-    for (const squareId in store.getEntities()) {
-        const entityId = `${store.getEntityId(squareId)}`;
+    for (const squareId in selectors.getEntities()) {
+        const entityId = `${selectors.getEntityId(squareId)}`;
         const entityNode = document.createElement('div');
         document.getElementById(`grid-item-${squareId}`).appendChild(entityNode);
-        entityNode.className = `player player--${store.getEntityName(squareId)}`;
+        entityNode.className = `player player--${selectors.getEntityName(squareId)}`;
         entityNode.id = entityId;
-        entityNode.textContent = `${store.getEntityText(squareId)}`;
+        entityNode.textContent = `${selectors.getEntityText(squareId)}`;
         entityNode.setAttribute('draggable', 'true');
         entityNode.setAttribute('ondragstart', `drag(event, "${entityId}")`);
     }
