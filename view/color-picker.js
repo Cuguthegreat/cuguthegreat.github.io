@@ -1,12 +1,13 @@
-import {getSquareNode, getColorPicker} from '../services/html-selectors.js';
+import * as htmlSelectors from '../services/html-selectors.js';
 import * as selectors from '../state/selectors.js';
+import * as store from '../state/store.js';
 
 export const onColorPickerChange = color => color && squares.updateSquareColor(selectors.getSquareNodeWithColorPicker(), color.toString());
 
 const renderColorPicker = (squareId, initialColor) => {
-    const colorPicker = getColorPicker();
+    const colorPicker = htmlSelectors.getColorPicker();
 
-    getSquareNode(squareId).appendChild(colorPicker);
+    htmlSelectors.getSquareNode(squareId).appendChild(colorPicker);
 
     colorPicker.jscolor.fromString(initialColor);
     colorPicker.jscolor.hide();
@@ -22,8 +23,8 @@ export const showColorPicker = (event, squareId) => {
 
     if (selectors.getSquareNodeWithColorPicker() !== squareId && selectors.getSquareNodeWithLabelPicker() !== squareId) {
 
-        selectors.setSquareNodeWithColorPicker(squareId);
+        store.setSquareNodeWithColorPicker(squareId);
 
-        renderColorPicker(squareId, getSquareColor(squareId));
+        renderColorPicker(squareId, selectors.getSquareColor(squareId));
     }
 }

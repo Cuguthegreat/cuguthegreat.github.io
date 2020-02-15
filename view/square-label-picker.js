@@ -1,11 +1,13 @@
-import {getSquareLabelPicker} from '../services/html-selectors.js';
+import * as htmlSelector from '../services/html-selectors.js';
 import * as squares from '../state/squares.js';
+import * as selectors from '../state/selectors.js';
+import * as store from '../state/store.js';
 
 const renderSquareLabelPicker = (squareId) => {
     const squareLabelPicker = document.createElement('input');
 
-    getSquareNode(squareId).appendChild(squareLabelPicker);
-    squareLabelPicker.value = getSquareNode(squareId).textContent;
+    htmlSelector.getSquareNode(squareId).appendChild(squareLabelPicker);
+    squareLabelPicker.value = htmlSelector.getSquareNode(squareId).textContent;
     squareLabelPicker.focus();
     squareLabelPicker.select();
     squareLabelPicker.id = 'square-label-picker';
@@ -13,23 +15,20 @@ const renderSquareLabelPicker = (squareId) => {
     squareLabelPicker.setAttribute('onblur', `updateSquareLabel(event, ${squareId})`);
 }
 
-const updateSquareLabel = (event, squareId) => {
-    const squareLabelPicker = getSquareLabelPicker();
-    const label = squareLabelPicker.value;
+export const updateSquareLabel = (event, squareId) => {
+    const squareLabelPicker = htmlSelector.getSquareLabelPicker();
 
     squareLabelPicker.remove();
-
-    squares.updateSquareLabel(squareId, label);
+    squares.updateSquareLabel(squareId, squareLabelPicker.value);
 }
 
 export const showSquareLabelPicker = (event, squareId) => {
     event.preventDefault();
 
-    if (squareNodeWithColorPicker !== squareId && squareNodeWithLabelPicker !== squareId) {
-        squareNodeWithColorPicker = null
-        squareNodeWithLabelPicker = squareId;
+    if (selectors.getSquareNodeWithColorPicker() !== squareId && selectors.getSquareNodeWithLabelPicker() !== squareId) {
+        store.setSquareNodeWithColorPicker(null);
+        store.setSquareNodeWithLabelPicker(squareId);
+
         renderSquareLabelPicker();
     }
 }
-
-window.updateSquareLabel = updateSquareLabel;

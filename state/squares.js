@@ -1,6 +1,6 @@
 import * as selectors from './selectors.js';
 import * as store from './store.js';
-import {getSquareNode} from '../services/html-selectors.js';
+import * as htmlSelectors from '../services/html-selectors.js';
 
 const getValidColor = color => color === NO_COLOR ? null : color;
 
@@ -10,15 +10,15 @@ const updateSquare = (squareId, data) => {
     store.updateSquare(squareId, data);
 
     if (data.color) {
-        getSquareNode(squareId).style.backgroundColor = '#' + data.color;
+        htmlSelectors.getSquareNode(squareId).style.backgroundColor = '#' + data.color;
     } else {
-        getSquareNode(squareId).style.backgroundColor = '#' + selectors.NO_COLOR;
+        htmlSelectors.getSquareNode(squareId).style.backgroundColor = '#' + selectors.NO_COLOR;
     }
 
     if (data.label) {
-        getSquareNode(squareId).textContent = data.label;
+        htmlSelectors.getSquareNode(squareId).textContent = data.label;
     } else {
-        getSquareNode(squareId).textContent = '';
+        htmlSelectors.getSquareNode(squareId).textContent = '';
     }
 
     if (!data.color && !data.label) {
