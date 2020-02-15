@@ -4,6 +4,7 @@ import * as colorPicker from './view/color-picker.js';
 import * as entities from './state/entities.js';
 import * as squares from './state/squares.js';
 import * as battleMap from './view/battle-map.js';
+import * as socket from './socket/socket.js';
 
 const PROTECTED_ENTITIES = ['5e409e27ee7ee6001715c7b4', '5e409e27ee7ee6001715c7b3', '5e409e27ee7ee6001715c7b2'];
 
@@ -27,17 +28,7 @@ Promise.all([
         squares.setSquares(squaresData);
     })
 
-var socket = io.connect(backend.URL);
-socket.on('update', function (data) {
-    const id = data.documentKey._id;
-    const update = data.updateDescription && data.updateDescription.updatedFields;
-
-    if (update && update.position) {
-        document.getElementById(`grid-item-${update.position}`).appendChild(
-            document.getElementById(`${id}`)
-        );
-    }
-});
+socket.start();
 
 const onColorPickerChange = color => color && squares.updateSquareColor(store.getSquareNodeWithColorPicker(), color.toString());
 
