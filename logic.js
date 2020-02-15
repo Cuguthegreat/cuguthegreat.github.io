@@ -1,54 +1,24 @@
 import {getTombstone, getSquareNode} from './services/html-selectors.js';
 import * as backend from './services/backend-calls.js';
 import * as colorPicker from './services/color-picker.js';
+import * as squares from './state/squares.js';
 
 var ENTITIES = {};
-var Squares = {};
 var draggedEntityId = null;
 var squareNodeWithColorPicker = null;
-const NO_COLOR = 'ffffff';
+var squareNodeWithLabelPicker = null;
 
 const PROTECTED_ENTITIES = ['5e409e27ee7ee6001715c7b4', '5e409e27ee7ee6001715c7b3', '5e409e27ee7ee6001715c7b2'];
 
-const setSquareColor = (squareId, colorObj) => {
-    if (!colorObj) {
-        return;
-    }
-    
-    const color = colorObj.toString();
+const updateSquareLabel = (event, squareId) => {
+    const squareLabelPicker = getSquareLabelPicker();
+    const label = squareLabelPicker.value;
 
-    Squares[squareId] = {...Squares[squareId], color};
-    getSquareNode(squareId).style.backgroundColor = '#' + color
-};
+    squareLabelPicker.remove();
+    squareNodeWithLabelPicker = null;
 
-const updateSquareColor = (squareId, colorObj) => {
-    if (!colorObj) {
-        return;
-    }
-
-    const color = colorObj.toString();
-
-    if (Squares[squareId]) {
-        backend.update(`squares/${Squares[squareId]._id}`, {$set: {color}})
-    } else {
-        backend.create('squares', {squareId, color})
-    }
-
-    setSquareColor(squareId, colorObj);
+    squares.updateSquareLabel(squareId, label);
 }
-
-const getSquareColor = squareId => Squares[squareId] && Squares[squareId].color || NO_COLOR;
-
-const setSquareColors = data => {
-    for (const i in data) {
-        const squareId = data[i].squareId;
-        const color = data[i].color;
-        const _id = data[i]._id;
-
-        Squares[squareId] = {color, _id};
-        setSquareColor(squareId, color);
-    }
-};
 
 const setEntities = data => {
     for (const i in data) {
@@ -65,7 +35,7 @@ Promise.all([
     .then(([entitiesData, squaresData]) => {
         setEntities(entitiesData);
         render();
-        setSquareColors(squaresData);
+        squares.setSquares(squaresData);
     })
 
 var socket = io.connect(backend.URL);
@@ -80,7 +50,7 @@ socket.on('update', function (data) {
     }
 });
 
-const onColorPickerChange = color => updateSquareColor(squareNodeWithColorPicker, color);
+const onColorPickerChange = color => color && squares.updateSquareColor(squareNodeWithColorPicker, color.toString());
 
 const render = () => {
     var battleMapNode = document.createElement('div');
@@ -97,12 +67,12 @@ const render = () => {
         squareNode.setAttribute('ondragover', 'allowDrop(event)');
         squareNode.setAttribute('ondrop', `drop(event, ${i})`);
         squareNode.setAttribute('oncontextmenu', `showColorPicker(event, ${i})`);
-//        squareNode.setAttribute('ondblclick', '');
+        squareNode.setAttribute('ondblclick', `showSquareLabelPicker(event, ${i})`);
     }
 
     for (const squareId in ENTITIES) {
         const entityId = `${ENTITIES[squareId].id}`;
-        var entityNode = document.createElement('div');
+        const entityNode = document.createElement('div');
         document.getElementById(`grid-item-${squareId}`).appendChild(entityNode);
         entityNode.className = `player player--${ENTITIES[squareId].name}`;
         entityNode.id = entityId;
@@ -163,10 +133,35 @@ const deleteEntity = event => {
 }
 
 const showColorPicker = (event, squareId) => {
-    if (squareNodeWithColorPicker !== squareId) {
+    if (squareNodeWithColorPicker !== squareId && squareNodeWithLabelPicker !== squareId) {
         event.preventDefault();
+        squareNodeWithLabelPicker = null;
+
         colorPicker.showColorPicker(squareId, getSquareColor(squareId))
         squareNodeWithColorPicker = squareId;
+    }
+}
+
+const getSquareLabelPicker = () => document.getElementById('square-label-picker');
+
+const showSquareLabelPicker = (event, squareId) => {
+    event.preventDefault();
+
+    if (squareNodeWithColorPicker !== squareId && squareNodeWithLabelPicker !== squareId) {
+        event.preventDefault();
+        squareNodeWithColorPicker = null
+
+        const squareLabelPicker = document.createElement('input');
+
+        getSquareNode(squareId).appendChild(squareLabelPicker);
+        squareLabelPicker.value = getSquareNode(squareId).textContent;
+        squareLabelPicker.focus();
+        squareLabelPicker.select();
+        squareLabelPicker.id = 'square-label-picker';
+        squareLabelPicker.className = 'square-label-picker';
+        squareLabelPicker.setAttribute('onblur', `updateSquareLabel(event, ${squareId})`);
+
+        squareNodeWithLabelPicker = squareId;
     }
 }
 
@@ -174,5 +169,7 @@ window.allowDrop = allowDrop;
 window.drag = drag;
 window.drop = drop;
 window.showColorPicker = showColorPicker;
+window.showSquareLabelPicker = showSquareLabelPicker;
+window.updateSquareLabel = updateSquareLabel;
 window.deleteEntity = deleteEntity;
 window.onColorPickerChange = onColorPickerChange;

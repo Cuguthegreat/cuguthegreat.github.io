@@ -14,6 +14,7 @@
     height: 5rem;
     width: 5rem;
     position: relative;
+    line-height: 4rem;
 }
 
 .player {
@@ -23,6 +24,7 @@
     height: 80%;
     width: 80%;
     cursor: grabbing;
+    line-height: 3.2rem;
 }
 
 .player--finn {
@@ -55,6 +57,21 @@
     border: none;
     text-align: center;
     padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.square-label-picker {
+    height: 100%;
+    width: 100%;
+    border: none;
+    text-align: center;
+    padding: 0;
+    background-color: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .tombstone {
