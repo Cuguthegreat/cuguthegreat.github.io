@@ -36,7 +36,7 @@ export const drop = (event, squareId) => {
                 text: 'New',
                 position: squareId
             });
-            entityCreator.render();
+            entityCreator.renderEntityCreator();
             alert('Creation is not fully implemented, yet.')
         } else {
             entities.updateEntity(selectors.getDraggedEntityId(), {$set: {position: String(squareId)}})

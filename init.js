@@ -11,9 +11,9 @@ Promise.all([
 ])
     .then(([entitiesData, squaresData]) => {
         entities.setEntities(entitiesData);
-        battleMap.render();
+        battleMap.renderBattleMap();
         squares.setSquares(squaresData);
-        entityCreator.render();
+        entityCreator.renderEntityCreator();
     });
 
 socket.start();

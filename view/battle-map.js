@@ -5,23 +5,16 @@ import * as colorPicker from './color-picker.js';
 import * as squareLabelPicker from './square-label-picker.js';
 import * as htmlSelectors from '../services/html-selectors.js';
 import * as config from '../config/config.js';
+import {renderSquare} from "./square.js";
 
-export const render = () => {
-    var battleMapNode = document.createElement('div');
+export const renderBattleMap = () => {
+    const battleMapNode = document.createElement('div');
     document.body.appendChild(battleMapNode);
     battleMapNode.id = 'battle-map';
     battleMapNode.className = 'grid-container';
 
-    for (let i = 0; i < 600; i++) {
-        var squareNode = document.createElement('div');
-        battleMapNode.appendChild(squareNode);
-        squareNode.className = 'grid-item';
-
-        squareNode.id = `grid-item-${i}`;
-        squareNode.setAttribute('ondragover', 'allowDrop(event)');
-        squareNode.setAttribute('ondrop', `drop(event, ${i})`);
-        squareNode.setAttribute('oncontextmenu', `showColorPicker(event, ${i})`);
-        squareNode.setAttribute('ondblclick', `showSquareLabelPicker(event, ${i})`);
+    for (let squareId = 0; squareId < 600; squareId++) {
+        renderSquare(squareId);
     }
 
     for (const squareId in selectors.getEntities()) {
@@ -35,9 +28,9 @@ export const render = () => {
         entityNode.setAttribute('ondragstart', `drag(event, "${entityId}")`);
     }
 
-    htmlSelectors.getColorPicker().setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
-    htmlSelectors.getTombstone().setAttribute('ondragover', 'allowDrop(event)');
-    htmlSelectors.getTombstone().setAttribute('ondrop', 'deleteEntity(event)');
+    htmlSelectors.getColorPickerNode().setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
+    htmlSelectors.getTombstoneNode().setAttribute('ondragover', 'allowDrop(event)');
+    htmlSelectors.getTombstoneNode().setAttribute('ondrop', 'deleteEntity(event)');
 };
 
 const deleteEntity = event => {

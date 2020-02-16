@@ -6,7 +6,7 @@ import * as squares from '../state/squares.js';
 export const onColorPickerChange = color => color && squares.updateSquareColor(selectors.getSquareNodeWithColorPicker(), color.toString());
 
 const renderColorPicker = (squareId, initialColor) => {
-    const colorPicker = htmlSelectors.getColorPicker();
+    const colorPicker = htmlSelectors.getColorPickerNode();
 
     htmlSelectors.getSquareNode(squareId).appendChild(colorPicker);
 

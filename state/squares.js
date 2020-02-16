@@ -4,11 +4,9 @@ import * as htmlSelectors from '../services/html-selectors.js';
 import * as backend from '../services/backend-calls.js';
 import * as config from '../config/config.js';
 
-const getValidColor = color => color === config.defaultSquareColor ? null : color;
+const getValidData = (color, label) => ({...(color && {color}), ...(label && {label})});
 
-const getValidData = (color, label) => ({...(color && {color}), ...(label && {label})})
-
-const renderSquare = (squareId, data) => {
+const renderSquare = (squareId) => {
     const squareNode = htmlSelectors.getSquareNode(squareId);
     const entityNode = squareNode.firstElementChild;
 

@@ -18,7 +18,7 @@ const renderSquareLabelPicker = (squareId) => {
 };
 
 export const updateSquareLabel = (event, squareId) => {
-    const squareLabelPicker = htmlSelector.getSquareLabelPicker();
+    const squareLabelPicker = htmlSelector.getLabelPickerNode();
 
     squareLabelPicker.remove();
     squares.updateSquareLabel(squareId, squareLabelPicker.value);

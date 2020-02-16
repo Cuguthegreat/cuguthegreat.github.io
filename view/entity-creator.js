@@ -14,7 +14,7 @@ const generate = () => {
     });
 };
 
-export const render = () => {
+export const renderEntityCreator = () => {
     const babyOverlay = document.getElementById('baby-overlay');
     const entityNode = document.createElement('div');
     const uuid = generate();
