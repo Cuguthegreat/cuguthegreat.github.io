@@ -25,6 +25,15 @@
     width: 80%;
     cursor: grabbing;
     line-height: 3.2rem;
+    background: #FF3F40;
+    color: white;
+}
+
+.player--new {
+    left: 30%;
+    top: 30%;
+    height: 40%;
+    width: 40%;
 }
 
 .player--finn {
@@ -40,11 +49,6 @@
 .player--rats {
     background: #3CE13F;
     color: black;
-}
-
-.player--pig {
-    background: #FF3F40;
-    color: white;
 }
 
 .jscolor:not(.jscolor-active) {
@@ -94,4 +98,37 @@
     height: 10rem;
     z-index: 1;
     background-color: transparent;
+}
+
+.baby {
+    position: fixed;
+    bottom: 10.125rem;
+    right: 0;
+    width: 10rem;
+    height: 10rem;
+    z-index: 1;
+    background-color: ghostwhite;
+    border-top: 0.0625rem solid black;
+    border-left: 0.0625rem solid black;
+    border-bottom: 0.0625rem solid black;
+}
+
+.baby-overlay {
+    position: fixed;
+    bottom: 10.125rem;
+    right: 0.125rem;
+    width: 10rem;
+    height: 10rem;
+    z-index: 1;
+    background-color: ghostwhite;
+    opacity: 0%;
+    border-top: 0.0625rem solid black;
+    border-left: 0.0625rem solid black;
+    border-bottom: 0.0625rem solid black;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.baby-overlay:hover {
+    opacity: 100%;
 }
