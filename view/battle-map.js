@@ -6,6 +6,7 @@ import * as squareLabelPicker from './square-label-picker.js';
 import * as htmlSelectors from '../services/html-selectors.js';
 import * as config from '../config/config.js';
 import {renderSquare} from "./square.js";
+import {renderEntity} from "./entity.js";
 
 export const renderBattleMap = () => {
     const battleMapNode = document.createElement('div');
@@ -18,14 +19,7 @@ export const renderBattleMap = () => {
     }
 
     for (const squareId in selectors.getEntities()) {
-        const entityId = `${selectors.getEntityId(squareId)}`;
-        const entityNode = document.createElement('div');
-        document.getElementById(`grid-item-${squareId}`).appendChild(entityNode);
-        entityNode.className = `player player--${selectors.getEntityName(squareId)}`;
-        entityNode.id = entityId;
-        entityNode.textContent = `${selectors.getEntityText(squareId)}`;
-        entityNode.setAttribute('draggable', 'true');
-        entityNode.setAttribute('ondragstart', `drag(event, "${entityId}")`);
+        renderEntity(squareId);
     }
 
     htmlSelectors.getColorPickerNode().setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
