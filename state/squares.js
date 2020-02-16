@@ -24,6 +24,8 @@ const isColorUnchanged = (squareId, color) => {
     return oldColor === color;
 }
 
+const isValidColor = color => color && color !== config.defaultSquareColor;
+
 export const updateSquareColor = (squareId, color) => {
     store.setSquareNodeWithColorPicker(null);
 
@@ -31,20 +33,20 @@ export const updateSquareColor = (squareId, color) => {
         return;
     }
 
-    if (color && !selectors.getSquare(squareId)) {
+    if (isValidColor(color) && !selectors.getSquare(squareId)) {
         backend.create('squares', {squareId, color})
      }
 
-    if (color && selectors.getSquare(squareId)) {
+    if (isValidColor(color) && selectors.getSquare(squareId)) {
         backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {color}})
     }
 
-    if (!color && !selectors.isSquareLabeled(squareId)) {
+    if (!isValidColor(color) && !selectors.isSquareLabeled(squareId)) {
         backend.remove(`squares/${selectors.getSquareId(squareId)}`)
     }
 
-    if (!color && selectors.isSquareLabeled(squareId)) {
-        backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {color}})
+    if (!isValidColor(color) && selectors.isSquareLabeled(squareId)) {
+        backend.update(`squares/${selectors.getSquareId(squareId)}`, {$unset: {color}})
     }
 
     store.updateSquare(squareId, {color});
@@ -78,7 +80,7 @@ export const updateSquareLabel = (squareId, label) => {
     }
 
     if (!label && selectors.isSquareColored(squareId)) {
-        backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {label}})
+        backend.update(`squares/${selectors.getSquareId(squareId)}`, {$unset: {label}})
     }
 
     store.updateSquare(squareId, {label});
