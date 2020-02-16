@@ -8,29 +8,13 @@ const getValidColor = color => color === config.defaultSquareColor ? null : colo
 
 const getValidData = (color, label) => ({...(color && {color}), ...(label && {label})})
 
-const updateSquare = (squareId, data) => {
+const renderSquare = (squareId, data) => {
     const squareNode = htmlSelectors.getSquareNode(squareId)
     const entityNode = squareNode.firstElementChild;
 
-    store.updateSquare(squareId, data);
-
-    if (data.color) {
-        squareNode.style.backgroundColor = '#' + data.color;
-    } else {
-        squareNode.style.backgroundColor = '#' + config.defaultSquareColor;
-    }
-
-    if (data.label) {
-        squareNode.textContent = data.label;
-    } else {
-        squareNode.textContent = '';
-    }
-
+    squareNode.style.backgroundColor = '#' + selectors.getSquareColor(squareId);
+    squareNode.textContent = selectors.getSquareLabel(squareId);
     entityNode && squareNode.appendChild(entityNode);
-
-    if (!data.color && !data.label) {
-        store.deleteSquare(squareId);
-    }
 };
 
 const isColorUnchanged = (squareId, color) => {
@@ -63,7 +47,8 @@ export const updateSquareColor = (squareId, color) => {
         backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {color}})
     }
 
-    updateSquare(squareId, {color});
+    store.updateSquare(squareId, {color});
+    renderSquare(squareId);
 }
 
 const isLabelUnchanged = (squareId, label) => {
@@ -96,11 +81,16 @@ export const updateSquareLabel = (squareId, label) => {
         backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {label}})
     }
 
-    updateSquare(squareId, {label});
+    store.updateSquare(squareId, {label});
+    renderSquare(squareId);
 }
 
 export const setSquares = data => {
     for (const i in data) {
-        updateSquare(data[i].squareId, {_id: data[i]._id, ...getValidData(data[i].color, data[i].label)});
+        const squareId = data[i].squareId;
+        const squareData = {_id: data[i]._id, ...getValidData(data[i].color, data[i].label)};
+
+        store.updateSquare(squareId, squareData);
+        renderSquare(squareId);
     }
 };

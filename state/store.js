@@ -13,7 +13,11 @@ export const createSquare = (squareId, data) => {
 };
 
 export const updateSquare = (squareId, data) => {
-    state.squares[squareId] = {...state.squares[squareId], ...data};
+    if (Object.keys(data).length !== 0) {
+        state.squares[squareId] = {...state.squares[squareId], ...data};
+    } else {
+        deleteSquare(squareId);
+    }
 };
 
 export const deleteSquare = (squareId) => {

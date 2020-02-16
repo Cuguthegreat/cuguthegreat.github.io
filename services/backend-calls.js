@@ -3,15 +3,18 @@ export const HEADERS = {
     'Content-Type': 'application/json',
 };
 
+const throwError = error => {
+   alert(`Error: ${error}. Please reload!`)
+   console.error('Error:', error);
+}
+
 export const read = subpath =>
   fetch(`${URL}/api/${subpath}`, {
     method: 'GET',
     headers: HEADERS
   })
-  .then((response) => response.json())
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+  .then(response => response.ok ? response.json() : throwError(response.statusText))
+  .catch(throwError);
 
 export const create = (subpath, body) =>
   fetch(`${URL}/api/${subpath}`, {
@@ -19,9 +22,8 @@ export const create = (subpath, body) =>
     headers: HEADERS,
     body: JSON.stringify(body)
   })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+  .then(response => response.ok || throwError(response.statusText))
+  .catch(throwError);
 
 export const update = (subpath, body) =>
   fetch(`${URL}/api/${subpath}`, {
@@ -29,15 +31,13 @@ export const update = (subpath, body) =>
     headers: HEADERS,
     body: JSON.stringify(body)
   })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+  .then(response => response.ok || throwError(response.statusText))
+  .catch(throwError);
 
 export const remove = subpath =>
   fetch(`${URL}/api/${subpath}`, {
     method: 'DELETE',
     headers: HEADERS
   })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+  .then(response => response.ok || throwError(response.statusText))
+  .catch(throwError);

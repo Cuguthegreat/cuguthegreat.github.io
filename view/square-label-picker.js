@@ -28,9 +28,7 @@ export const showSquareLabelPicker = (event, squareId) => {
     event.preventDefault();
 
     if (selectors.getSquareNodeWithColorPicker() !== squareId && selectors.getSquareNodeWithLabelPicker() !== squareId) {
-        store.setSquareNodeWithColorPicker(null);
         store.setSquareNodeWithLabelPicker(squareId);
-
         renderSquareLabelPicker(squareId);
     }
 }

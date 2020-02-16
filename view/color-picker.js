@@ -24,8 +24,6 @@ export const showColorPicker = (event, squareId) => {
         event.preventDefault();
 
         store.setSquareNodeWithColorPicker(squareId);
-        store.setSquareNodeWithLabelPicker(null);
-
         renderColorPicker(squareId, selectors.getSquareColor(squareId));
     } else {
         // show browser context-menu
