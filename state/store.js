@@ -1,5 +1,3 @@
-export const NO_COLOR = 'a9d271';
-
 const state = {
     squares: {},
     entities: {},

@@ -1,6 +1,7 @@
 import * as htmlSelectors from '../services/html-selectors.js';
 import * as selectors from '../state/selectors.js';
 import * as store from '../state/store.js';
+import * as squares from '../state/squares.js';
 
 export const onColorPickerChange = color => color && squares.updateSquareColor(selectors.getSquareNodeWithColorPicker(), color.toString());
 
@@ -19,12 +20,14 @@ const renderColorPicker = (squareId, initialColor) => {
 }
 
 export const showColorPicker = (event, squareId) => {
-    event.preventDefault();
-
     if (selectors.getSquareNodeWithColorPicker() !== squareId && selectors.getSquareNodeWithLabelPicker() !== squareId) {
+        event.preventDefault();
 
         store.setSquareNodeWithColorPicker(squareId);
+        store.setSquareNodeWithLabelPicker(null);
 
         renderColorPicker(squareId, selectors.getSquareColor(squareId));
+    } else {
+        // show browser context-menu
     }
 }

@@ -2,9 +2,9 @@ import * as selectors from './selectors.js';
 import * as store from './store.js';
 import * as htmlSelectors from '../services/html-selectors.js';
 import * as backend from '../services/backend-calls.js';
+import * as config from '../config/config.js';
 
-
-const getValidColor = color => color === NO_COLOR ? null : color;
+const getValidColor = color => color === config.defaultSquareColor ? null : color;
 
 const getValidData = (color, label) => ({...(color && {color}), ...(label && {label})})
 
@@ -17,7 +17,7 @@ const updateSquare = (squareId, data) => {
     if (data.color) {
         squareNode.style.backgroundColor = '#' + data.color;
     } else {
-        squareNode.style.backgroundColor = '#' + selectors.NO_COLOR;
+        squareNode.style.backgroundColor = '#' + config.defaultSquareColor;
     }
 
     if (data.label) {
@@ -33,30 +33,44 @@ const updateSquare = (squareId, data) => {
     }
 };
 
+const isColorUnchanged = (squareId, color) => {
+    const oldColor = selectors.getSquareColor(squareId) || config.defaultSquareColor;
+    const newColor = color || config.defaultSquareColor;
+
+    return oldColor === color;
+}
+
 export const updateSquareColor = (squareId, color) => {
+    store.setSquareNodeWithColorPicker(null);
+
+    if (isColorUnchanged(squareId, color)) {
+        return;
+    }
+
     if (color && !selectors.getSquare(squareId)) {
         backend.create('squares', {squareId, color})
      }
 
     if (color && selectors.getSquare(squareId)) {
-        if (color === selectors.getSquareColor(squareId)) {
-            return;
-        }
-
         backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {color}})
-     }
+    }
 
-    if (!color && selectors.getSquare(squareId) && !selectors.getSquareLabel(squareId)) {
+    if (!color && !selectors.isSquareLabeled(squareId)) {
         backend.remove(`squares/${selectors.getSquareId(squareId)}`)
     }
 
-    color && updateSquare(squareId, {color});
+    if (!color && selectors.isSquareLabeled(squareId)) {
+        backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {color}})
+    }
+
+    updateSquare(squareId, {color});
 }
 
 const isLabelUnchanged = (squareId, label) => {
     const oldLabel = selectors.getSquareLabel(squareId) || '';
+    const newLabel = label || '';
 
-    return oldLabel === label;
+    return oldLabel === newLabel;
 }
 
 export const updateSquareLabel = (squareId, label) => {
