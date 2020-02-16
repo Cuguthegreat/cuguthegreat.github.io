@@ -9,6 +9,10 @@ export const setEntities = data => {
     }
 }
 
+export const createEntity = (data) => {
+    backend.create('entities', data)
+}
+
 export const updateEntity = (entityId, data) => {
     backend.update(`entities/${entityId}`, data)
 }
