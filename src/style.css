@@ -1,0 +1,134 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem;
+    background-color: darkblue; /* #0070DE; */
+    padding: 0.625rem;
+    width: 102.5rem;
+}
+
+.grid-item {
+    background-color: #ABD473;
+    border: 0.0625rem solid rgba(0, 0, 0, 0.8);
+    font-size: 1rem;
+    text-align: center;
+    height: 5rem;
+    width: 5rem;
+    position: relative;
+    line-height: 4rem;
+}
+
+.player {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    height: 80%;
+    width: 80%;
+    cursor: grabbing;
+    line-height: 3.2rem;
+    background: #FF3F40;
+    color: white;
+}
+
+.player--new {
+    left: 30%;
+    top: 30%;
+    height: 40%;
+    width: 40%;
+}
+
+.player--finn {
+    background: #C79C6E;
+    color: black;
+}
+
+.player--solveig {
+    background: #F58CBA;
+    color: black;
+}
+
+.player--rats {
+    background: #3CE13F;
+    color: black;
+}
+
+.jscolor:not(.jscolor-active) {
+    display: none;
+}
+
+.jscolor {
+    height: 100%;
+    width: 100%;
+    border: none;
+    text-align: center;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.square-label-picker {
+    height: 100%;
+    width: 100%;
+    border: none;
+    text-align: center;
+    padding: 0;
+    background-color: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.tombstone {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 10rem;
+    height: 10rem;
+    z-index: 1;
+    background-color: ghostwhite;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.tombstone-drop-zone {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 10rem;
+    height: 10rem;
+    z-index: 1;
+    background-color: transparent;
+}
+
+.baby {
+    position: fixed;
+    bottom: 10.125rem;
+    right: 0;
+    width: 10rem;
+    height: 10rem;
+    z-index: 1;
+    background-color: ghostwhite;
+    border-top: 0.0625rem solid black;
+    border-left: 0.0625rem solid black;
+    border-bottom: 0.0625rem solid black;
+}
+
+.baby-overlay {
+    position: fixed;
+    bottom: 10.125rem;
+    right: 0.125rem;
+    width: 10rem;
+    height: 10rem;
+    z-index: 1;
+    background-color: ghostwhite;
+    opacity: 0;
+    border-top: 0.0625rem solid black;
+    border-left: 0.0625rem solid black;
+    border-bottom: 0.0625rem solid black;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.baby-overlay:hover {
+    opacity: 100%;
+}
