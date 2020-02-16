@@ -1,13 +1,13 @@
 .grid-container {
     display: grid;
-    grid-template-columns: 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem 5.125rem;
+    grid-template-columns: repeat(100, 5.125rem);
     background-color: darkblue; /* #0070DE; */
     padding: 0.625rem;
-    width: 102.5rem;
+    width: calc(100 * 5.125rem);
 }
 
 .grid-item {
-    background-color: #ABD473;
+    background-color: #abd473;
     border: 0.0625rem solid rgba(0, 0, 0, 0.8);
     font-size: 1rem;
     text-align: center;
@@ -25,7 +25,7 @@
     width: 80%;
     cursor: grabbing;
     line-height: 3.2rem;
-    background: #FF3F40;
+    background: #ff3f40;
     color: white;
 }
 
@@ -37,17 +37,17 @@
 }
 
 .player--finn {
-    background: #C79C6E;
+    background: #c79c6e;
     color: black;
 }
 
 .player--solveig {
-    background: #F58CBA;
+    background: #f58cba;
     color: black;
 }
 
 .player--rats {
-    background: #3CE13F;
+    background: #3ce13f;
     color: black;
 }
 

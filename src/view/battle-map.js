@@ -14,12 +14,12 @@ export const renderBattleMap = () => {
     battleMapNode.id = 'battle-map';
     battleMapNode.className = 'grid-container';
 
-    for (let squareId = 0; squareId < 600; squareId++) {
+    for (let squareId = 0; squareId < config.maxSquares; squareId++) {
         renderSquare(squareId);
     }
 
-    for (const squareId in selectors.getEntities()) {
-        renderEntity(squareId);
+    for (const entityId in selectors.getEntities()) {
+        renderEntity(entityId);
     }
 
     htmlSelectors

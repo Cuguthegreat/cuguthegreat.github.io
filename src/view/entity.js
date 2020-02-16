@@ -1,16 +1,16 @@
 import * as selectors from '../state/selectors.js';
 import {getSquareNode} from '../services/html-selectors.js';
 
-export const renderEntity = squareId => {
-    const entityId = `${selectors.getEntityId(squareId)}`;
+export const renderEntity = entityId => {
+    const squareId = `${selectors.getEntityPosition(entityId)}`;
     const entityNode = document.createElement('div');
 
     getSquareNode(squareId).appendChild(entityNode);
     entityNode.className = `player player--${selectors.getEntityName(
-        squareId
+        entityId
     )}`;
     entityNode.id = entityId;
-    entityNode.textContent = `${selectors.getEntityText(squareId)}`;
+    entityNode.textContent = `${selectors.getEntityText(entityId)}`;
     entityNode.setAttribute('draggable', 'true');
     entityNode.setAttribute('ondragstart', `drag(event, "${entityId}")`);
 };
