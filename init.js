@@ -3,7 +3,7 @@ import * as entities from './state/entities.js';
 import * as squares from './state/squares.js';
 import * as battleMap from './view/battle-map.js';
 import * as entityCreator from './view/entity-creator.js';
-import * as socket from './socket/socket.js';
+import * as socket from './services/socket.js';
 
 Promise.all([
         backend.read('entities'),

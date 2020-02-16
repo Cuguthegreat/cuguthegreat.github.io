@@ -1,4 +1,4 @@
-import * as backend from '../services/backend-calls.js';
+import * as backend from './backend-calls.js';
 
 export const start = () => {
     const socket = io.connect(backend.URL);
