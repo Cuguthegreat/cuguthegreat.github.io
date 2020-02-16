@@ -5,6 +5,7 @@ export const getSquare = squareId => getState().squares[squareId];
 export const getSquareId = squareId => getState().squares[squareId] && getState().squares[squareId]._id;
 export const getSquareColor = squareId => getState().squares[squareId] && getState().squares[squareId].color || NO_COLOR;
 export const getSquareLabel = squareId => getState().squares[squareId] && getState().squares[squareId].label || '';
+export const isSquareColored = squareId => !!(getState().squares[squareId] && getState().squares[squareId].color)
 
 export const getEntities = () => getState().entities;
 export const getEntity = squareId => getState().entities[squareId];

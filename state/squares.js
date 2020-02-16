@@ -53,26 +53,36 @@ export const updateSquareColor = (squareId, color) => {
     color && updateSquare(squareId, {color});
 }
 
+const isLabelUnchanged = (squareId, label) => {
+    const oldLabel = selectors.getSquareLabel(squareId) || '';
+
+    return oldLabel === label;
+}
+
 export const updateSquareLabel = (squareId, label) => {
     store.setSquareNodeWithLabelPicker(null);
+
+    if (isLabelUnchanged(squareId, label)) {
+        return;
+    }
 
     if (label && !selectors.getSquare(squareId)) {
         backend.create('squares', {squareId, label})
     }
 
     if (label && selectors.getSquare([squareId])) {
-        if (label === selectors.getSquareLabel(squareId)) {
-            return;
-        }
-
         backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {label}})
     }
 
-    if (!label && selectors.getSquareId(squareId) && !selectors.getSquareColor(squareId)) {
+    if (!label && !selectors.isSquareColored(squareId)) {
         backend.remove(`squares/${selectors.getSquareId(squareId)}`)
     }
 
-    label && updateSquare(squareId, {label});
+    if (!label && selectors.isSquareColored(squareId)) {
+        backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {label}})
+    }
+
+    updateSquare(squareId, {label});
 }
 
 export const setSquares = data => {
