@@ -9,7 +9,7 @@
 .grid-item {
     background-color: #ABD473;
     border: 0.0625rem solid rgba(0, 0, 0, 0.8);
-    font-size: 1.25rem;
+    font-size: 1rem;
     text-align: center;
     height: 5rem;
     width: 5rem;
@@ -125,7 +125,7 @@
     border-top: 0.0625rem solid black;
     border-left: 0.0625rem solid black;
     border-bottom: 0.0625rem solid black;
-    font-size: 1.25rem;
+    font-size: 1rem;
     text-align: center;
 }
 
