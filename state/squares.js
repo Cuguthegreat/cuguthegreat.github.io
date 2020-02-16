@@ -9,7 +9,7 @@ const getValidColor = color => color === config.defaultSquareColor ? null : colo
 const getValidData = (color, label) => ({...(color && {color}), ...(label && {label})})
 
 const renderSquare = (squareId, data) => {
-    const squareNode = htmlSelectors.getSquareNode(squareId)
+    const squareNode = htmlSelectors.getSquareNode(squareId);
     const entityNode = squareNode.firstElementChild;
 
     squareNode.style.backgroundColor = '#' + selectors.getSquareColor(squareId);
@@ -21,8 +21,8 @@ const isColorUnchanged = (squareId, color) => {
     const oldColor = selectors.getSquareColor(squareId) || config.defaultSquareColor;
     const newColor = color || config.defaultSquareColor;
 
-    return oldColor === color;
-}
+    return oldColor === newColor;
+};
 
 const isValidColor = color => color && color !== config.defaultSquareColor;
 
@@ -30,7 +30,7 @@ export const updateSquareColor = (squareId, color) => {
     store.setSquareNodeWithColorPicker(null);
 
     if (!squareId) {
-        backend.throwError('SquareId is invalid.')
+        backend.throwError('SquareId is invalid.');
         return;
     }
 
@@ -40,7 +40,7 @@ export const updateSquareColor = (squareId, color) => {
 
     if (isValidColor(color) && !selectors.getSquare(squareId)) {
         backend.create('squares', {squareId, color})
-     }
+    }
 
     if (isValidColor(color) && selectors.getSquare(squareId)) {
         backend.update(`squares/${selectors.getSquareId(squareId)}`, {$set: {color}})
@@ -56,20 +56,20 @@ export const updateSquareColor = (squareId, color) => {
 
     store.updateSquare(squareId, {color});
     renderSquare(squareId);
-}
+};
 
 const isLabelUnchanged = (squareId, label) => {
     const oldLabel = selectors.getSquareLabel(squareId) || '';
     const newLabel = label || '';
 
     return oldLabel === newLabel;
-}
+};
 
 export const updateSquareLabel = (squareId, label) => {
     store.setSquareNodeWithLabelPicker(null);
 
     if (!squareId) {
-        backend.throwError('SquareId is invalid.')
+        backend.throwError('SquareId is invalid.');
         return;
     }
 
@@ -95,7 +95,7 @@ export const updateSquareLabel = (squareId, label) => {
 
     store.updateSquare(squareId, {label});
     renderSquare(squareId);
-}
+};
 
 export const setSquares = data => {
     for (const i in data) {

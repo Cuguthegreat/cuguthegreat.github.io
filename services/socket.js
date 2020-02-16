@@ -17,4 +17,4 @@ export const start = () => {
     socket.on('disconnect', (reason) => {
         backend.throwError(reason);
     });
-}
+};

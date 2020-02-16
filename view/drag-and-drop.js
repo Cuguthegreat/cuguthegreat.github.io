@@ -4,27 +4,23 @@ import * as store from '../state/store.js';
 import * as entityCreator from './entity-creator.js';
 
 const isValidDropTarget = (event) => {
-    if (event.target.className === 'tombstone-drop-zone' && !entityCreator.isNew(selectors.getDraggedEntityId)  ) {
+    if (event.target.className === 'tombstone-drop-zone' && !entityCreator.isNew(selectors.getDraggedEntityId)) {
         return true
     }
 
-    if (event.target.childElementCount === 0 && (event.target.className === 'grid-item')) {
-        return true;
-    }
-
-    return false;
-}
+    return event.target.childElementCount === 0 && (event.target.className === 'grid-item');
+};
 
 export const drag = (event, id) => {
     event.dataTransfer.setData("text", event.target.id);
     store.setDraggedEntityId(id);
-}
+};
 
 export const allowDrop = (event) => {
     if (isValidDropTarget(event)) {
         event.preventDefault();
     }
-}
+};
 
 export const drop = (event, squareId) => {
     event.preventDefault();
@@ -39,11 +35,11 @@ export const drop = (event, squareId) => {
                 name: 'new',
                 text: 'New',
                 position: squareId
-             });
+            });
             entityCreator.render();
             alert('Creation is not fully implemented, yet.')
         } else {
             entities.updateEntity(selectors.getDraggedEntityId(), {$set: {position: String(squareId)}})
         }
     }
-}
+};

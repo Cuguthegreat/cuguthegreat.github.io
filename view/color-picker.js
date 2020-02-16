@@ -17,7 +17,7 @@ const renderColorPicker = (squareId, initialColor) => {
     colorPicker.focus();
     colorPicker.select();
     colorPicker.jscolor.show();
-}
+};
 
 export const showColorPicker = (event, squareId) => {
     if (selectors.getSquareNodeWithColorPicker() !== squareId && selectors.getSquareNodeWithLabelPicker() !== squareId) {
@@ -28,4 +28,4 @@ export const showColorPicker = (event, squareId) => {
     } else {
         // show browser context-menu
     }
-}
+};

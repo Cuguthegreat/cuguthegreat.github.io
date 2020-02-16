@@ -38,20 +38,20 @@ export const render = () => {
     htmlSelectors.getColorPicker().setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
     htmlSelectors.getTombstone().setAttribute('ondragover', 'allowDrop(event)');
     htmlSelectors.getTombstone().setAttribute('ondrop', 'deleteEntity(event)');
-}
+};
 
 const deleteEntity = event => {
     const draggedEntityId = selectors.getDraggedEntityId();
 
     event.preventDefault();
 
-    if (config.protectedEntities.indexOf(selectors.getDraggedEntityId()) >= 0 ) {
+    if (config.protectedEntities.indexOf(selectors.getDraggedEntityId()) >= 0) {
         alert('Not even in your dreams, bitch!')
     } else {
         document.getElementById(draggedEntityId) && document.getElementById(draggedEntityId).remove();
         entities.removeEntity(draggedEntityId)
     }
-}
+};
 
 window.allowDrop = dragAndDrop.allowDrop;
 window.deleteEntity = deleteEntity;

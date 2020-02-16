@@ -15,14 +15,14 @@ const renderSquareLabelPicker = (squareId) => {
 
     squareLabelPicker.focus();
     squareLabelPicker.select();
-}
+};
 
 export const updateSquareLabel = (event, squareId) => {
     const squareLabelPicker = htmlSelector.getSquareLabelPicker();
 
     squareLabelPicker.remove();
     squares.updateSquareLabel(squareId, squareLabelPicker.value);
-}
+};
 
 export const showSquareLabelPicker = (event, squareId) => {
     event.preventDefault();
@@ -31,4 +31,4 @@ export const showSquareLabelPicker = (event, squareId) => {
         store.setSquareNodeWithLabelPicker(squareId);
         renderSquareLabelPicker(squareId);
     }
-}
+};

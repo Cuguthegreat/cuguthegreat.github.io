@@ -1,4 +1,4 @@
-import { getState } from './store.js';
+import {getState} from './store.js';
 import * as config from '../config/config.js';
 
 export const getSquares = () => getState().squares;
@@ -6,8 +6,8 @@ export const getSquare = squareId => getState().squares[squareId];
 export const getSquareId = squareId => getState().squares[squareId] && getState().squares[squareId]._id;
 export const getSquareColor = squareId => getState().squares[squareId] && getState().squares[squareId].color || config.defaultSquareColor;
 export const getSquareLabel = squareId => getState().squares[squareId] && getState().squares[squareId].label || '';
-export const isSquareColored = squareId => !!(getState().squares[squareId] && getState().squares[squareId].color)
-export const isSquareLabeled = squareId => !!(getState().squares[squareId] && getState().squares[squareId].label)
+export const isSquareColored = squareId => !!(getState().squares[squareId] && getState().squares[squareId].color);
+export const isSquareLabeled = squareId => !!(getState().squares[squareId] && getState().squares[squareId].label);
 
 export const getEntities = () => getState().entities;
 export const getEntity = squareId => getState().entities[squareId];

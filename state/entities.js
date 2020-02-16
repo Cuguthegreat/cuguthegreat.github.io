@@ -7,16 +7,16 @@ export const setEntities = data => {
 
         store.updateEntity(key, {_id: data[i]._id, name: data[i].name, text: data[i].text});
     }
-}
+};
 
 export const createEntity = (data) => {
     backend.create('entities', data)
-}
+};
 
 export const updateEntity = (entityId, data) => {
     backend.update(`entities/${entityId}`, data)
-}
+};
 
 export const removeEntity = (entityId) => {
     backend.remove(`entities/${entityId}`)
-}
+};

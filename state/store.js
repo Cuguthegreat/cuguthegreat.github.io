@@ -4,7 +4,7 @@ const state = {
     draggedEntityId: null,
     squareNodeWithColorPicker: null,
     squareNodeWithLabelPicker: null,
-}
+};
 
 export const getState = () => state;
 
@@ -30,14 +30,14 @@ export const updateEntity = (key, data) => {
 
 export const setDraggedEntityId = entityId => {
     state.draggedEntityId = entityId;
-}
+};
 
 export const setSquareNodeWithColorPicker = squareId => {
     state.squareNodeWithColorPicker = squareId;
     state.squareNodeWithLabelPicker = null;
-}
+};
 
 export const setSquareNodeWithLabelPicker = squareId => {
     state.squareNodeWithColorPicker = null;
     state.squareNodeWithLabelPicker = squareId;
-}
+};

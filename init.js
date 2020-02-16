@@ -6,14 +6,14 @@ import * as entityCreator from './view/entity-creator.js';
 import * as socket from './services/socket.js';
 
 Promise.all([
-        backend.read('entities'),
-        backend.read('squares')
-    ])
+    backend.read('entities'),
+    backend.read('squares')
+])
     .then(([entitiesData, squaresData]) => {
         entities.setEntities(entitiesData);
         battleMap.render();
         squares.setSquares(squaresData);
         entityCreator.render();
-    })
+    });
 
 socket.start();
