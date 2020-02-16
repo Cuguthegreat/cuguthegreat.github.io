@@ -5,15 +5,13 @@ import * as battleMap from './view/battle-map.js';
 import * as entityCreator from './view/entity-creator.js';
 import * as socket from './services/socket.js';
 
-Promise.all([
-    backend.read('entities'),
-    backend.read('squares')
-])
-    .then(([entitiesData, squaresData]) => {
+Promise.all([backend.read('entities'), backend.read('squares')]).then(
+    ([entitiesData, squaresData]) => {
         entities.setEntities(entitiesData);
         battleMap.renderBattleMap();
         squares.setSquares(squaresData);
         entityCreator.renderEntityCreator();
-    });
+    }
+);
 
 socket.start();
