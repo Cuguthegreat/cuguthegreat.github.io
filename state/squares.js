@@ -29,6 +29,11 @@ const isValidColor = color => color && color !== config.defaultSquareColor;
 export const updateSquareColor = (squareId, color) => {
     store.setSquareNodeWithColorPicker(null);
 
+    if (!squareId) {
+        backend.throwError('SquareId is invalid.')
+        return;
+    }
+
     if (isColorUnchanged(squareId, color)) {
         return;
     }
@@ -62,6 +67,11 @@ const isLabelUnchanged = (squareId, label) => {
 
 export const updateSquareLabel = (squareId, label) => {
     store.setSquareNodeWithLabelPicker(null);
+
+    if (!squareId) {
+        backend.throwError('SquareId is invalid.')
+        return;
+    }
 
     if (isLabelUnchanged(squareId, label)) {
         return;
