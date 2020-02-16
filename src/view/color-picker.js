@@ -1,11 +1,11 @@
 import * as htmlSelectors from '../services/html-selectors.js';
 import * as selectors from '../state/selectors.js';
 import * as store from '../state/store.js';
-import * as squares from '../state/squares.js';
+import * as square from './square.js';
 
 export const onColorPickerChange = color =>
     color &&
-    squares.updateSquareColor(
+    square.changeSquareColor(
         selectors.getSquareNodeWithColorPicker(),
         color.toString()
     );

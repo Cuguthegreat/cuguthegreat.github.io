@@ -1,5 +1,5 @@
 import * as htmlSelector from '../services/html-selectors.js';
-import * as squares from '../state/squares.js';
+import * as square from './square.js';
 import * as selectors from '../state/selectors.js';
 import * as store from '../state/store.js';
 
@@ -11,7 +11,7 @@ const renderSquareLabelPicker = squareId => {
     squareLabelPicker.className = 'square-label-picker';
     squareLabelPicker.setAttribute(
         'onblur',
-        `updateSquareLabel(event, ${squareId})`
+        `onLabelPickerChange(event, ${squareId})`
     );
 
     htmlSelector.getSquareNode(squareId).appendChild(squareLabelPicker);
@@ -20,11 +20,11 @@ const renderSquareLabelPicker = squareId => {
     squareLabelPicker.select();
 };
 
-export const updateSquareLabel = (event, squareId) => {
+export const onLabelPickerChange = (event, squareId) => {
     const squareLabelPicker = htmlSelector.getLabelPickerNode();
 
     squareLabelPicker.remove();
-    squares.updateSquareLabel(squareId, squareLabelPicker.value);
+    square.changeSquareLabel(squareId, squareLabelPicker.value);
 };
 
 export const showSquareLabelPicker = (event, squareId) => {

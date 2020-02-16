@@ -1,6 +1,5 @@
 import * as selectors from './selectors.js';
 import * as store from './store.js';
-import * as htmlSelectors from '../services/html-selectors.js';
 import * as backend from '../services/backend-calls.js';
 import * as config from '../config/config.js';
 
@@ -8,15 +7,6 @@ const getValidData = (color, label) => ({
     ...(color && {color}),
     ...(label && {label}),
 });
-
-const renderSquare = squareId => {
-    const squareNode = htmlSelectors.getSquareNode(squareId);
-    const entityNode = squareNode.firstElementChild;
-
-    squareNode.style.backgroundColor = '#' + selectors.getSquareColor(squareId);
-    squareNode.textContent = selectors.getSquareLabel(squareId);
-    entityNode && squareNode.appendChild(entityNode);
-};
 
 const isColorUnchanged = (squareId, color) => {
     const oldColor =
@@ -61,7 +51,6 @@ export const updateSquareColor = (squareId, color) => {
     }
 
     store.updateSquare(squareId, {color});
-    renderSquare(squareId);
 };
 
 const isLabelUnchanged = (squareId, label) => {
@@ -104,7 +93,6 @@ export const updateSquareLabel = (squareId, label) => {
     }
 
     store.updateSquare(squareId, {label});
-    renderSquare(squareId);
 };
 
 export const setSquares = data => {
@@ -116,6 +104,5 @@ export const setSquares = data => {
         };
 
         store.updateSquare(squareId, squareData);
-        renderSquare(squareId);
     }
 };

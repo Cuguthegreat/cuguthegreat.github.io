@@ -54,4 +54,4 @@ window.drop = dragAndDrop.drop;
 window.onColorPickerChange = colorPicker.onColorPickerChange;
 window.showColorPicker = colorPicker.showColorPicker;
 window.showSquareLabelPicker = squareLabelPicker.showSquareLabelPicker;
-window.updateSquareLabel = squareLabelPicker.updateSquareLabel;
+window.onLabelPickerChange = squareLabelPicker.onLabelPickerChange;

@@ -8,8 +8,8 @@ import * as socket from './services/socket.js';
 Promise.all([backend.read('entities'), backend.read('squares')]).then(
     ([entitiesData, squaresData]) => {
         entities.setEntities(entitiesData);
-        battleMap.renderBattleMap();
         squares.setSquares(squaresData);
+        battleMap.renderBattleMap();
         entityCreator.renderEntityCreator();
     }
 );
