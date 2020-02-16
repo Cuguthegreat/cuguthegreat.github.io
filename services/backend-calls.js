@@ -3,7 +3,7 @@ export const HEADERS = {
     'Content-Type': 'application/json',
 };
 
-const throwError = error => {
+export const throwError = error => {
    alert(`Error: ${error}. Please reload!`)
    console.error('Error:', error);
 }
