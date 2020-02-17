@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "prettier": "prettier --write \"src/**/*.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,20 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.8.3",
+    "jest": "^25.1.0",
+    "jest-fetch-mock": "^3.0.1",
     "prettier": "^1.19.1"
+  },
+  "jest": {
+    "automock": false,
+    "setupFiles": [
+      "./setup-jest.js"
+    ]
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-transform-modules-commonjs"
+    ]
   }
 }
