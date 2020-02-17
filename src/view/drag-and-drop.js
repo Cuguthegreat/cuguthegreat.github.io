@@ -34,20 +34,22 @@ export const drop = (event, squareId) => {
 
     if (isValidDropTarget(event)) {
         event.target.appendChild(document.getElementById(data));
+        const draggedEntityId = selectors.getDraggedEntityId();
 
-        if (entityCreator.isNew(selectors.getDraggedEntityId())) {
+        if (!selectors.isStateEntity(draggedEntityId)) {
             entities.createEntity({
-                uuid: selectors.getDraggedEntityId(),
+                uuid: draggedEntityId,
                 name: 'new',
                 text: 'New',
                 position: squareId,
             });
             entityCreator.renderEntityCreator();
-            alert('Creation is not fully implemented, yet.');
-        } else {
-            entities.updateEntity(selectors.getDraggedEntityId(), {
+        } else if (!entityCreator.isNew(draggedEntityId)) {
+            entities.updateEntity(draggedEntityId, {
                 $set: {position: String(squareId)},
             });
         }
+
+        store.updateEntity(draggedEntityId, {position});
     }
 };

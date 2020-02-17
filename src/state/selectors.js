@@ -24,6 +24,8 @@ export const getEntityName = entityId =>
 export const getEntityText = entityId =>
     getState().entities[entityId] && getState().entities[entityId].text;
 
+export const isStateEntity = entityId => !!getState().entities[entityId];
+
 export const getDraggedEntityId = () => getState().draggedEntityId;
 export const getSquareNodeWithColorPicker = () =>
     getState().squareNodeWithColorPicker;

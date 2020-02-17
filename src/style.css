@@ -29,13 +29,6 @@
     color: white;
 }
 
-.player--new {
-    left: 30%;
-    top: 30%;
-    height: 40%;
-    width: 40%;
-}
-
 .player--finn {
     background: #c79c6e;
     color: black;
@@ -131,4 +124,11 @@
 
 .baby-overlay:hover {
     opacity: 100%;
+}
+
+.baby-overlay .player--new {
+    left: 30%;
+    top: 30%;
+    height: 40%;
+    width: 40%;
 }
