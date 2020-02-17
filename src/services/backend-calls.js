@@ -24,7 +24,9 @@ export const create = (subpath, body) =>
         headers: HEADERS,
         body: JSON.stringify(body),
     })
-        .then(response => response.ok || throwError(response.statusText))
+        .then(response =>
+            response.ok ? response.json() : throwError(response.statusText)
+        )
         .catch(throwError);
 
 export const update = (subpath, body) =>

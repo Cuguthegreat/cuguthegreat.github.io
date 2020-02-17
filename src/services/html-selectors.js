@@ -10,3 +10,5 @@ export const getColorPickerNode = () => document.getElementById('jscolor');
 
 export const getLabelPickerNode = () =>
     document.getElementById('square-label-picker');
+
+export const getEntityNode = entityId => document.getElementById(entityId);

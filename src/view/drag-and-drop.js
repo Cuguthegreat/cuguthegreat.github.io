@@ -2,6 +2,7 @@ import * as selectors from '../state/selectors.js';
 import * as entities from '../state/entities.js';
 import * as store from '../state/store.js';
 import * as entityCreator from './entity-creator.js';
+import * as entity from './entity.js';
 
 const isValidDropTarget = event => {
     if (
@@ -37,12 +38,16 @@ export const drop = (event, squareId) => {
         const draggedEntityId = selectors.getDraggedEntityId();
 
         if (!selectors.isStateEntity(draggedEntityId)) {
-            entities.createEntity({
-                uuid: draggedEntityId,
-                name: 'new',
-                text: 'New',
-                position: squareId,
-            });
+            entities
+                .createEntity({
+                    uuid: draggedEntityId,
+                    name: 'new',
+                    text: 'New',
+                    position: squareId,
+                })
+                .then(responseBody =>
+                    entity.changeEntityId(responseBody.uuid, responseBody._id)
+                );
             entityCreator.renderEntityCreator();
         } else if (!entityCreator.isNew(draggedEntityId)) {
             entities.updateEntity(draggedEntityId, {
@@ -50,6 +55,6 @@ export const drop = (event, squareId) => {
             });
         }
 
-        store.updateEntity(draggedEntityId, {position});
+        store.updateEntity(draggedEntityId, {position: squareId});
     }
 };

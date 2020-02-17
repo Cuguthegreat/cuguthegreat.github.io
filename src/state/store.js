@@ -24,8 +24,12 @@ export const deleteSquare = squareId => {
     delete state.squares[squareId];
 };
 
-export const updateEntity = (key, data) => {
-    state.entities[key] = {...state.entities[key], ...data};
+export const updateEntity = (entityId, data) => {
+    state.entities[entityId] = {...state.entities[entityId], ...data};
+};
+
+export const deleteEntity = entityId => {
+    delete state.entities[entityId];
 };
 
 export const setDraggedEntityId = entityId => {

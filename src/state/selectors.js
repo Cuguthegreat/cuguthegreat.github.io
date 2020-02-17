@@ -16,6 +16,7 @@ export const isSquareColored = squareId =>
 export const isSquareLabeled = squareId =>
     !!(getState().squares[squareId] && getState().squares[squareId].label);
 
+export const getEntity = entityId => getState().entities[entityId];
 export const getEntities = () => getState().entities;
 export const getEntityPosition = entityId =>
     getState().entities[entityId] && getState().entities[entityId].position;
