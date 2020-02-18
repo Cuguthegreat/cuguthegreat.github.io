@@ -25,23 +25,6 @@
     width: 80%;
     cursor: grabbing;
     line-height: 3.2rem;
-    background: #ff3f40;
-    color: white;
-}
-
-.player--finn {
-    background: #c79c6e;
-    color: black;
-}
-
-.player--solveig {
-    background: #f58cba;
-    color: black;
-}
-
-.player--Rats {
-    background: #3ce13f;
-    color: black;
 }
 
 .jscolor:not(.jscolor-active) {

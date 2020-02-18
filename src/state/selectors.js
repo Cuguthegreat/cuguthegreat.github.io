@@ -22,8 +22,9 @@ export const getEntityPosition = entityId =>
     getState().entities[entityId] && getState().entities[entityId].position;
 export const getEntityName = entityId =>
     getState().entities[entityId] && getState().entities[entityId].name;
-export const getEntityText = entityId =>
-    getState().entities[entityId] && getState().entities[entityId].text;
+export const getEntityColor = entityId =>
+    (getState().entities[entityId] && getState().entities[entityId].color) ||
+    config.defaultEntityColor;
 
 export const isStateEntity = entityId => !!getState().entities[entityId];
 

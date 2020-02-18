@@ -37,11 +37,17 @@ export const setDraggedEntityId = entityId => {
 };
 
 export const setSquareNodeWithColorPicker = squareId => {
+    //TODO Do it properly
+    squareId === null && document.body.appendChild(document.getElementById('jscolor'));
+
     state.squareNodeWithColorPicker = squareId;
     state.squareNodeWithLabelPicker = null;
 };
 
 export const setSquareNodeWithLabelPicker = squareId => {
+    //TODO Do it properly
+    document.body.appendChild(document.getElementById('jscolor'));
+
     state.squareNodeWithColorPicker = null;
     state.squareNodeWithLabelPicker = squareId;
 };

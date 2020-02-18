@@ -1,11 +1,12 @@
 import * as store from './store.js';
 import * as backend from '../services/backend-calls.js';
 import * as selectors from './selectors.js';
+import * as config from '../config/config.js';
 
-const getRelevantData = ({name, text, position}) => ({
+const getRelevantData = ({name, position, color}) => ({
     ...(name && {name}),
-    ...(text && {text}),
     ...(position && {position}),
+    ...(color && {color}),
 });
 
 export const setEntities = data => {
@@ -36,7 +37,35 @@ export const removeEntity = entityId => {
     backend.remove(`entities/${entityId}`);
 };
 
-const isNameUnchanged = (entityId, name) => selectors.getEntityName(entityId) === name;
+const isColorUnchanged = (entityId, color) => {
+    const oldColor =
+        selectors.getEntityColor(entityId) || config.defaultEntityColor;
+    const newColor = color || config.defaultEntityColor;
+
+    return oldColor === newColor;
+};
+
+export const updateEntityColor = (entityId, color) => {
+    store.setSquareNodeWithColorPicker(null);
+
+    if (!entityId) {
+        backend.throwError('Entity id for color update is invalid.');
+        return;
+    }
+
+    if (!color || isColorUnchanged(entityId, color)) {
+        return;
+    }
+
+    backend.update(`entities/${entityId}`, {
+        $set: {color},
+    });
+
+    store.updateEntity(entityId, {color});
+};
+
+const isNameUnchanged = (entityId, name) =>
+    selectors.getEntityName(entityId) === name;
 
 export const updateEntityName = (entityId, name) => {
     store.setSquareNodeWithLabelPicker(null);
@@ -51,8 +80,8 @@ export const updateEntityName = (entityId, name) => {
     }
 
     backend.update(`entities/${entityId}`, {
-        $set: {name, text: name},
+        $set: {name},
     });
 
-    store.updateEntity(entityId, {name, text: name});
+    store.updateEntity(entityId, {name});
 };

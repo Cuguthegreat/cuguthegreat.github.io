@@ -22,7 +22,7 @@ export const updateSquareColor = (squareId, color) => {
     store.setSquareNodeWithColorPicker(null);
 
     if (!squareId) {
-        backend.throwError('SquareId is invalid.');
+        backend.throwError('Square id for color update is invalid.');
         return;
     }
 

@@ -5,4 +5,6 @@ export const protectedEntities = [
 ];
 export const defaultSquareColor = 'a9d271';
 
+export const defaultEntityColor = 'ff3f40';
+
 export const maxSquares = 10000;

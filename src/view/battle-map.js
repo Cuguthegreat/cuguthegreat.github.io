@@ -24,7 +24,7 @@ export const renderBattleMap = () => {
 
     htmlSelectors
         .getColorPickerNode()
-        .setAttribute('onchange', 'onColorPickerChange(this.jscolor)');
+        .setAttribute('onblur', 'onColorPickerChange(this.jscolor)');
     htmlSelectors
         .getTombstoneNode()
         .setAttribute('ondragover', 'allowDrop(event)');
