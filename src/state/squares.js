@@ -64,7 +64,7 @@ export const updateSquareLabel = (squareId, label) => {
     store.setSquareNodeWithLabelPicker(null);
 
     if (!squareId) {
-        backend.throwError('SquareId is invalid.');
+        backend.throwError('Square id is invalid.');
         return;
     }
 

@@ -39,7 +39,7 @@
     color: black;
 }
 
-.player--rats {
+.player--Rats {
     background: #3ce13f;
     color: black;
 }
@@ -65,10 +65,14 @@
     border: none;
     text-align: center;
     padding: 0;
-    background-color: inherit;
+    background-color: ghostwhite;
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.player .square-label-picker {
+    background-color: ghostwhite;
 }
 
 .tombstone {

@@ -1,6 +1,6 @@
 import * as store from './store.js';
 import * as backend from '../services/backend-calls.js';
-import * as selectors from "./selectors.js";
+import * as selectors from './selectors.js';
 
 const getRelevantData = ({name, text, position}) => ({
     ...(name && {name}),
@@ -34,4 +34,25 @@ export const updateEntity = (entityId, data) => {
 
 export const removeEntity = entityId => {
     backend.remove(`entities/${entityId}`);
+};
+
+const isNameUnchanged = (entityId, name) => selectors.getEntityName(entityId) === name;
+
+export const updateEntityName = (entityId, name) => {
+    store.setSquareNodeWithLabelPicker(null);
+
+    if (!entityId) {
+        backend.throwError('Entity id is invalid.');
+        return;
+    }
+
+    if (!name || isNameUnchanged(entityId, name)) {
+        return;
+    }
+
+    backend.update(`entities/${entityId}`, {
+        $set: {name, text: name},
+    });
+
+    store.updateEntity(entityId, {name, text: name});
 };

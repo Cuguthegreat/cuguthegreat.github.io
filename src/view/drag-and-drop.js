@@ -41,7 +41,7 @@ export const drop = (event, squareId) => {
             entities
                 .createEntity({
                     uuid: draggedEntityId,
-                    name: 'new',
+                    name: 'New',
                     text: 'New',
                     position: squareId,
                 })

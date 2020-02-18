@@ -25,7 +25,7 @@ export const renderSquare = squareId => {
     );
     squareNode.setAttribute(
         'ondblclick',
-        `showSquareLabelPicker(event, ${squareId})`
+        `showLabelPicker(event, ${squareId})`
     );
 
     updateSquareNode(squareId);
