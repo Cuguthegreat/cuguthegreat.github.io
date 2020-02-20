@@ -10,5 +10,3 @@ export const defaultEntityColor = 'ff3f40';
 const maxRows = 100;
 
 export const maxSquares = 100 * maxRows;
-
-export const locationHref = 'https://cuguthegreat.github.io/';

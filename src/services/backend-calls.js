@@ -1,4 +1,4 @@
-import * as config from "../config/config.js";
+import * as features from './features.js';
 
 export const URL = 'https://pathfinder-battle-map.herokuapp.com';
 export const HEADERS = {
@@ -10,7 +10,8 @@ export const throwError = error => {
     console.error('Error:', error);
 };
 
-const addParameters = subpath => location.href === config.locationHref ? subpath : `${subpath}?experimental=true`;
+const addParameters = subpath =>
+    features.isTestEnv() ? `${subpath}?experimental=true` : subpath;
 
 export const read = subpath =>
     fetch(`${URL}/api/${addParameters(subpath)}`, {
