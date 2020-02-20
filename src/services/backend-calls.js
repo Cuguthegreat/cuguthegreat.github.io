@@ -1,3 +1,5 @@
+import * as config from "../config/config.js";
+
 export const URL = 'https://pathfinder-battle-map.herokuapp.com';
 export const HEADERS = {
     'Content-Type': 'application/json',
@@ -8,8 +10,10 @@ export const throwError = error => {
     console.error('Error:', error);
 };
 
+const addParameters = subpath => location.href === config.locationHref ? subpath : `${subpath}?experimental=true`;
+
 export const read = subpath =>
-    fetch(`${URL}/api/${subpath}`, {
+    fetch(`${URL}/api/${addParameters(subpath)}`, {
         method: 'GET',
         headers: HEADERS,
     })
@@ -19,7 +23,7 @@ export const read = subpath =>
         .catch(throwError);
 
 export const create = (subpath, body) =>
-    fetch(`${URL}/api/${subpath}`, {
+    fetch(`${URL}/api/${addParameters(subpath)}`, {
         method: 'POST',
         headers: HEADERS,
         body: JSON.stringify(body),
@@ -30,7 +34,7 @@ export const create = (subpath, body) =>
         .catch(throwError);
 
 export const update = (subpath, body) =>
-    fetch(`${URL}/api/${subpath}`, {
+    fetch(`${URL}/api/${addParameters(subpath)}`, {
         method: 'PUT',
         headers: HEADERS,
         body: JSON.stringify(body),
@@ -39,7 +43,7 @@ export const update = (subpath, body) =>
         .catch(throwError);
 
 export const remove = subpath =>
-    fetch(`${URL}/api/${subpath}`, {
+    fetch(`${URL}/api/${addParameters(subpath)}`, {
         method: 'DELETE',
         headers: HEADERS,
     })

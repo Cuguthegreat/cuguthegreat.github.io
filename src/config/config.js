@@ -7,4 +7,8 @@ export const defaultSquareColor = 'a9d271';
 
 export const defaultEntityColor = 'ff3f40';
 
-export const maxSquares = 10000;
+const maxRows = 100;
+
+export const maxSquares = 100 * maxRows;
+
+export const locationHref = 'https://cuguthegreat.github.io/';
