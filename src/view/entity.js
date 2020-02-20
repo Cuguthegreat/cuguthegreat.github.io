@@ -43,7 +43,7 @@ export const changeEntityId = (oldEntityId, newEntityId) => {
     entityNode.setAttribute('ondragstart', `drag(event, "${newEntityId}")`);
     entityNode.setAttribute(
         'oncontextmenu',
-        `showColorPicker(event, "${entityId}")`
+        `showColorPicker(event, "${newEntityId}")`
     );
     entityNode.setAttribute(
         'ondblclick',
