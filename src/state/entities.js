@@ -2,6 +2,7 @@ import * as store from './store.js';
 import * as backend from '../services/backend-calls.js';
 import * as selectors from './selectors.js';
 import * as config from '../config/config.js';
+import * as html from '../services/html-selectors.js';
 
 const getRelevantData = ({name, position, color}) => ({
     ...(name && {name}),
@@ -47,6 +48,7 @@ const isColorUnchanged = (entityId, color) => {
 
 export const updateEntityColor = (entityId, color) => {
     store.setSquareNodeWithColorPicker(null);
+    html.getColorPickerNode().jscolor.hide();
 
     if (!entityId) {
         backend.throwError('Entity id for color update is invalid.');

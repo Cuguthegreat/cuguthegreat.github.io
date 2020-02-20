@@ -2,6 +2,7 @@ import * as selectors from './selectors.js';
 import * as store from './store.js';
 import * as backend from '../services/backend-calls.js';
 import * as config from '../config/config.js';
+import * as html from '../services/html-selectors.js';
 
 const getValidData = (color, label) => ({
     ...(color && {color}),
@@ -20,6 +21,7 @@ const isValidColor = color => color && color !== config.defaultSquareColor;
 
 export const updateSquareColor = (squareId, color) => {
     store.setSquareNodeWithColorPicker(null);
+    html.getColorPickerNode().jscolor.hide();
 
     if (!squareId) {
         backend.throwError('Square id for color update is invalid.');
