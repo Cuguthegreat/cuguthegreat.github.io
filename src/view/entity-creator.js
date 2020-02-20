@@ -1,3 +1,6 @@
+import * as colors from '../services/colors.js';
+import * as config from '../config/config.js';
+
 const generate = () => {
     var d = new Date().getTime();
     var d2 = (performance && performance.now && performance.now() * 1000) || 0;
@@ -24,6 +27,8 @@ export const renderEntityCreator = () => {
     entityNode.textContent = 'New';
     entityNode.setAttribute('draggable', 'true');
     entityNode.setAttribute('ondragstart', `drag(event, "${uuid}")`);
+    entityNode.style.color = '#' + colors.getColor(config.defaultEntityColor);
+    entityNode.style.backgroundColor = '#' + config.defaultEntityColor;
 };
 
 export const isNew = string => string.length === 36;
