@@ -12,3 +12,7 @@ export const getLabelPickerNode = () =>
     document.getElementById('square-label-picker');
 
 export const getEntityNode = entityId => document.getElementById(entityId);
+
+export const getMultiSelect = () => document.getElementById('multi-select');
+
+export const isSquareNode = element => element.className === 'grid-item';

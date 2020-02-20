@@ -119,3 +119,10 @@
     height: 40%;
     width: 40%;
 }
+
+.multi-select {
+    position: absolute;
+    border: 0.125rem black dashed;
+    z-index: 1;
+    pointer-events:none;
+}
