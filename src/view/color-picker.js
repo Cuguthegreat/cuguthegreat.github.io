@@ -3,23 +3,24 @@ import * as selectors from '../state/selectors.js';
 import * as store from '../state/store.js';
 import * as square from './square.js';
 import * as entity from './entity.js';
-import * as colors from "../services/colors.js";
+import * as colors from '../services/colors.js';
 
-const isEntity = () => selectors.isStateEntity(selectors.getSquareNodeWithColorPicker());
+const isEntity = () =>
+    selectors.isStateEntity(selectors.getSquareNodeWithColorPicker());
 
 export const onColorPickerChange = color => {
     isEntity()
         ? entity.changeEntityColor(
-        selectors.getSquareNodeWithColorPicker(),
-        colors.getValidEntityColor(color).toString()
-        )
+              selectors.getSquareNodeWithColorPicker(),
+              colors.getValidEntityColor(color).toString()
+          )
         : square.changeSquareColor(
-        selectors.getSquareNodeWithColorPicker(),
-        colors.getValidSquareColor(color).toString()
-        );
+              selectors.getSquareNodeWithColorPicker(),
+              colors.getValidSquareColor(color).toString()
+          );
 };
 
-const renderColorPicker = id => {
+const setColorPicker = id => {
     const colorPicker = htmlSelectors.getColorPickerNode();
     const parentNode = selectors.isStateEntity(id)
         ? htmlSelectors.getEntityNode(id)
@@ -49,7 +50,7 @@ export const showColorPicker = (event, id) => {
         event.preventDefault();
 
         store.setSquareNodeWithColorPicker(id);
-        renderColorPicker(id);
+        setColorPicker(id);
     } else {
         // show browser context-menu
     }

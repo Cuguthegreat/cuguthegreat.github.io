@@ -7,12 +7,16 @@ import * as htmlSelectors from '../services/html-selectors.js';
 import * as config from '../config/config.js';
 import {renderSquare} from './square.js';
 import {renderEntity} from './entity.js';
+import * as sideBar from './side-bar.js';
+import * as htmlCreator from '../services/html-creator.js';
 
 export const renderBattleMap = () => {
-    const battleMapNode = document.createElement('div');
-    document.body.appendChild(battleMapNode);
-    battleMapNode.id = 'battle-map';
-    battleMapNode.className = 'grid-container';
+    sideBar.renderSideBar();
+
+    htmlCreator.createHtmlElement({
+        id: 'battle-map',
+        className: 'grid-container',
+    });
 
     for (let squareId = 0; squareId < config.maxSquares; squareId++) {
         renderSquare(squareId);

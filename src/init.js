@@ -7,14 +7,17 @@ import * as socket from './services/socket.js';
 import * as multiSelect from './view/multi-select.js';
 import * as features from './services/features.js';
 
+export const initBattleMap = (entitiesData, squaresData) => {
+    entities.setEntities(entitiesData);
+    squares.setSquares(squaresData);
+    battleMap.renderBattleMap();
+    entityCreator.renderEntityCreator();
+    features.isTestEnv() && multiSelect.activateMultiSelect();
+};
+
 Promise.all([backend.read('entities'), backend.read('squares')]).then(
     ([entitiesData, squaresData]) => {
-        entities.setEntities(entitiesData);
-        squares.setSquares(squaresData);
-        battleMap.renderBattleMap();
-        entityCreator.renderEntityCreator();
-        features.isTestEnv() && multiSelect.activateMultiSelect();
+        initBattleMap(entitiesData, squaresData);
+        socket.start();
     }
 );
-
-socket.start();
