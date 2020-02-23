@@ -1,4 +1,4 @@
-import * as htmlSelectors from '../services/html-selectors.js';
+import * as htmlSelectors from '../services/html-helper.js';
 import * as selectors from '../state/selectors.js';
 import {updateSquareColor, updateSquareLabel} from '../state/squares.js';
 

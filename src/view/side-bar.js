@@ -1,16 +1,16 @@
-import * as htmlCreator from '../services/html-creator.js';
+import {createHtmlElement} from '../services/html-helper.js';
 
 export const renderSideBar = () => {
-    htmlCreator.createHtmlElement({
+    createHtmlElement({
         tagName: 'iframe',
         id: 'baby',
         attributes: {src: 'ressources/baby.svg'},
     });
-    htmlCreator.createHtmlElement({id: 'baby-overlay'});
-    htmlCreator.createHtmlElement({
+    createHtmlElement({id: 'baby-overlay'});
+    createHtmlElement({
         tagName: 'iframe',
         id: 'tombstone',
         attributes: {src: 'ressources/tombstone.svg'},
     });
-    htmlCreator.createHtmlElement({id: 'tombstone-drop-zone'});
+    createHtmlElement({id: 'tombstone-drop-zone'});
 };

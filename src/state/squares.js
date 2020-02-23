@@ -2,7 +2,7 @@ import * as selectors from './selectors.js';
 import * as store from './store.js';
 import * as backend from '../services/backend-calls.js';
 import * as config from '../config/config.js';
-import * as html from '../services/html-selectors.js';
+import * as html from '../services/html-helper.js';
 
 const getValidData = (color, label) => ({
     ...(color && {color}),

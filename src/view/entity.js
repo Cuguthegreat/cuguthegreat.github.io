@@ -1,8 +1,8 @@
 import * as selectors from '../state/selectors.js';
-import * as htmlSelectors from '../services/html-selectors.js';
+import * as htmlSelectors from '../services/html-helper.js';
 import * as entities from '../state/entities.js';
 import * as config from '../config/config.js';
-import * as colors from '../services/colors.js';
+import * as colors from '../services/color-helper.js';
 
 const updateEntityNode = entityId => {
     const entityNode = htmlSelectors.getEntityNode(entityId);

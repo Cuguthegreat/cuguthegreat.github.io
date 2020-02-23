@@ -1,4 +1,4 @@
-import * as htmlSelectors from '../services/html-selectors.js';
+import * as htmlSelectors from '../services/html-helper.js';
 
 let mousedownTarget = null;
 let mousedownX = 0;
@@ -82,7 +82,7 @@ const onMousemove = event => {
 const setAffectedSquares = (mouseupPosition, mousedownPosition) => {
     let squares = [];
 
-    for (let i=0; i<10000; i++) {
+    for (let i = 0; i < 10000; i++) {
         if (isAffected(i, mouseupPosition, mousedownPosition)) {
             squares.push(i);
 
@@ -95,8 +95,12 @@ const setAffectedSquares = (mouseupPosition, mousedownPosition) => {
 
 const isAffected = (squareId, mouseupPosition, mousedownPosition) => {
     if (
-        Math.round(Math.min(mouseupPosition, mousedownPosition) / 100 - squareId / 100) <= 0 &&
-        Math.round(squareId / 100 - Math.max(mouseupPosition, mousedownPosition) / 100) <= 0
+        Math.round(
+            Math.min(mouseupPosition, mousedownPosition) / 100 - squareId / 100
+        ) <= 0 &&
+        Math.round(
+            squareId / 100 - Math.max(mouseupPosition, mousedownPosition) / 100
+        ) <= 0
     ) {
         return (
             Math.min(mouseupPosition % 100, mousedownPosition % 100) <=

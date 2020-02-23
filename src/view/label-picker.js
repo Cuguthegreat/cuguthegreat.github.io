@@ -1,4 +1,4 @@
-import * as htmlSelector from '../services/html-selectors.js';
+import * as htmlSelector from '../services/html-helper.js';
 import * as square from './square.js';
 import * as selectors from '../state/selectors.js';
 import * as store from '../state/store.js';

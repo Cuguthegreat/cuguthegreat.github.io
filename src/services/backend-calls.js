@@ -1,4 +1,4 @@
-import * as features from './features.js';
+import * as features from './feature-flags.js';
 
 export const URL = 'https://pathfinder-battle-map.herokuapp.com';
 export const HEADERS = {

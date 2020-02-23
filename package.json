@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "prettier": "prettier --write \"src/**/*.js\"",
-    "test": "jest"
+    "test": "jest",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",

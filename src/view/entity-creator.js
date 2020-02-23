@@ -1,4 +1,4 @@
-import * as colors from '../services/colors.js';
+import * as colors from '../services/color-helper.js';
 import * as config from '../config/config.js';
 
 const generate = () => {

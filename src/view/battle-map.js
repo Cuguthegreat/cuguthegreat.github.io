@@ -3,17 +3,17 @@ import * as entities from '../state/entities.js';
 import * as dragAndDrop from './drag-and-drop.js';
 import * as colorPicker from './color-picker.js';
 import * as labelPicker from './label-picker.js';
-import * as htmlSelectors from '../services/html-selectors.js';
+import * as htmlSelectors from '../services/html-helper.js';
+import {createHtmlElement} from '../services/html-helper.js';
 import * as config from '../config/config.js';
 import {renderSquare} from './square.js';
 import {renderEntity} from './entity.js';
 import * as sideBar from './side-bar.js';
-import * as htmlCreator from '../services/html-creator.js';
 
 export const renderBattleMap = () => {
     sideBar.renderSideBar();
 
-    htmlCreator.createHtmlElement({
+    createHtmlElement({
         id: 'battle-map',
         className: 'grid-container',
     });

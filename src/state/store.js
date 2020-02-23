@@ -38,7 +38,8 @@ export const setDraggedEntityId = entityId => {
 
 export const setSquareNodeWithColorPicker = squareId => {
     //TODO Do it properly
-    squareId === null && document.body.appendChild(document.getElementById('jscolor'));
+    squareId === null &&
+        document.body.appendChild(document.getElementById('jscolor'));
 
     state.squareNodeWithColorPicker = squareId;
     state.squareNodeWithLabelPicker = null;
