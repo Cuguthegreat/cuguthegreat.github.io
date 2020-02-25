@@ -6,6 +6,7 @@ import * as entityCreator from './view/entity-creator.js';
 import * as socket from './services/socket-helper.js';
 import * as multiSelect from './view/multi-select.js';
 import * as features from './services/feature-flags.js';
+import * as html from './services/html-helper.js';
 
 export const initBattleMap = (entitiesData, squaresData) => {
     entities.setEntities(entitiesData);
@@ -14,6 +15,8 @@ export const initBattleMap = (entitiesData, squaresData) => {
     entityCreator.renderEntityCreator();
     // features.isTestEnv() && multiSelect.activateMultiSelect();
 };
+
+html.createHtmlElement({tagName: 'script', parent: document.head, attributes: {src: 'ressources/socket.io.js'}});
 
 Promise.all([backend.read('entities'), backend.read('squares')]).then(
     ([entitiesData, squaresData]) => {

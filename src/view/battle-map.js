@@ -13,6 +13,20 @@ import * as sideBar from './side-bar.js';
 export const renderBattleMap = () => {
     sideBar.renderSideBar();
 
+    const colorPicker = createHtmlElement({
+        tagName: 'input',
+        className:
+            'jscolor {shadow:false, borderWidth:0, backgroundColor:"transparent"}',
+    });
+
+    import('../../ressources/jscolor.js').then(() => {
+        colorPicker.id = 'jscolor';
+
+        htmlSelectors
+            .getColorPickerNode()
+            .setAttribute('onblur', 'onColorPickerChange(this.jscolor)');
+    });
+
     createHtmlElement({
         id: 'battle-map',
         className: 'grid-container',
@@ -26,9 +40,6 @@ export const renderBattleMap = () => {
         renderEntity(entityId);
     }
 
-    htmlSelectors
-        .getColorPickerNode()
-        .setAttribute('onblur', 'onColorPickerChange(this.jscolor)');
     htmlSelectors
         .getTombstoneNode()
         .setAttribute('ondragover', 'allowDrop(event)');
