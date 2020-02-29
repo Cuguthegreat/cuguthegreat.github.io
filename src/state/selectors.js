@@ -1,6 +1,7 @@
 import {getState} from './store.js';
 import * as config from '../config/config.js';
 
+export const getSquares = () => getState().squares;
 export const getSquare = squareId => getState().squares[squareId];
 // square database id
 export const getSquareId = squareId =>
