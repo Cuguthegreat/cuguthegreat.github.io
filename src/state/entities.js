@@ -21,11 +21,18 @@ export const setEntities = data => {
 
 export const createEntity = data =>
     backend.create('entities', data).then(responseBody => {
+        const storeEntity = getRelevantData(
+            getRelevantData({
+                ...responseBody,
+                ...selectors.getEntity(responseBody.uuid),
+            })
+        );
+
         backend.update(`entities/${responseBody._id}`, {
-            $set: getRelevantData(selectors.getEntity(responseBody.uuid)),
+            $set: storeEntity,
         });
         store.deleteEntity(responseBody.uuid);
-        store.updateEntity(responseBody._id, getRelevantData(responseBody));
+        store.updateEntity(responseBody._id, storeEntity);
 
         return responseBody;
     });
