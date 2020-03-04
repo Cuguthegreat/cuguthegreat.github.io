@@ -6,8 +6,13 @@ export const HEADERS = {
 };
 
 export const throwError = error => {
-    alert(`Error: ${error}. Please reload!`);
     console.error('Error:', error);
+    if (features.istTrinkspiel()) {
+        alert('TRINK!');
+    } else {
+        alert(`Error: ${error}. Please reload!`);
+    }
+    setTimeout(() =>  location.reload(), 0);
 };
 
 const addParameters = subpath =>
