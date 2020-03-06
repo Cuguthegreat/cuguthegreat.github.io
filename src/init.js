@@ -85,7 +85,16 @@ if (features.hasRatCounter()) {
         // If the count down is finished, write some text
         if (distance < 0) {
             clearInterval(x);
-            document.getElementById('demo').innerHTML = 'EXPIRED';
+            document.getElementById('demo').innerHTML =
+                'Alles für die Ratte!' +
+                '<br />' +
+                'Alles für den Club!' +
+                '<br />' +
+                'Unser Leben für' +
+                '<br />' +
+                'den Nager!' +
+                '<br />' +
+                'EXPIRED';
         }
     }, 1000);
 }

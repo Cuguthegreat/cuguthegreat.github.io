@@ -140,8 +140,8 @@
 }
 
 .rat {
-    width: 30%;
-    height: 100%;
+    width: 33rem;
+    height: 60rem;
     position: relative;
     border: none;
 }
@@ -152,6 +152,6 @@
     color: red;
     padding: 1rem;
     top: -10rem;
-    width: 75%;
-    left: 28%
+    left: 30rem;
+    min-width: 80rem;
 }
