@@ -25,6 +25,9 @@ Promise.all([backend.read('entities'), backend.read('squares')]).then(
     }
 );
 
+if (features.hasRatCounter()) {
+html.createHtmlElement({tagName: 'p', id: "demo"});
+
 // Set the date we're counting down to
 var countDownDate = new Date("Mar 6, 2020 19:30:00").getTime();
 
@@ -52,3 +55,4 @@ var x = setInterval(function() {
     document.getElementById("demo").innerHTML = "EXPIRED";
   }
 }, 1000);
+}

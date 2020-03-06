@@ -3,3 +3,6 @@ export const isTestEnv = () =>
 
 export const istTrinkspiel = () =>
     location.href.split('?').indexOf('reload=trinkspiel') >= 0;
+
+export const hasRatCounter = () =>
+    location.href.split('?').indexOf('countdown=rats') >= 0;
