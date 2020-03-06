@@ -135,7 +135,7 @@
     background-color: ghostwhite;
     z-index: 10;
     display: inline;
-    width: 110rem;
+    min-width: 110rem;
     height: 60rem;
 }
 
