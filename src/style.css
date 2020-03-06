@@ -124,16 +124,34 @@
     position: absolute;
     border: 0.125rem black dashed;
     z-index: 1;
-    pointer-events:none;
+    pointer-events: none;
+}
+
+.rat-container {
+    left: 5rem;
+    top: 5rem;
+    position: fixed;
+    border: 0.5rem groove red;
+    background-color: ghostwhite;
+    z-index: 10;
+    display: inline;
+    width: 110rem;
+    height: 60rem;
+}
+
+.rat {
+    width: 30%;
+    height: 100%;
+    position: relative;
+    border: none;
 }
 
 .demo {
-   position: fixed;
-   border: 0.5rem groove red;
-   background-color: ghostwhite;
-   z-index: 10;
-   left: 5rem;
-   font-size: 10rem;
-   color: red;
-   padding: 1rem;
+    position: absolute;
+    font-size: 10rem;
+    color: red;
+    padding: 1rem;
+    top: -10rem;
+    width: 75%;
+    left: 28%
 }

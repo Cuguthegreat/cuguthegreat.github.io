@@ -16,7 +16,11 @@ export const initBattleMap = (entitiesData, squaresData) => {
     // features.isTestEnv() && multiSelect.activateMultiSelect();
 };
 
-html.createHtmlElement({tagName: 'script', parent: document.head, attributes: {src: 'ressources/socket.io.js'}});
+html.createHtmlElement({
+    tagName: 'script',
+    parent: document.head,
+    attributes: {src: 'ressources/socket.io.js'},
+});
 
 Promise.all([backend.read('entities'), backend.read('squares')]).then(
     ([entitiesData, squaresData]) => {
@@ -26,33 +30,62 @@ Promise.all([backend.read('entities'), backend.read('squares')]).then(
 );
 
 if (features.hasRatCounter()) {
-html.createHtmlElement({tagName: 'p', id: "demo"});
+    html.createHtmlElement({
+        tagName: 'div',
+        id: 'rat-container'
+    });
 
-// Set the date we're counting down to
-var countDownDate = new Date("Mar 6, 2020 19:30:00").getTime();
+    html.createHtmlElement({
+        parent: document.getElementById('rat-container'),
+        tagName: 'iframe',
+        id: 'rat',
+        attributes: {src: 'ressources/rat.svg'}
+    });
+    html.createHtmlElement({
+        parent: document.getElementById('rat-container'),
+        tagName: 'p',
+        id: 'demo'
+    });
 
-// Update the count down every 1 second
-var x = setInterval(function() {
+    // Set the date we're counting down to
+    var countDownDate = new Date('Mar 6, 2020 19:30:00').getTime();
 
-  // Get today's date and time
-  var now = new Date().getTime();
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+        // Get today's date and time
+        var now = new Date().getTime();
 
-  // Find the distance between now and the count down date
-  var distance = countDownDate - now;
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
 
-  // Time calculations for days, hours, minutes and seconds
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Time calculations for days, hours, minutes and seconds
+        var hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  // Display the result in the element with id="demo"
-  document.getElementById("demo").innerHTML = "Alles für die Ratte!" + "<br />" + "Alles für den Club!" + "<br />" +
-  "Unser Leben für den Nager!" + "<br />" + hours + "h " + minutes + "m " + seconds + "s ";
+        // Display the result in the element with id="demo"
+        document.getElementById('demo').innerHTML =
+            'Alles für die Ratte!' +
+            '<br />' +
+            'Alles für den Club!' +
+            '<br />' +
+            'Unser Leben für' +
+            '<br />' +
+            'den Nager!' +
+            '<br />' +
+            hours +
+            'h ' +
+            minutes +
+            'm ' +
+            seconds +
+            's ';
 
-  // If the count down is finished, write some text
-  if (distance < 0) {
-    clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
-  }
-}, 1000);
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById('demo').innerHTML = 'EXPIRED';
+        }
+    }, 1000);
 }
