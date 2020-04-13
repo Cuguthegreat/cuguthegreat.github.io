@@ -4,6 +4,7 @@ const state = {
     draggedEntityId: null,
     squareNodeWithColorPicker: null,
     squareNodeWithLabelPicker: null,
+    multiSelectSquareIds: [],
 };
 
 export const getState = () => state;
@@ -39,7 +40,7 @@ export const setDraggedEntityId = entityId => {
 export const setSquareNodeWithColorPicker = squareId => {
     //TODO Do it properly
     squareId === null &&
-        document.body.appendChild(document.getElementById('jscolor'));
+    document.body.appendChild(document.getElementById('jscolor'));
 
     state.squareNodeWithColorPicker = squareId;
     state.squareNodeWithLabelPicker = null;
@@ -51,4 +52,24 @@ export const setSquareNodeWithLabelPicker = squareId => {
 
     state.squareNodeWithColorPicker = null;
     state.squareNodeWithLabelPicker = squareId;
+};
+
+export const resetMultiSelectSquareIds = () => {
+    state.multiSelectSquareIds = [];
+};
+
+export const removeMultiSelectSquareIds = squareIds => {
+    let newMultiSelectSquareIds = [];
+
+    for (const squareId of state.multiSelectSquareIds) {
+        if (squareIds.indexOf(squareId) < 0) {
+            newMultiSelectSquareIds.push(squareId);
+        }
+    }
+
+    state.multiSelectSquareIds = newMultiSelectSquareIds;
+};
+
+export const addMultiSelectSquareIds = squareIds => {
+    state.multiSelectSquareIds = [...state.multiSelectSquareIds, ...squareIds];
 };

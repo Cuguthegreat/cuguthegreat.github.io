@@ -126,32 +126,3 @@
     z-index: 1;
     pointer-events: none;
 }
-
-.rat-container {
-    left: 5rem;
-    top: 5rem;
-    position: fixed;
-    border: 0.5rem groove red;
-    background-color: ghostwhite;
-    z-index: 10;
-    display: inline;
-    min-width: 110rem;
-    height: 60rem;
-}
-
-.rat {
-    width: 33rem;
-    height: 60rem;
-    position: relative;
-    border: none;
-}
-
-.demo {
-    position: absolute;
-    font-size: 10rem;
-    color: red;
-    padding: 1rem;
-    top: -10rem;
-    left: 30rem;
-    min-width: 80rem;
-}

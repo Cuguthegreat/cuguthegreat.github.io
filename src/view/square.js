@@ -1,6 +1,7 @@
 import * as htmlSelectors from '../services/html-helper.js';
 import * as selectors from '../state/selectors.js';
 import {updateSquareColor, updateSquareLabel} from '../state/squares.js';
+import * as multiSelect from './multi-select.js';
 
 const updateSquareNode = squareId => {
     const squareNode = htmlSelectors.getSquareNode(squareId);
@@ -21,11 +22,11 @@ export const renderSquare = squareId => {
     squareNode.setAttribute('ondrop', `drop(event, ${squareId})`);
     squareNode.setAttribute(
         'oncontextmenu',
-        `showColorPicker(event, ${squareId})`
+        `showColorPicker(event, ${squareId})`,
     );
     squareNode.setAttribute(
         'ondblclick',
-        `showLabelPicker(event, ${squareId})`
+        `showLabelPicker(event, ${squareId})`,
     );
 
     updateSquareNode(squareId);
@@ -34,9 +35,28 @@ export const renderSquare = squareId => {
 export const changeSquareColor = (squareId, color) => {
     updateSquareColor(squareId, color);
     updateSquareNode(squareId);
+
+    if (selectors.isMultiSelectActive()) {
+        selectors.getMultiSelectSquareIds().forEach((multiSelectSquareId) => {
+            updateSquareColor(multiSelectSquareId, color);
+            updateSquareNode(multiSelectSquareId);
+        });
+        
+        multiSelect.clearMultiSelect();
+    }
 };
+
 
 export const changeSquareLabel = (squareId, label) => {
     updateSquareLabel(squareId, label);
     updateSquareNode(squareId);
+
+    if (selectors.isMultiSelectActive()) {
+        selectors.getMultiSelectSquareIds().forEach((multiSelectSquareId) => {
+            updateSquareLabel(multiSelectSquareId, label);
+            updateSquareNode(multiSelectSquareId);
+        });
+
+        multiSelect.clearMultiSelect();
+    }
 };

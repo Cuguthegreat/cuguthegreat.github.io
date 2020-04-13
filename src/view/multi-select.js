@@ -1,4 +1,6 @@
 import * as htmlSelectors from '../services/html-helper.js';
+import * as selectors from '../state/selectors.js';
+import * as store from '../state/store.js';
 
 let mousedownTarget = null;
 let mousedownX = 0;
@@ -13,21 +15,53 @@ const reset = () => {
     mousedownY = 0;
     mousemoveX = 0;
     mousemoveY = 0;
-    allowSelection = false;
+    allowSelection = true;
     htmlSelectors.getMultiSelect().style.borderColor = 'transparent';
 };
 
-export const activateMultiSelect = () => {
+export const clearMultiSelect = () => {
+    const squareIds = selectors.getMultiSelectSquareIds();
+
+    squareIds.forEach(squareId => {
+        htmlSelectors.getSquareNode(squareId).style.background = '#' + selectors.getSquareColor(squareId);
+    });
+
+    store.resetMultiSelectSquareIds();
+};
+
+export const allowMultiSelect = () => {
     const multiSelect = document.createElement('div');
     document.body.appendChild(multiSelect);
     multiSelect.id = 'multi-select';
     multiSelect.className = 'multi-select';
 
-    document.body.addEventListener('mousedown', event => onMousedown(event));
-    document.body.addEventListener('mousemove', event => onMousemove(event));
-    document.body.addEventListener('mouseup', event => onMouseup(event), true);
-
     reset();
+
+    document.body.addEventListener('keydown', event => {
+        if (event.key === 'Control') {
+            activateMultiSelect();
+        } else if (event.key === 'Escape') {
+            clearMultiSelect();
+        }
+    });
+
+    document.body.addEventListener('keyup', event => {
+        if (event.key === 'Control') {
+            deactivateMultiSelect();
+        }
+    });
+};
+
+export const activateMultiSelect = () => {
+    document.body.addEventListener('mousedown', onMousedown);
+    document.body.addEventListener('mousemove', onMousemove);
+    document.body.addEventListener('mouseup', onMouseup, true);
+};
+
+export const deactivateMultiSelect = () => {
+    document.body.removeEventListener('mousedown', onMousedown);
+    document.body.removeEventListener('mousemove', onMousemove);
+    document.body.removeEventListener('mouseup', onMouseup, true);
 };
 
 const getStyle = () => {
@@ -65,10 +99,7 @@ const onMousedown = event => {
     }
 };
 
-const isEnough = event =>
-    Math.abs(event.clientY - mousemoveY) +
-        Math.abs(event.clientX - mousemoveX) >
-    8;
+const isEnough = event => Math.abs(event.clientY - mousemoveY) + Math.abs(event.clientX - mousemoveX) > 8;
 
 const onMousemove = event => {
     if (mousedownTarget && isEnough(event)) {
@@ -80,33 +111,45 @@ const onMousemove = event => {
 };
 
 const setAffectedSquares = (mouseupPosition, mousedownPosition) => {
-    let squares = [];
+    let squareIds = [];
 
     for (let i = 0; i < 10000; i++) {
         if (isAffected(i, mouseupPosition, mousedownPosition)) {
-            squares.push(i);
-
-            htmlSelectors.getSquareNode(i).style.backgroundColor = 'pink';
+            squareIds.push(i);
         }
     }
 
-    return squares;
+    const oldMultiSelectSquareIds = selectors.getMultiSelectSquareIds();
+
+
+    if (squareIds.every(square => oldMultiSelectSquareIds.indexOf(square) >= 0)) {
+        store.removeMultiSelectSquareIds(squareIds);
+        squareIds.forEach(squareId => {
+            htmlSelectors.getSquareNode(squareId).style.background = '#' + selectors.getSquareColor(squareId);
+        });
+    } else {
+        store.addMultiSelectSquareIds(squareIds);
+        squareIds.forEach(squareId => {
+            const backgroundColor = '#' +selectors.getSquareColor(squareId);
+            htmlSelectors.getSquareNode(squareId).style.background = `repeating-linear-gradient(45deg, ghostwhite, ghostwhite 10px, ${backgroundColor} 10px, ${backgroundColor} 20px)`;
+        });
+    }
 };
 
 const isAffected = (squareId, mouseupPosition, mousedownPosition) => {
     if (
         Math.round(
-            Math.min(mouseupPosition, mousedownPosition) / 100 - squareId / 100
+            Math.min(mouseupPosition, mousedownPosition) / 100 - squareId / 100,
         ) <= 0 &&
         Math.round(
-            squareId / 100 - Math.max(mouseupPosition, mousedownPosition) / 100
+            squareId / 100 - Math.max(mouseupPosition, mousedownPosition) / 100,
         ) <= 0
     ) {
         return (
             Math.min(mouseupPosition % 100, mousedownPosition % 100) <=
-                squareId % 100 &&
+            squareId % 100 &&
             squareId % 100 <=
-                Math.max(mouseupPosition % 100, mousedownPosition % 100)
+            Math.max(mouseupPosition % 100, mousedownPosition % 100)
         );
     }
 

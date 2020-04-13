@@ -34,3 +34,6 @@ export const getSquareNodeWithColorPicker = () =>
     getState().squareNodeWithColorPicker;
 export const getSquareNodeWithLabelPicker = () =>
     getState().squareNodeWithLabelPicker;
+
+export const getMultiSelectSquareIds = () => getState().multiSelectSquareIds;
+export const isMultiSelectActive = () => getState().multiSelectSquareIds.length > 0;
