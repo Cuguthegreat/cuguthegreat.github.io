@@ -1,75 +1,75 @@
 const state = {
-    squares: {},
-    entities: {},
-    draggedEntityId: null,
-    squareNodeWithColorPicker: null,
-    squareNodeWithLabelPicker: null,
-    multiSelectSquareIds: [],
+    cells: {},
+    pieces: {},
+    draggedPieceId: null,
+    cellNodeWithColorPicker: null,
+    cellNodeWithLabelPicker: null,
+    multiSelectCellIndices: [],
 };
 
 export const getState = () => state;
 
-export const createSquare = (squareId, data) => {
-    state.squares[squareId] = data;
+export const createCell = (cellIndex, data) => {
+    state.cells[cellIndex] = data;
 };
 
-export const updateSquare = (squareId, data) => {
+export const updateCell = (cellIndex, data) => {
     if (Object.keys(data).length !== 0) {
-        state.squares[squareId] = {...state.squares[squareId], ...data};
+        state.cells[cellIndex] = {...state.cells[cellIndex], ...data};
     } else {
-        deleteSquare(squareId);
+        deleteCell(cellIndex);
     }
 };
 
-export const deleteSquare = squareId => {
-    delete state.squares[squareId];
+export const deleteCell = cellIndex => {
+    delete state.cells[cellIndex];
 };
 
-export const updateEntity = (entityId, data) => {
-    state.entities[entityId] = {...state.entities[entityId], ...data};
+export const updatePiece = (pieceId, data) => {
+    state.pieces[pieceId] = {...state.pieces[pieceId], ...data};
 };
 
-export const deleteEntity = entityId => {
-    delete state.entities[entityId];
+export const deletePiece = pieceId => {
+    delete state.pieces[pieceId];
 };
 
-export const setDraggedEntityId = entityId => {
-    state.draggedEntityId = entityId;
+export const setDraggedPieceId = pieceId => {
+    state.draggedPieceId = pieceId;
 };
 
-export const setSquareNodeWithColorPicker = squareId => {
+export const setCellNodeWithColorPicker = cellIndex => {
     //TODO Do it properly
-    squareId === null &&
+    cellIndex === null &&
     document.body.appendChild(document.getElementById('jscolor'));
 
-    state.squareNodeWithColorPicker = squareId;
-    state.squareNodeWithLabelPicker = null;
+    state.cellNodeWithColorPicker = cellIndex;
+    state.cellNodeWithLabelPicker = null;
 };
 
-export const setSquareNodeWithLabelPicker = squareId => {
+export const setCellNodeWithLabelPicker = cellIndex => {
     //TODO Do it properly
     document.body.appendChild(document.getElementById('jscolor'));
 
-    state.squareNodeWithColorPicker = null;
-    state.squareNodeWithLabelPicker = squareId;
+    state.cellNodeWithColorPicker = null;
+    state.cellNodeWithLabelPicker = cellIndex;
 };
 
-export const resetMultiSelectSquareIds = () => {
-    state.multiSelectSquareIds = [];
+export const resetMultiSelectCellIndices = () => {
+    state.multiSelectCellIndices = [];
 };
 
-export const removeMultiSelectSquareIds = squareIds => {
-    let newMultiSelectSquareIds = [];
+export const removeMultiSelectCellIndices = cellIndices => {
+    let newMultiSelectCellIds = [];
 
-    for (const squareId of state.multiSelectSquareIds) {
-        if (squareIds.indexOf(squareId) < 0) {
-            newMultiSelectSquareIds.push(squareId);
+    for (const cellIndex of state.multiSelectCellIndices) {
+        if (cellIndices.indexOf(cellIndex) < 0) {
+            newMultiSelectCellIds.push(cellIndex);
         }
     }
 
-    state.multiSelectSquareIds = newMultiSelectSquareIds;
+    state.multiSelectCellIndices = newMultiSelectCellIds;
 };
 
-export const addMultiSelectSquareIds = squareIds => {
-    state.multiSelectSquareIds = [...state.multiSelectSquareIds, ...squareIds];
+export const addMultiSelectCellIndices = cellIndices => {
+    state.multiSelectCellIndices = [...state.multiSelectCellIndices, ...cellIndices];
 };

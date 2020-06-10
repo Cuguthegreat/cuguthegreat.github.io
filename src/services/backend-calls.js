@@ -8,7 +8,7 @@ export const HEADERS = {
 export const throwError = error => {
     console.error('Error:', error);
     alert(`Error: ${error}. Please reload!`);
-    setTimeout(() =>  location.reload(), 0);
+    // setTimeout(() =>  location.reload(), 0);
 };
 
 const addParameters = subpath =>

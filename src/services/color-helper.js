@@ -11,6 +11,6 @@ export const getColor = hex => {
     return isLight(red, green, blue) ? '000' : 'fff';
 };
 
-export const getValidEntityColor = color => color || config.defaultEntityColor;
+export const getValidPieceColor = color => color || config.defaultPieceColor;
 
-export const getValidSquareColor = color => color || config.defaultSquareColor;
+export const getValidCellColor = color => color || config.defaultCellColor;

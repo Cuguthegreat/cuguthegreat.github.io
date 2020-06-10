@@ -1,33 +1,33 @@
 import * as htmlSelectors from '../services/html-helper.js';
 import * as selectors from '../state/selectors.js';
 import * as store from '../state/store.js';
-import * as square from './square.js';
-import * as entity from './entity.js';
+import * as cell from './cell.js';
+import * as piece from './piece.js';
 import * as colors from '../services/color-helper.js';
 
-const isEntity = () =>
-    selectors.isStateEntity(selectors.getSquareNodeWithColorPicker());
+const isPiece = () =>
+    selectors.isPieceInState(selectors.getCellNodeWithColorPicker());
 
 export const onColorPickerChange = color => {
-    isEntity()
-        ? entity.changeEntityColor(
-              selectors.getSquareNodeWithColorPicker(),
-              colors.getValidEntityColor(color).toString()
+    isPiece()
+        ? piece.changePieceColor(
+              selectors.getCellNodeWithColorPicker(),
+              colors.getValidPieceColor(color).toString()
           )
-        : square.changeSquareColor(
-              selectors.getSquareNodeWithColorPicker(),
-              colors.getValidSquareColor(color).toString()
+        : cell.changeCellColor(
+              selectors.getCellNodeWithColorPicker(),
+              colors.getValidCellColor(color).toString()
           );
 };
 
 const setColorPicker = id => {
     const colorPicker = htmlSelectors.getColorPickerNode();
-    const parentNode = selectors.isStateEntity(id)
-        ? htmlSelectors.getEntityNode(id)
-        : htmlSelectors.getSquareNode(id);
-    const initialColor = selectors.isStateEntity(id)
-        ? selectors.getEntityColor(id)
-        : selectors.getSquareColor(id);
+    const parentNode = selectors.isPieceInState(id)
+        ? htmlSelectors.getPieceNode(id)
+        : htmlSelectors.getCellNode(id);
+    const initialColor = selectors.isPieceInState(id)
+        ? selectors.getPieceColor(id)
+        : selectors.getCellColor(id);
 
     parentNode.appendChild(colorPicker);
 
@@ -44,12 +44,12 @@ export const showColorPicker = (event, id) => {
     event.stopPropagation();
 
     if (
-        selectors.getSquareNodeWithColorPicker() !== id &&
-        selectors.getSquareNodeWithLabelPicker() !== id
+        selectors.getCellNodeWithColorPicker() !== id &&
+        selectors.getCellNodeWithLabelPicker() !== id
     ) {
         event.preventDefault();
 
-        store.setSquareNodeWithColorPicker(id);
+        store.setCellNodeWithColorPicker(id);
         setColorPicker(id);
     } else {
         // show browser context-menu

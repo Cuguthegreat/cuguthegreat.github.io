@@ -1,29 +1,23 @@
 import * as backend from './services/backend-calls.js';
-import * as entities from './state/entities.js';
-import * as squares from './state/squares.js';
+import * as pieces from './state/pieces.js';
+import * as cells from './state/cells.js';
 import * as battleMap from './view/battle-map.js';
-import * as entityCreator from './view/entity-creator.js';
+import * as pieceCreator from './view/piece-creator.js';
 import * as socket from './services/socket-helper.js';
 import * as multiSelect from './view/multi-select.js';
 import * as html from './services/html-helper.js';
 
-export const initBattleMap = (entitiesData, squaresData) => {
-    entities.setEntities(entitiesData);
-    squares.setSquares(squaresData);
+export const initBattleMap = (piecesData, cellsData) => {
+    pieces.setPieces(piecesData);
+    cells.setCells(cellsData);
     battleMap.renderBattleMap();
-    entityCreator.renderEntityCreator();
+    pieceCreator.renderPieceCreator();
     multiSelect.allowMultiSelect();
 };
 
-html.createHtmlElement({
-    tagName: 'script',
-    parent: document.head,
-    attributes: {src: 'ressources/socket.io.js'},
-});
-
-Promise.all([backend.read('entities'), backend.read('squares')]).then(
-    ([entitiesData, squaresData]) => {
-        initBattleMap(entitiesData, squaresData);
-        socket.start();
+Promise.all([backend.read('pieces'), backend.read('cells')]).then(
+    ([piecesData, cellsData]) => {
+        initBattleMap(piecesData, cellsData);
+        // socket.start();
     }
 );

@@ -20,13 +20,13 @@ const reset = () => {
 };
 
 export const clearMultiSelect = () => {
-    const squareIds = selectors.getMultiSelectSquareIds();
+    const cellIndices = selectors.getMultiSelectCellIndices();
 
-    squareIds.forEach(squareId => {
-        htmlSelectors.getSquareNode(squareId).style.background = '#' + selectors.getSquareColor(squareId);
+    cellIndices.forEach(cellIndex => {
+        htmlSelectors.getCellNode(cellIndex).style.background = '#' + selectors.getCellColor(cellIndex);
     });
 
-    store.resetMultiSelectSquareIds();
+    store.resetMultiSelectCellIndices();
 };
 
 export const allowMultiSelect = () => {
@@ -83,7 +83,7 @@ const setStyle = ({top, left, height, width}) => {
 };
 
 const onMousedown = event => {
-    if (htmlSelectors.isSquareNode(event.target)) {
+    if (htmlSelectors.isCellNode(event.target)) {
         event.preventDefault();
 
         mousedownTarget = event.target;
@@ -110,45 +110,45 @@ const onMousemove = event => {
     }
 };
 
-const setAffectedSquares = (mouseupPosition, mousedownPosition) => {
-    let squareIds = [];
+const setAffectedCells = (mouseupPosition, mousedownPosition) => {
+    let cellIndices = [];
 
-    for (let i = 0; i < 10000; i++) {
-        if (isAffected(i, mouseupPosition, mousedownPosition)) {
-            squareIds.push(i);
+    for (let cellIndex = 0; cellIndex < 10000; cellIndex++) {
+        if (isAffected(cellIndex, mouseupPosition, mousedownPosition)) {
+            cellIndices.push(cellIndex);
         }
     }
 
-    const oldMultiSelectSquareIds = selectors.getMultiSelectSquareIds();
+    const oldMultiSelectCellIndices = selectors.getMultiSelectCellIndices();
 
 
-    if (squareIds.every(square => oldMultiSelectSquareIds.indexOf(square) >= 0)) {
-        store.removeMultiSelectSquareIds(squareIds);
-        squareIds.forEach(squareId => {
-            htmlSelectors.getSquareNode(squareId).style.background = '#' + selectors.getSquareColor(squareId);
+    if (cellIndices.every(cellIndex => oldMultiSelectCellIndices.indexOf(cellIndex) >= 0)) {
+        store.removeMultiSelectCellIndices(cellIndices);
+        cellIndices.forEach(cellIndex => {
+            htmlSelectors.getCellNode(cellIndex).style.background = '#' + selectors.getCellColor(cellIndex);
         });
     } else {
-        store.addMultiSelectSquareIds(squareIds);
-        squareIds.forEach(squareId => {
-            const backgroundColor = '#' +selectors.getSquareColor(squareId);
-            htmlSelectors.getSquareNode(squareId).style.background = `repeating-linear-gradient(45deg, ghostwhite, ghostwhite 10px, ${backgroundColor} 10px, ${backgroundColor} 20px)`;
+        store.addMultiSelectCellIndices(cellIndices);
+        cellIndices.forEach(cellIndex => {
+            const backgroundColor = '#' +selectors.getCellColor(cellIndex);
+            htmlSelectors.getCellNode(cellIndex).style.background = `repeating-linear-gradient(45deg, ghostwhite, ghostwhite 10px, ${backgroundColor} 10px, ${backgroundColor} 20px)`;
         });
     }
 };
 
-const isAffected = (squareId, mouseupPosition, mousedownPosition) => {
+const isAffected = (cellIndex, mouseupPosition, mousedownPosition) => {
     if (
         Math.round(
-            Math.min(mouseupPosition, mousedownPosition) / 100 - squareId / 100,
+            Math.min(mouseupPosition, mousedownPosition) / 100 - cellIndex / 100,
         ) <= 0 &&
         Math.round(
-            squareId / 100 - Math.max(mouseupPosition, mousedownPosition) / 100,
+            cellIndex / 100 - Math.max(mouseupPosition, mousedownPosition) / 100,
         ) <= 0
     ) {
         return (
             Math.min(mouseupPosition % 100, mousedownPosition % 100) <=
-            squareId % 100 &&
-            squareId % 100 <=
+            cellIndex % 100 &&
+            cellIndex % 100 <=
             Math.max(mouseupPosition % 100, mousedownPosition % 100)
         );
     }
@@ -161,7 +161,7 @@ const onMouseup = event => {
         const mousedownPosition = Number(mousedownTarget.id.split('-').pop());
         const mouseupPosition = Number(event.target.id.split('-').pop());
 
-        setAffectedSquares(mousedownPosition, mouseupPosition);
+        setAffectedCells(mousedownPosition, mouseupPosition);
     }
 
     setStyle(getStyle());

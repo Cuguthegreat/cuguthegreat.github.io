@@ -1,26 +1,28 @@
 import * as selectors from '../state/selectors.js';
-import * as entities from '../state/entities.js';
+import * as pieces from '../state/pieces.js';
 import * as store from '../state/store.js';
-import * as entityCreator from './entity-creator.js';
-import * as entity from './entity.js';
+import * as pieceCreator from './piece-creator.js';
+import * as piece from './piece.js';
+import * as htmlSelectors from '../services/html-helper.js';
+
 
 const isValidDropTarget = event => {
     if (
         event.target.className === 'tombstone-drop-zone' &&
-        !entityCreator.isNew(selectors.getDraggedEntityId)
+        !pieceCreator.isNew(selectors.getDraggedPieceId())
     ) {
         return true;
     }
 
     return (
         event.target.childElementCount === 0 &&
-        event.target.className === 'grid-item'
+        htmlSelectors.isCellNode(event.target)
     );
 };
 
 export const drag = (event, id) => {
     event.dataTransfer.setData('text', event.target.id);
-    store.setDraggedEntityId(id);
+    store.setDraggedPieceId(id);
 };
 
 export const allowDrop = event => {
@@ -29,32 +31,31 @@ export const allowDrop = event => {
     }
 };
 
-export const drop = (event, squareId) => {
+export const drop = (event, cellIndex) => {
     event.preventDefault();
     const data = event.dataTransfer.getData('text');
 
     if (isValidDropTarget(event)) {
         event.target.appendChild(document.getElementById(data));
-        const draggedEntityId = selectors.getDraggedEntityId();
+        const draggedPieceId = selectors.getDraggedPieceId();
 
-        if (!selectors.isStateEntity(draggedEntityId)) {
-            entities
-                .createEntity({
-                    uuid: draggedEntityId,
+        if (!selectors.isPieceInState(draggedPieceId)) {
+            pieces
+                .createPiece({
+                    uuid: draggedPieceId,
                     name: 'New',
-                    text: 'New',
-                    position: squareId,
+                    position: cellIndex,
                 })
                 .then(responseBody =>
-                    entity.changeEntityId(responseBody.uuid, responseBody._id)
+                    piece.changePieceId(responseBody.uuid, responseBody._id)
                 );
-            entityCreator.renderEntityCreator();
-        } else if (!entityCreator.isNew(draggedEntityId)) {
-            entities.updateEntity(draggedEntityId, {
-                $set: {position: String(squareId)},
+            pieceCreator.renderPieceCreator();
+        } else if (!pieceCreator.isNew(draggedPieceId)) {
+            pieces.updatePiece(draggedPieceId, {
+                $set: {position: String(cellIndex)},
             });
         }
 
-        store.updateEntity(draggedEntityId, {position: squareId});
+        store.updatePiece(draggedPieceId, {position: cellIndex});
     }
 };

@@ -6,7 +6,7 @@
     width: calc(100 * 5.125rem);
 }
 
-.grid-item {
+.cell {
     background-color: #abd473;
     border: 0.0625rem solid rgba(0, 0, 0, 0.8);
     font-size: 1rem;
@@ -42,7 +42,7 @@
     left: 0;
 }
 
-.square-label-picker {
+.cell-label-picker {
     height: 100%;
     width: 100%;
     border: none;
@@ -54,7 +54,7 @@
     left: 0;
 }
 
-.player .square-label-picker {
+.player .cell-label-picker {
     background-color: ghostwhite;
 }
 

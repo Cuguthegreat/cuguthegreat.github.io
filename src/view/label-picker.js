@@ -1,34 +1,34 @@
 import * as htmlSelector from '../services/html-helper.js';
-import * as square from './square.js';
+import * as cell from './cell.js';
 import * as selectors from '../state/selectors.js';
 import * as store from '../state/store.js';
-import * as entity from './entity.js';
+import * as piece from './piece.js';
 
 const renderLabelPicker = id => {
-    const squareLabelPicker = document.createElement('input');
+    const cellLabelPicker = document.createElement('input');
 
-    squareLabelPicker.value = selectors.isStateEntity(id)
-        ? selectors.getEntityName(id)
-        : selectors.getSquareLabel(id);
-    squareLabelPicker.id = 'square-label-picker';
-    squareLabelPicker.className = 'square-label-picker';
-    squareLabelPicker.setAttribute('onblur', `onLabelChange(event, "${id}")`);
+    cellLabelPicker.value = selectors.isPieceInState(id)
+        ? selectors.getPieceName(id)
+        : selectors.getCellLabel(id);
+    cellLabelPicker.id = 'cell-label-picker';
+    cellLabelPicker.className = 'cell-label-picker';
+    cellLabelPicker.setAttribute('onblur', `onLabelChange(event, "${id}")`);
 
-    selectors.isStateEntity(id)
-        ? htmlSelector.getEntityNode(id).appendChild(squareLabelPicker)
-        : htmlSelector.getSquareNode(id).appendChild(squareLabelPicker);
+    selectors.isPieceInState(id)
+        ? htmlSelector.getPieceNode(id).appendChild(cellLabelPicker)
+        : htmlSelector.getCellNode(id).appendChild(cellLabelPicker);
 
-    squareLabelPicker.focus();
-    squareLabelPicker.select();
+    cellLabelPicker.focus();
+    cellLabelPicker.select();
 };
 
 export const onLabelChange = (event, id) => {
     const labelPicker = htmlSelector.getLabelPickerNode();
 
     labelPicker.remove();
-    selectors.isStateEntity(id)
-        ? entity.changeEntityName(id, labelPicker.value)
-        : square.changeSquareLabel(id, labelPicker.value);
+    selectors.isPieceInState(id)
+        ? piece.changePieceName(id, labelPicker.value)
+        : cell.changeCellLabel(id, labelPicker.value);
 };
 
 export const showLabelPicker = (event, id) => {
@@ -36,10 +36,10 @@ export const showLabelPicker = (event, id) => {
     event.stopPropagation();
 
     if (
-        selectors.getSquareNodeWithColorPicker() !== id &&
-        selectors.getSquareNodeWithLabelPicker() !== id
+        selectors.getCellNodeWithColorPicker() !== id &&
+        selectors.getCellNodeWithLabelPicker() !== id
     ) {
-        store.setSquareNodeWithLabelPicker(id);
+        store.setCellNodeWithLabelPicker(id);
         renderLabelPicker(id);
     }
 };

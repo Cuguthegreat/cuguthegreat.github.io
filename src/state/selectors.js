@@ -1,39 +1,38 @@
 import {getState} from './store.js';
 import * as config from '../config/config.js';
 
-export const getSquares = () => getState().squares;
-export const getSquare = squareId => getState().squares[squareId];
-// square database id
-export const getSquareId = squareId =>
-    getState().squares[squareId] && getState().squares[squareId]._id;
-export const getSquareColor = squareId =>
-    (getState().squares[squareId] && getState().squares[squareId].color) ||
-    config.defaultSquareColor;
-export const getSquareLabel = squareId =>
-    (getState().squares[squareId] && getState().squares[squareId].label) || '';
+export const getCells = () => getState().cells;
+export const getCell = cellIndex => getState().cells[cellIndex];
+export const getCellId = cellIndex =>
+    getState().cells[cellIndex] && getState().cells[cellIndex]._id;
+export const getCellColor = cellIndex =>
+    (getState().cells[cellIndex] && getState().cells[cellIndex].color) ||
+    config.defaultCellColor;
+export const getCellLabel = cellIndex =>
+    (getState().cells[cellIndex] && getState().cells[cellIndex].label) || '';
 
-export const isSquareColored = squareId =>
-    !!(getState().squares[squareId] && getState().squares[squareId].color);
-export const isSquareLabeled = squareId =>
-    !!(getState().squares[squareId] && getState().squares[squareId].label);
+export const isCellColored = cellIndex =>
+    !!(getState().cells[cellIndex] && getState().cells[cellIndex].color);
+export const isCellLabeled = cellIndex =>
+    !!(getState().cells[cellIndex] && getState().cells[cellIndex].label);
 
-export const getEntity = entityId => getState().entities[entityId];
-export const getEntities = () => getState().entities;
-export const getEntityPosition = entityId =>
-    getState().entities[entityId] && getState().entities[entityId].position;
-export const getEntityName = entityId =>
-    getState().entities[entityId] && getState().entities[entityId].name;
-export const getEntityColor = entityId =>
-    (getState().entities[entityId] && getState().entities[entityId].color) ||
-    config.defaultEntityColor;
+export const getPiece = pieceId => getState().pieces[pieceId];
+export const getPieces = () => getState().pieces;
+export const getPiecePosition = pieceId =>
+    getState().pieces[pieceId] && getState().pieces[pieceId].position;
+export const getPieceName = pieceId =>
+    getState().pieces[pieceId] && getState().pieces[pieceId].name;
+export const getPieceColor = pieceId =>
+    (getState().pieces[pieceId] && getState().pieces[pieceId].color) ||
+    config.defaultPieceColor;
 
-export const isStateEntity = entityId => !!getState().entities[entityId];
+export const isPieceInState = pieceId => !!getState().pieces[pieceId];
 
-export const getDraggedEntityId = () => getState().draggedEntityId;
-export const getSquareNodeWithColorPicker = () =>
-    getState().squareNodeWithColorPicker;
-export const getSquareNodeWithLabelPicker = () =>
-    getState().squareNodeWithLabelPicker;
+export const getDraggedPieceId = () => getState().draggedPieceId;
+export const getCellNodeWithColorPicker = () =>
+    getState().cellNodeWithColorPicker;
+export const getCellNodeWithLabelPicker = () =>
+    getState().cellNodeWithLabelPicker;
 
-export const getMultiSelectSquareIds = () => getState().multiSelectSquareIds;
-export const isMultiSelectActive = () => getState().multiSelectSquareIds.length > 0;
+export const getMultiSelectCellIndices = () => getState().multiSelectCellIndices;
+export const isMultiSelectActive = () => getState().multiSelectCellIndices.length > 0;

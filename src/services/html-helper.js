@@ -3,19 +3,17 @@ export const getBattleMapNode = () => document.getElementById('battle-map');
 export const getTombstoneNode = () =>
     document.getElementById('tombstone-drop-zone');
 
-export const getSquareNode = squareId =>
-    document.getElementById(`grid-item-${squareId}`);
-
 export const getColorPickerNode = () => document.getElementById('jscolor');
 
 export const getLabelPickerNode = () =>
-    document.getElementById('square-label-picker');
+    document.getElementById('cell-label-picker');
 
-export const getEntityNode = entityId => document.getElementById(entityId);
+export const getCellNode = cellIndex => document.getElementById(`cell-${cellIndex}`);
+export const getPieceNode = pieceId => document.getElementById(pieceId);
 
 export const getMultiSelect = () => document.getElementById('multi-select');
 
-export const isSquareNode = element => element.className === 'grid-item';
+export const isCellNode = element => element.className.indexOf('cell') >= 0;
 
 export const createHtmlElement = ({
     tagName = 'div',
