@@ -27,7 +27,7 @@ export const getTimeout = () => {
 
 export const getBoardId = (boards) => {
     const boardFromQuery = getQueryParam('board');
-    const match = boards && boards.find(board => board.name && board.name.toUpperCase() === boardFromQuery.toUpperCase());
+    const match = boards && boardFromQuery && boards.find(board => board.name && board.name.toUpperCase() === boardFromQuery.toUpperCase());
 
     if (match) {
         return match._id
