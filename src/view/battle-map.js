@@ -53,7 +53,7 @@ const deletePiece = event => {
     event.preventDefault();
 
     if (config.protectedPieces.indexOf(selectors.getDraggedPieceId()) >= 0) {
-        alert('Not even in your dreams, bitch!');
+        alert(config.protectionMessage);
     } else {
         document.getElementById(draggedPieceId) &&
             document.getElementById(draggedPieceId).remove();

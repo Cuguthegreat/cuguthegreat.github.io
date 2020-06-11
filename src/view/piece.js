@@ -53,7 +53,7 @@ export const changePieceId = (oldPieceId, newPieceId) => {
 
 export const changePieceColor = (pieceId, color) => {
     if (config.protectedPieces.indexOf(pieceId) >= 0) {
-        alert('Not even in your dreams, bitch!');
+        alert(config.protectionMessage);
     } else {
         pieces.updatePieceColor(pieceId, color);
         updatePieceNode(pieceId);
@@ -62,7 +62,7 @@ export const changePieceColor = (pieceId, color) => {
 
 export const changePieceName = (pieceId, label) => {
     if (config.protectedPieces.indexOf(pieceId) >= 0) {
-        alert('Not even in your dreams, bitch!');
+        alert(config.protectionMessage);
     } else {
         pieces.updatePieceName(pieceId, label);
         updatePieceNode(pieceId);
