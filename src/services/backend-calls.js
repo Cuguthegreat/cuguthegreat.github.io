@@ -1,3 +1,5 @@
+import * as features from '../config/features.js';
+
 export const URL = 'https://pathfinder-battle-map.herokuapp.com';
 export const HEADERS = {
     'Content-Type': 'application/json',
@@ -9,7 +11,7 @@ export const throwError = error => {
     setTimeout(() => location.reload(), 0);
 };
 
-const addParameters = subpath => subpath;
+const addParameters = subpath => `${subpath}?boardId=${features.getBoardId()}`;
 
 export const read = (subpath, queryString = '') =>
     fetch(`${URL}/api/${addParameters(subpath)}${queryString}`, {
@@ -25,7 +27,7 @@ export const create = (subpath, body) =>
     fetch(`${URL}/api/${addParameters(subpath)}`, {
         method: 'POST',
         headers: HEADERS,
-        body: JSON.stringify(body),
+        body: JSON.stringify({...body, boardId: features.getBoardId()}),
     })
         .then(response =>
             response.ok ? response.json() : throwError(response.statusText),
@@ -41,19 +43,16 @@ export const update = (subpath, body) =>
         .then(response => response.ok || throwError(response.statusText))
         .catch(throwError);
 
-export const remove = subpath => {
-    const body = {
-        $set: {deleted: true},
-    };
-
-    return fetch(`${URL}/api/${addParameters(subpath)}`, {
+export const remove = subpath =>
+    fetch(`${URL}/api/${addParameters(subpath)}`, {
         method: 'PUT',
         headers: HEADERS,
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+            $set: {deleted: true},
+        }),
     })
         .then(response => response.ok || throwError(response.statusText))
         .catch(throwError);
-};
 
 export const getCurrentDate = () =>
     fetch(`${URL}/api/currentDate`, {

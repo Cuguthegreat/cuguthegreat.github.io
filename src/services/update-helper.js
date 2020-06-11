@@ -5,7 +5,7 @@ import * as pieces from '../state/pieces.js';
 import * as cells from '../state/cells.js';
 import * as cell from '../view/cell.js';
 import * as store from '../state/store.js';
-import * as features from './feature-flags.js';
+import * as features from '../config/features.js';
 
 export const startUpdateHelper = () => {
     backend.getCurrentDate().then(currentDate => fetchUpdates(currentDate));
