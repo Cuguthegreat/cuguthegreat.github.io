@@ -10,7 +10,7 @@ const getQueryParam = (name) => {
         return null;
     }
 
-    const queryParam = queryParams.find(queryParam => queryParam.indexOf(`${name}=`) >=0);
+    const queryParam = queryParams.find(queryParam => queryParam.indexOf(`${name}=`) >= 0);
 
     if (!queryParam) {
         return null;
@@ -25,4 +25,13 @@ export const getTimeout = () => {
     return timeout >= 250 ? timeout : 250;
 };
 
-export const getBoardId = () => getQueryParam('board') || '5ed58b0f365f731ce86e6d24';
+export const getBoardId = (boards) => {
+    const boardFromQuery = getQueryParam('board');
+    const match = boards && boards.find(board => board.name && board.name.toUpperCase() === boardFromQuery.toUpperCase());
+
+    if (match) {
+        return match._id
+    }
+
+    return boardFromQuery || '5ed58b0f365f731ce86e6d24';
+};
