@@ -3,7 +3,7 @@ import * as selectors from '../state/selectors.js';
 import {updateCellColor, updateCellLabel} from '../state/cells.js';
 import * as multiSelect from './multi-select.js';
 
-const updateCellNode = cellIndex => {
+export const updateCellNode = cellIndex => {
     const cellNode = htmlSelectors.getCellNode(cellIndex);
     const pieceNode = cellNode.firstElementChild;
 

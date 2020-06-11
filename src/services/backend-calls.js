@@ -8,19 +8,19 @@ export const HEADERS = {
 export const throwError = error => {
     console.error('Error:', error);
     alert(`Error: ${error}. Please reload!`);
-    // setTimeout(() =>  location.reload(), 0);
+    setTimeout(() =>  location.reload(), 0);
 };
 
 const addParameters = subpath =>
     features.isTestEnv() ? `${subpath}?experimental=true` : subpath;
 
-export const read = subpath =>
-    fetch(`${URL}/api/${addParameters(subpath)}`, {
+export const read = (subpath, queryString = '') =>
+    fetch(`${URL}/api/${addParameters(subpath)}${queryString}`, {
         method: 'GET',
         headers: HEADERS,
     })
         .then(response =>
-            response.ok ? response.json() : throwError(response.statusText)
+            response.ok ? response.json() : throwError(response.statusText),
         )
         .catch(throwError);
 
@@ -31,7 +31,7 @@ export const create = (subpath, body) =>
         body: JSON.stringify(body),
     })
         .then(response =>
-            response.ok ? response.json() : throwError(response.statusText)
+            response.ok ? response.json() : throwError(response.statusText),
         )
         .catch(throwError);
 
@@ -50,4 +50,15 @@ export const remove = subpath =>
         headers: HEADERS,
     })
         .then(response => response.ok || throwError(response.statusText))
+        .catch(throwError);
+
+export const getCurrentDate = () =>
+    fetch(`${URL}/api/currentDate`, {
+        method: 'GET',
+        headers: HEADERS,
+    })
+        .then(response =>
+            response.ok ? response.json() : throwError(response.statusText),
+        )
+        .then(data => data.currentDate)
         .catch(throwError);

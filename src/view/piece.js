@@ -4,7 +4,7 @@ import * as pieces from '../state/pieces.js';
 import * as config from '../config/config.js';
 import * as colors from '../services/color-helper.js';
 
-const updatePieceNode = pieceId => {
+export const updatePieceNode = pieceId => {
     const pieceNode = htmlSelectors.getPieceNode(pieceId);
 
     pieceNode.textContent = selectors.getPieceName(pieceId);

@@ -10,12 +10,16 @@ const getRelevantData = ({name, position, color}) => ({
     ...(color && {color}),
 });
 
+export const setPiece = datum => {
+    const pieceId = datum._id;
+    const pieceData = getRelevantData(datum);
+
+    store.updatePiece(pieceId, pieceData);
+};
+
 export const setPieces = data => {
     for (const i in data) {
-        const pieceId = data[i]._id;
-        const pieceData = getRelevantData(data[i]);
-
-        store.updatePiece(pieceId, pieceData);
+        setPiece(data[i]);
     }
 };
 
