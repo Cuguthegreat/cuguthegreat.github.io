@@ -12,7 +12,6 @@ export const startUpdateHelper = () => {
 };
 
 const TIMEOUT = features.getTimeout();
-console.log(TIMEOUT)
 
 let lastCurrentDate;
 
