@@ -1,6 +1,15 @@
 export const getTimeout = () => {
     const queryString = location.href.split('?')[1];
+
+    if (!queryString) {
+        return 250;
+    }
     const queryParams = queryString.split('&');
+
+    if (!queryParams || queryParams.length === 0) {
+        return 250;
+    }
+
     const timeoutParam = queryParams.find(queryParam => queryParam.indexOf('timeout=') >=0);
     const timeout = timeoutParam ? timeoutParam.split('=')[1] : 250;
 
