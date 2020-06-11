@@ -10,6 +10,10 @@ export const defaultCellColor = 'a9d271';
 
 export const defaultPieceColor = 'ff3f40';
 
+export const defaultTimeout = 250;
+
+export const defaultBoardId = '5ed58b0f365f731ce86e6d24';
+
 const maxRows = 100;
 
 export const maxCells = 100 * maxRows;

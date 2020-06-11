@@ -1,3 +1,5 @@
+import * as features from './config.js';
+
 const getQueryParam = (name) => {
     const queryString = location.href.split('?')[1];
 
@@ -20,9 +22,9 @@ const getQueryParam = (name) => {
 };
 
 export const getTimeout = () => {
-    const timeout = getQueryParam('timeout') || 250;
+    const timeout = getQueryParam('timeout') || features.defaultTimeout;
 
-    return timeout >= 250 ? timeout : 250;
+    return timeout >= features.defaultTimeout ? timeout : features.defaultTimeout;
 };
 
 export const getBoardId = (boards) => {
@@ -33,5 +35,5 @@ export const getBoardId = (boards) => {
         return match._id
     }
 
-    return boardFromQuery || '5ed58b0f365f731ce86e6d24';
+    return boardFromQuery || features.defaultBoardId;
 };
