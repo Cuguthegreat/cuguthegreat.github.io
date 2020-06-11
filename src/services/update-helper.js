@@ -5,13 +5,13 @@ import * as pieces from '../state/pieces.js';
 import * as cells from '../state/cells.js';
 import * as cell from '../view/cell.js';
 import * as store from '../state/store.js';
-import * as features from '../config/features.js';
+import * as query from './query-helper.js';
 
 export const startUpdateHelper = () => {
     backend.getCurrentDate().then(currentDate => fetchUpdates(currentDate));
 };
 
-const TIMEOUT = features.getTimeout();
+const TIMEOUT = query.getTimeout();
 
 let lastCurrentDate;
 

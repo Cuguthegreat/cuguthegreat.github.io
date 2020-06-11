@@ -1,4 +1,4 @@
-import * as features from './config.js';
+import * as config from '../config/config.js';
 
 const getQueryParam = (name) => {
     const queryString = location.href.split('?')[1];
@@ -22,9 +22,9 @@ const getQueryParam = (name) => {
 };
 
 export const getTimeout = () => {
-    const timeout = getQueryParam('timeout') || features.defaultTimeout;
+    const timeout = getQueryParam('timeout') || config.defaultTimeout;
 
-    return timeout >= features.defaultTimeout ? timeout : features.defaultTimeout;
+    return timeout >= config.defaultTimeout ? timeout : config.defaultTimeout;
 };
 
 export const getBoardId = (boards) => {
@@ -35,5 +35,5 @@ export const getBoardId = (boards) => {
         return match._id
     }
 
-    return boardFromQuery || features.defaultBoardId;
+    return boardFromQuery || config.defaultBoardId;
 };

@@ -1,4 +1,4 @@
-import * as features from '../config/features.js';
+import * as query from './query-helper.js';
 
 export const URL = 'https://pathfinder-battle-map.herokuapp.com';
 export const HEADERS = {
@@ -18,7 +18,7 @@ const BOARDS = [{
     'changeDate': '2020-06-11T21:08:58.177Z',
 }, {'_id': '5ee29cf67f2e560017b2f746', 'name': 'Donforst', 'createDate': '2020-06-11T21:07:02.759Z'}];
 
-const addParameters = subpath => `${subpath}?boardId=${features.getBoardId(BOARDS)}`;
+const addParameters = subpath => `${subpath}?boardId=${query.getBoardId(BOARDS)}`;
 
 export const read = (subpath, queryString = '') =>
     fetch(`${URL}/api/${addParameters(subpath)}${queryString}`, {
@@ -34,7 +34,7 @@ export const create = (subpath, body) =>
     fetch(`${URL}/api/${addParameters(subpath)}`, {
         method: 'POST',
         headers: HEADERS,
-        body: JSON.stringify({...body, boardId: features.getBoardId(BOARDS)}),
+        body: JSON.stringify({...body, boardId: query.getBoardId(BOARDS)}),
     })
         .then(response =>
             response.ok ? response.json() : throwError(response.statusText),
