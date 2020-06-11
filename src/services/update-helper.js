@@ -4,6 +4,7 @@ import * as piece from '../view/piece.js';
 import * as pieces from '../state/pieces.js';
 import * as cells from '../state/cells.js';
 import * as cell from '../view/cell.js';
+import * as store from '../state/store.js';
 
 export const startUpdateHelper = () => {
     backend.getCurrentDate().then(currentDate => fetchUpdates(currentDate));
@@ -25,6 +26,11 @@ export const fetchUpdates = (currentDate) => {
 
             for (const i in cellsData) {
                 const cellIndex = cellsData[i].cellIndex;
+
+                if (cellsData[i].deleted) {
+                    store.deleteCell(cellIndex);
+                }
+
                 cell.updateCellNode(cellIndex);
             }
 
@@ -32,6 +38,12 @@ export const fetchUpdates = (currentDate) => {
                 const pieceDatum = piecesData[i];
                 const pieceId = pieceDatum._id;
                 const pieceInStore = selectors.getPiece(pieceId);
+
+                if (pieceDatum.deleted) {
+                    document.getElementById(pieceId) && document.getElementById(pieceId).remove();
+
+                    return;
+                }
 
                 pieces.setPiece(pieceDatum);
 

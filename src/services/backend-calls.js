@@ -8,7 +8,7 @@ export const HEADERS = {
 export const throwError = error => {
     console.error('Error:', error);
     alert(`Error: ${error}. Please reload!`);
-    setTimeout(() =>  location.reload(), 0);
+    setTimeout(() => location.reload(), 0);
 };
 
 const addParameters = subpath =>
@@ -44,13 +44,19 @@ export const update = (subpath, body) =>
         .then(response => response.ok || throwError(response.statusText))
         .catch(throwError);
 
-export const remove = subpath =>
-    fetch(`${URL}/api/${addParameters(subpath)}`, {
-        method: 'DELETE',
+export const remove = subpath => {
+    const body = {
+        $set: {deleted: true},
+    };
+
+    return fetch(`${URL}/api/${addParameters(subpath)}`, {
+        method: 'PUT',
         headers: HEADERS,
+        body: JSON.stringify(body),
     })
         .then(response => response.ok || throwError(response.statusText))
         .catch(throwError);
+};
 
 export const getCurrentDate = () =>
     fetch(`${URL}/api/currentDate`, {
