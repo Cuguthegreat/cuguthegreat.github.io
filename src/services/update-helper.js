@@ -5,10 +5,14 @@ import * as pieces from '../state/pieces.js';
 import * as cells from '../state/cells.js';
 import * as cell from '../view/cell.js';
 import * as store from '../state/store.js';
+import * as features from './feature-flags.js';
 
 export const startUpdateHelper = () => {
     backend.getCurrentDate().then(currentDate => fetchUpdates(currentDate));
 };
+
+const TIMEOUT = features.getTimeout();
+console.log(TIMEOUT)
 
 let lastCurrentDate;
 
@@ -66,5 +70,5 @@ export const fetchUpdates = (currentDate) => {
 
     setTimeout(() => {
         fetchUpdates(lastCurrentDate);
-    }, 250);
+    }, TIMEOUT);
 };

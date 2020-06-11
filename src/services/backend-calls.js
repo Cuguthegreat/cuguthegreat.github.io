@@ -1,5 +1,3 @@
-import * as features from './feature-flags.js';
-
 export const URL = 'https://pathfinder-battle-map.herokuapp.com';
 export const HEADERS = {
     'Content-Type': 'application/json',
@@ -11,8 +9,7 @@ export const throwError = error => {
     setTimeout(() => location.reload(), 0);
 };
 
-const addParameters = subpath =>
-    features.isTestEnv() ? `${subpath}?experimental=true` : subpath;
+const addParameters = subpath => subpath;
 
 export const read = (subpath, queryString = '') =>
     fetch(`${URL}/api/${addParameters(subpath)}${queryString}`, {
