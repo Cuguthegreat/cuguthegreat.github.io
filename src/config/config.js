@@ -1,8 +1,7 @@
 export const protectedPieces = [
-    '5e409e27ee7ee6001715c7b4',
-    '5e409e27ee7ee6001715c7b3',
-    '5e409e27ee7ee6001715c7b2',
-    '5e4e7af09683870017ea8a89'
+    '5ee2a7c37f2e560017b2f85a',
+    '5ee2a7c37f2e560017b2f85b',
+    '5ee2a7c37f2e560017b2f85c',
 ];
 export const defaultCellColor = 'a9d271';
 
