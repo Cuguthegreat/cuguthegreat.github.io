@@ -5,7 +5,6 @@ import * as battleMap from './view/battle-map.js';
 import * as pieceCreator from './view/piece-creator.js';
 import * as updateHelper from './services/update-helper.js';
 import * as multiSelect from './view/multi-select.js';
-import * as html from './services/html-helper.js';
 
 export const initBattleMap = (piecesData, cellsData) => {
     pieces.setPieces(piecesData);

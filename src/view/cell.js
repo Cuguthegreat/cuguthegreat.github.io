@@ -2,7 +2,6 @@ import * as htmlSelectors from '../services/html-helper.js';
 import * as selectors from '../state/selectors.js';
 import {updateCellColor, updateCellLabel} from '../state/cells.js';
 import * as multiSelect from './multi-select.js';
-import * as events from './event-handler.js';
 
 export const updateCellNode = cellIndex => {
     const cellNode = htmlSelectors.getCellNode(cellIndex);

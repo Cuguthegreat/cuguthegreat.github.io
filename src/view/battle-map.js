@@ -1,5 +1,4 @@
 import * as selectors from '../state/selectors.js';
-import * as pieces from '../state/pieces.js';
 import * as dragAndDrop from './drag-and-drop.js';
 import * as colorPicker from './color-picker.js';
 import * as labelPicker from './label-picker.js';
