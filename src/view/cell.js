@@ -19,7 +19,6 @@ export const renderCell = cellIndex => {
     htmlSelectors.getBattleMapNode().appendChild(cellNode);
     cellNode.className = `cell cell--${cellIndex}`;
     cellNode.id = `cell-${cellIndex}`;
-    events.addCellEventListeners(cellNode, cellIndex);
 
     updateCellNode(cellIndex);
 };

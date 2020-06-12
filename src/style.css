@@ -17,7 +17,7 @@
     line-height: 4rem;
 }
 
-.player {
+.piece {
     position: absolute;
     left: 10%;
     top: 10%;
@@ -54,7 +54,7 @@
     left: 0;
 }
 
-.player .cell-label-picker {
+.piece .cell-label-picker {
     background-color: ghostwhite;
 }
 
@@ -113,7 +113,7 @@
     opacity: 100%;
 }
 
-.baby-overlay .player--new {
+.baby-overlay .piece--new {
     left: 30%;
     top: 30%;
     height: 40%;

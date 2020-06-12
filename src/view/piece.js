@@ -18,20 +18,12 @@ export const renderPiece = pieceId => {
     const pieceNode = document.createElement('div');
 
     htmlSelectors.getCellNode(cellIndex).appendChild(pieceNode);
-    pieceNode.className = `player player--${selectors.getPieceName(
+    pieceNode.className = `piece piece--${selectors.getPieceName(
         pieceId
     )}`;
     pieceNode.id = pieceId;
     pieceNode.setAttribute('draggable', 'true');
     pieceNode.setAttribute('ondragstart', `drag(event, "${pieceId}")`);
-    pieceNode.setAttribute(
-        'oncontextmenu',
-        `showColorPicker(event, "${pieceId}")`
-    );
-    pieceNode.setAttribute(
-        'ondblclick',
-        `showLabelPicker(event, "${pieceId}")`
-    );
 
     updatePieceNode(pieceId);
 };
@@ -41,14 +33,6 @@ export const changePieceId = (oldPieceId, newPieceId) => {
 
     pieceNode.id = newPieceId;
     pieceNode.setAttribute('ondragstart', `drag(event, "${newPieceId}")`);
-    pieceNode.setAttribute(
-        'oncontextmenu',
-        `showColorPicker(event, "${newPieceId}")`
-    );
-    pieceNode.setAttribute(
-        'ondblclick',
-        `showLabelPicker(event, "${newPieceId}")`
-    );
 };
 
 export const changePieceColor = (pieceId, color) => {

@@ -2,6 +2,8 @@ import * as multiSelect from './multi-select.js';
 import * as htmlSelectors from '../services/html-helper.js';
 import * as dragAndDrop from './drag-and-drop.js';
 import * as piece from './piece.js';
+import * as colorPicker from './color-picker.js';
+import * as labelPicker from './label-picker.js';
 
 const activateMultiSelect = (onMousedown, onMousemove, onMouseup) => {
     document.body.addEventListener('mousedown', onMousedown);
@@ -51,13 +53,24 @@ export const addDragAndDropEventListeners = () => {
     });
 };
 
-export const addCellEventListeners = (cellNode, cellIndex) => {
-    cellNode.setAttribute(
-        'oncontextmenu',
-        `showColorPicker(event, ${cellIndex})`,
-    );
-    cellNode.setAttribute(
-        'ondblclick',
-        `showLabelPicker(event, ${cellIndex})`,
-    );
+export const addMouseEventListeners = () => {
+    document.body.addEventListener('contextmenu', event => {
+        const target = event.target;
+
+        if (htmlSelectors.isPieceNode(target)) {
+            colorPicker.showColorPicker(event, htmlSelectors.getPieceId(target))
+        } else if (htmlSelectors.isCellNode(target)) {
+            colorPicker.showColorPicker(event, htmlSelectors.getCellIndex(target))
+        }
+    });
+
+    document.body.addEventListener('dblclick', event => {
+        const target = event.target;
+
+        if (htmlSelectors.isPieceNode(target)) {
+            labelPicker.showLabelPicker(event, htmlSelectors.getPieceId(target))
+        } else if (htmlSelectors.isCellNode(target)) {
+            labelPicker.showLabelPicker(event, htmlSelectors.getCellIndex(target))
+        }
+    });
 };

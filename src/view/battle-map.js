@@ -41,11 +41,9 @@ export const renderBattleMap = () => {
     }
 
     events.addDragAndDropEventListeners();
+    events.addMouseEventListeners();
 };
 
 window.drag = dragAndDrop.drag;
 window.onColorPickerChange = colorPicker.onColorPickerChange;
 window.onLabelChange = labelPicker.onLabelChange;
-
-window.showColorPicker = colorPicker.showColorPicker;
-window.showLabelPicker = labelPicker.showLabelPicker;

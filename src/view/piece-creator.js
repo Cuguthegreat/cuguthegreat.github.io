@@ -7,7 +7,7 @@ export const renderPieceCreator = () => {
     const pieceNode = document.createElement('div');
     const uuid = generateUuid();
     babyOverlay.appendChild(pieceNode);
-    pieceNode.className = 'player player--new';
+    pieceNode.className = 'piece piece--new';
     pieceNode.id = uuid;
     pieceNode.textContent = 'New';
     pieceNode.setAttribute('draggable', 'true');
