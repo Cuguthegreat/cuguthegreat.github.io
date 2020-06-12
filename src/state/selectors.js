@@ -34,5 +34,7 @@ export const getCellNodeWithColorPicker = () =>
 export const getCellNodeWithLabelPicker = () =>
     getState().cellNodeWithLabelPicker;
 
-export const getMultiSelectCellIndices = () => getState().multiSelectCellIndices;
-export const isMultiSelectActive = () => getState().multiSelectCellIndices.length > 0;
+export const getMultiSelectCellIndices = () =>
+    getState().multiSelectCellIndices;
+export const isMultiSelectActive = () =>
+    getState().multiSelectCellIndices.length > 0;

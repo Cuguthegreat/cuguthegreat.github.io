@@ -18,9 +18,7 @@ export const renderPiece = pieceId => {
     const pieceNode = document.createElement('div');
 
     htmlSelectors.getCellNode(cellIndex).appendChild(pieceNode);
-    pieceNode.className = `piece piece--${selectors.getPieceName(
-        pieceId
-    )}`;
+    pieceNode.className = `piece piece--${selectors.getPieceName(pieceId)}`;
     pieceNode.id = pieceId;
     pieceNode.setAttribute('draggable', 'true');
     pieceNode.setAttribute('ondragstart', `drag(event, "${pieceId}")`);
@@ -62,7 +60,7 @@ export const deletePiece = event => {
         alert(config.protectionMessage);
     } else {
         document.getElementById(draggedPieceId) &&
-        document.getElementById(draggedPieceId).remove();
+            document.getElementById(draggedPieceId).remove();
         pieces.removePiece(draggedPieceId);
     }
 };

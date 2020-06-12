@@ -1,6 +1,6 @@
 import * as config from '../config/config.js';
 
-const getQueryParam = (name) => {
+const getQueryParam = name => {
     const queryString = location.href.split('?')[1];
 
     if (!queryString) {
@@ -12,7 +12,9 @@ const getQueryParam = (name) => {
         return null;
     }
 
-    const queryParam = queryParams.find(queryParam => queryParam.indexOf(`${name}=`) >= 0);
+    const queryParam = queryParams.find(
+        queryParam => queryParam.indexOf(`${name}=`) >= 0
+    );
 
     if (!queryParam) {
         return null;
@@ -27,12 +29,19 @@ export const getTimeout = () => {
     return timeout >= config.defaultTimeout ? timeout : config.defaultTimeout;
 };
 
-export const getBoardId = (boards) => {
+export const getBoardId = boards => {
     const boardFromQuery = getQueryParam('board');
-    const match = boards && boardFromQuery && boards.find(board => board.name && board.name.toUpperCase() === boardFromQuery.toUpperCase());
+    const match =
+        boards &&
+        boardFromQuery &&
+        boards.find(
+            board =>
+                board.name &&
+                board.name.toUpperCase() === boardFromQuery.toUpperCase()
+        );
 
     if (match) {
-        return match._id
+        return match._id;
     }
 
     return boardFromQuery || config.defaultBoardId;

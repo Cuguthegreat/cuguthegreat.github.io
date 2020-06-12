@@ -4,7 +4,7 @@ export const protectedPieces = [
     '5ee2a7c37f2e560017b2f85c',
 ];
 
-export const protectionMessage = 'This piece must not be modified or deleted!'
+export const protectionMessage = 'This piece must not be modified or deleted!';
 
 export const defaultCellColor = 'a9d271';
 

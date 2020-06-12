@@ -24,7 +24,8 @@ export const clearMultiSelect = () => {
     const cellIndices = selectors.getMultiSelectCellIndices();
 
     cellIndices.forEach(cellIndex => {
-        htmlSelectors.getCellNode(cellIndex).style.background = '#' + selectors.getCellColor(cellIndex);
+        htmlSelectors.getCellNode(cellIndex).style.background =
+            '#' + selectors.getCellColor(cellIndex);
     });
 
     store.resetMultiSelectCellIndices();
@@ -75,7 +76,10 @@ const onMousedown = event => {
     }
 };
 
-const isEnough = event => Math.abs(event.clientY - mousemoveY) + Math.abs(event.clientX - mousemoveX) > 8;
+const isEnough = event =>
+    Math.abs(event.clientY - mousemoveY) +
+        Math.abs(event.clientX - mousemoveX) >
+    8;
 
 const onMousemove = event => {
     if (mousedownTarget && isEnough(event)) {
@@ -97,17 +101,23 @@ const setAffectedCells = (mouseupPosition, mousedownPosition) => {
 
     const oldMultiSelectCellIndices = selectors.getMultiSelectCellIndices();
 
-
-    if (cellIndices.every(cellIndex => oldMultiSelectCellIndices.indexOf(cellIndex) >= 0)) {
+    if (
+        cellIndices.every(
+            cellIndex => oldMultiSelectCellIndices.indexOf(cellIndex) >= 0
+        )
+    ) {
         store.removeMultiSelectCellIndices(cellIndices);
         cellIndices.forEach(cellIndex => {
-            htmlSelectors.getCellNode(cellIndex).style.background = '#' + selectors.getCellColor(cellIndex);
+            htmlSelectors.getCellNode(cellIndex).style.background =
+                '#' + selectors.getCellColor(cellIndex);
         });
     } else {
         store.addMultiSelectCellIndices(cellIndices);
         cellIndices.forEach(cellIndex => {
-            const backgroundColor = '#' +selectors.getCellColor(cellIndex);
-            htmlSelectors.getCellNode(cellIndex).style.background = `repeating-linear-gradient(45deg, ghostwhite, ghostwhite 10px, ${backgroundColor} 10px, ${backgroundColor} 20px)`;
+            const backgroundColor = '#' + selectors.getCellColor(cellIndex);
+            htmlSelectors.getCellNode(
+                cellIndex
+            ).style.background = `repeating-linear-gradient(45deg, ghostwhite, ghostwhite 10px, ${backgroundColor} 10px, ${backgroundColor} 20px)`;
         });
     }
 };
@@ -115,17 +125,17 @@ const setAffectedCells = (mouseupPosition, mousedownPosition) => {
 const isAffected = (cellIndex, mouseupPosition, mousedownPosition) => {
     if (
         Math.round(
-            Math.min(mouseupPosition, mousedownPosition) / 100 - cellIndex / 100,
+            Math.min(mouseupPosition, mousedownPosition) / 100 - cellIndex / 100
         ) <= 0 &&
         Math.round(
-            cellIndex / 100 - Math.max(mouseupPosition, mousedownPosition) / 100,
+            cellIndex / 100 - Math.max(mouseupPosition, mousedownPosition) / 100
         ) <= 0
     ) {
         return (
             Math.min(mouseupPosition % 100, mousedownPosition % 100) <=
-            cellIndex % 100 &&
+                cellIndex % 100 &&
             cellIndex % 100 <=
-            Math.max(mouseupPosition % 100, mousedownPosition % 100)
+                Math.max(mouseupPosition % 100, mousedownPosition % 100)
         );
     }
 

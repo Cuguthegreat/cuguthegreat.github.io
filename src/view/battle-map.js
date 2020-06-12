@@ -43,7 +43,7 @@ export const renderBattleMap = () => {
     events.addDragAndDropEventListeners();
     events.addMouseEventListeners();
 
-    window.scrollBy(0,0);
+    window.scrollBy(0, 0);
 };
 
 window.drag = dragAndDrop.drag;

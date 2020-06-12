@@ -15,15 +15,17 @@ const TIMEOUT = query.getTimeout();
 
 let lastCurrentDate;
 
-export const fetchUpdates = (currentDate) => {
-    backend.getCurrentDate().then(newCurrentDate => {
-        lastCurrentDate = newCurrentDate;
+export const fetchUpdates = currentDate => {
+    backend
+        .getCurrentDate()
+        .then(newCurrentDate => {
+            lastCurrentDate = newCurrentDate;
 
-        return Promise.all([
-            backend.read('pieces', `?changedSince=${currentDate}`),
-            backend.read('cells', `?changedSince=${currentDate}`),
-        ]);
-    })
+            return Promise.all([
+                backend.read('pieces', `?changedSince=${currentDate}`),
+                backend.read('cells', `?changedSince=${currentDate}`),
+            ]);
+        })
         .then(([piecesData, cellsData]) => {
             cells.setCells(cellsData);
 
@@ -43,7 +45,8 @@ export const fetchUpdates = (currentDate) => {
                 const pieceInStore = selectors.getPiece(pieceId);
 
                 if (pieceDatum.deleted) {
-                    document.getElementById(pieceId) && document.getElementById(pieceId).remove();
+                    document.getElementById(pieceId) &&
+                        document.getElementById(pieceId).remove();
 
                     return;
                 }

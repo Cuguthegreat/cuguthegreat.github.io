@@ -28,22 +28,21 @@ export const changeCellColor = (cellIndex, color) => {
     updateCellNode(cellIndex);
 
     if (selectors.isMultiSelectActive()) {
-        selectors.getMultiSelectCellIndices().forEach((multiSelectCellIndex) => {
+        selectors.getMultiSelectCellIndices().forEach(multiSelectCellIndex => {
             updateCellColor(multiSelectCellIndex, color);
             updateCellNode(multiSelectCellIndex);
         });
-        
+
         multiSelect.clearMultiSelect();
     }
 };
-
 
 export const changeCellLabel = (cellIndex, label) => {
     updateCellLabel(cellIndex, label);
     updateCellNode(cellIndex);
 
     if (selectors.isMultiSelectActive()) {
-        selectors.getMultiSelectCellIndices().forEach((multiSelectCellIndex) => {
+        selectors.getMultiSelectCellIndices().forEach(multiSelectCellIndex => {
             updateCellLabel(multiSelectCellIndex, label);
             updateCellNode(multiSelectCellIndex);
         });

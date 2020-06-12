@@ -40,7 +40,7 @@ export const setDraggedPieceId = pieceId => {
 export const setCellNodeWithColorPicker = cellIndex => {
     //TODO Do it properly
     cellIndex === null &&
-    document.body.appendChild(document.getElementById('jscolor'));
+        document.body.appendChild(document.getElementById('jscolor'));
 
     state.cellNodeWithColorPicker = cellIndex;
     state.cellNodeWithLabelPicker = null;
@@ -71,5 +71,8 @@ export const removeMultiSelectCellIndices = cellIndices => {
 };
 
 export const addMultiSelectCellIndices = cellIndices => {
-    state.multiSelectCellIndices = [...state.multiSelectCellIndices, ...cellIndices];
+    state.multiSelectCellIndices = [
+        ...state.multiSelectCellIndices,
+        ...cellIndices,
+    ];
 };

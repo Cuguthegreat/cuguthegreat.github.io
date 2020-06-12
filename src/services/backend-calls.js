@@ -11,14 +11,22 @@ export const throwError = error => {
     setTimeout(() => location.reload(), 0);
 };
 
-const BOARDS = [{
-    '_id': '5ed58b0f365f731ce86e6d24',
-    'name': 'Test',
-    'createDate': '2020-06-01T23:11:11.570Z',
-    'changeDate': '2020-06-11T21:08:58.177Z',
-}, {'_id': '5ee29cf67f2e560017b2f746', 'name': 'Donforst', 'createDate': '2020-06-11T21:07:02.759Z'}];
+const BOARDS = [
+    {
+        _id: '5ed58b0f365f731ce86e6d24',
+        name: 'Test',
+        createDate: '2020-06-01T23:11:11.570Z',
+        changeDate: '2020-06-11T21:08:58.177Z',
+    },
+    {
+        _id: '5ee29cf67f2e560017b2f746',
+        name: 'Donforst',
+        createDate: '2020-06-11T21:07:02.759Z',
+    },
+];
 
-const addParameters = subpath => `${subpath}?boardId=${query.getBoardId(BOARDS)}`;
+const addParameters = subpath =>
+    `${subpath}?boardId=${query.getBoardId(BOARDS)}`;
 
 export const read = (subpath, queryString = '') =>
     fetch(`${URL}/api/${addParameters(subpath)}${queryString}`, {
@@ -26,7 +34,7 @@ export const read = (subpath, queryString = '') =>
         headers: HEADERS,
     })
         .then(response =>
-            response.ok ? response.json() : throwError(response.statusText),
+            response.ok ? response.json() : throwError(response.statusText)
         )
         .catch(throwError);
 
@@ -37,7 +45,7 @@ export const create = (subpath, body) =>
         body: JSON.stringify({...body, boardId: query.getBoardId(BOARDS)}),
     })
         .then(response =>
-            response.ok ? response.json() : throwError(response.statusText),
+            response.ok ? response.json() : throwError(response.statusText)
         )
         .catch(throwError);
 
@@ -67,7 +75,7 @@ export const getCurrentDate = () =>
         headers: HEADERS,
     })
         .then(response =>
-            response.ok ? response.json() : throwError(response.statusText),
+            response.ok ? response.json() : throwError(response.statusText)
         )
         .then(data => data.currentDate)
         .catch(throwError);

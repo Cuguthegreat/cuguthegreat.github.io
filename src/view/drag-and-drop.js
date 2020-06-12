@@ -5,7 +5,6 @@ import * as pieceCreator from './piece-creator.js';
 import * as piece from './piece.js';
 import * as htmlSelectors from '../services/html-helper.js';
 
-
 const isValidDropTarget = event => {
     if (
         event.target.className === 'tombstone-drop-zone' &&

@@ -8,15 +8,18 @@ export const getColorPickerNode = () => document.getElementById('jscolor');
 export const getLabelPickerNode = () =>
     document.getElementById('cell-label-picker');
 
-export const getCellNode = cellIndex => document.getElementById(`cell-${cellIndex}`);
+export const getCellNode = cellIndex =>
+    document.getElementById(`cell-${cellIndex}`);
 export const getPieceNode = pieceId => document.getElementById(pieceId);
 
 export const getMultiSelect = () => document.getElementById('multi-select');
 
-export const getCellIndex = element => isCellNode(element) ? element.className.split('--')[1] : null;
-export const getPieceId = element => isPieceNode(element) ? element.id : null;
+export const getCellIndex = element =>
+    isCellNode(element) ? element.className.split('--')[1] : null;
+export const getPieceId = element => (isPieceNode(element) ? element.id : null);
 
-export const isTombstone = element => element.className.indexOf('tombstone-drop-zone') >= 0;
+export const isTombstone = element =>
+    element.className.indexOf('tombstone-drop-zone') >= 0;
 export const isCellNode = element => element.className.indexOf('cell') >= 0;
 export const isPieceNode = element => element.className.indexOf('piece') >= 0;
 
@@ -31,7 +34,7 @@ export const createHtmlElement = ({
     const newNode = document.createElement(tagName);
     parent.appendChild(newNode);
     if (id) {
-        newNode.id = id
+        newNode.id = id;
     }
 
     if (className || id) {

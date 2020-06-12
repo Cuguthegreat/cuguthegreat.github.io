@@ -17,7 +17,11 @@ const deactivateMultiSelect = (onMousedown, onMousemove, onMouseup) => {
     document.body.removeEventListener('mouseup', onMouseup, true);
 };
 
-export const addMultiSelectEventListeners = (onMousedown, onMousemove, onMouseup) => {
+export const addMultiSelectEventListeners = (
+    onMousedown,
+    onMousemove,
+    onMouseup
+) => {
     document.body.addEventListener('keydown', event => {
         if (event.key === 'Control') {
             activateMultiSelect(onMousedown, onMousemove, onMouseup);
@@ -47,7 +51,10 @@ export const addDragAndDropEventListeners = () => {
     document.body.addEventListener('dragover', event => {
         const target = event.target;
 
-        if (htmlSelectors.isTombstone(target) || htmlSelectors.isCellNode(target)) {
+        if (
+            htmlSelectors.isTombstone(target) ||
+            htmlSelectors.isCellNode(target)
+        ) {
             dragAndDrop.allowDrop(event);
         }
     });
@@ -58,9 +65,15 @@ export const addMouseEventListeners = () => {
         const target = event.target;
 
         if (htmlSelectors.isPieceNode(target)) {
-            colorPicker.showColorPicker(event, htmlSelectors.getPieceId(target))
+            colorPicker.showColorPicker(
+                event,
+                htmlSelectors.getPieceId(target)
+            );
         } else if (htmlSelectors.isCellNode(target)) {
-            colorPicker.showColorPicker(event, htmlSelectors.getCellIndex(target))
+            colorPicker.showColorPicker(
+                event,
+                htmlSelectors.getCellIndex(target)
+            );
         }
     });
 
@@ -68,9 +81,15 @@ export const addMouseEventListeners = () => {
         const target = event.target;
 
         if (htmlSelectors.isPieceNode(target)) {
-            labelPicker.showLabelPicker(event, htmlSelectors.getPieceId(target))
+            labelPicker.showLabelPicker(
+                event,
+                htmlSelectors.getPieceId(target)
+            );
         } else if (htmlSelectors.isCellNode(target)) {
-            labelPicker.showLabelPicker(event, htmlSelectors.getCellIndex(target))
+            labelPicker.showLabelPicker(
+                event,
+                htmlSelectors.getCellIndex(target)
+            );
         }
     });
 };
