@@ -1,6 +1,7 @@
 import * as htmlSelectors from '../services/html-helper.js';
 import * as selectors from '../state/selectors.js';
 import * as store from '../state/store.js';
+import * as events from './event-handler.js';
 
 let mousedownTarget = null;
 let mousedownX = 0;
@@ -36,32 +37,7 @@ export const allowMultiSelect = () => {
     multiSelect.className = 'multi-select';
 
     reset();
-
-    document.body.addEventListener('keydown', event => {
-        if (event.key === 'Control') {
-            activateMultiSelect();
-        } else if (event.key === 'Escape') {
-            clearMultiSelect();
-        }
-    });
-
-    document.body.addEventListener('keyup', event => {
-        if (event.key === 'Control') {
-            deactivateMultiSelect();
-        }
-    });
-};
-
-export const activateMultiSelect = () => {
-    document.body.addEventListener('mousedown', onMousedown);
-    document.body.addEventListener('mousemove', onMousemove);
-    document.body.addEventListener('mouseup', onMouseup, true);
-};
-
-export const deactivateMultiSelect = () => {
-    document.body.removeEventListener('mousedown', onMousedown);
-    document.body.removeEventListener('mousemove', onMousemove);
-    document.body.removeEventListener('mouseup', onMouseup, true);
+    events.addMultiSelectEventListeners(onMousedown, onMousemove, onMouseup);
 };
 
 const getStyle = () => {

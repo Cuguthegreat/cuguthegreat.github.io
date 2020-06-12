@@ -68,3 +68,17 @@ export const changePieceName = (pieceId, label) => {
         updatePieceNode(pieceId);
     }
 };
+
+export const deletePiece = event => {
+    const draggedPieceId = selectors.getDraggedPieceId();
+
+    event.preventDefault();
+
+    if (config.protectedPieces.indexOf(selectors.getDraggedPieceId()) >= 0) {
+        alert(config.protectionMessage);
+    } else {
+        document.getElementById(draggedPieceId) &&
+        document.getElementById(draggedPieceId).remove();
+        pieces.removePiece(draggedPieceId);
+    }
+};

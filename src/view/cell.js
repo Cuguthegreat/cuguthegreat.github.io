@@ -2,6 +2,7 @@ import * as htmlSelectors from '../services/html-helper.js';
 import * as selectors from '../state/selectors.js';
 import {updateCellColor, updateCellLabel} from '../state/cells.js';
 import * as multiSelect from './multi-select.js';
+import * as events from './event-handler.js';
 
 export const updateCellNode = cellIndex => {
     const cellNode = htmlSelectors.getCellNode(cellIndex);
@@ -18,16 +19,7 @@ export const renderCell = cellIndex => {
     htmlSelectors.getBattleMapNode().appendChild(cellNode);
     cellNode.className = `cell cell--${cellIndex}`;
     cellNode.id = `cell-${cellIndex}`;
-    cellNode.setAttribute('ondragover', 'allowDrop(event)');
-    cellNode.setAttribute('ondrop', `drop(event, ${cellIndex})`);
-    cellNode.setAttribute(
-        'oncontextmenu',
-        `showColorPicker(event, ${cellIndex})`,
-    );
-    cellNode.setAttribute(
-        'ondblclick',
-        `showLabelPicker(event, ${cellIndex})`,
-    );
+    events.addCellEventListeners(cellNode, cellIndex);
 
     updateCellNode(cellIndex);
 };

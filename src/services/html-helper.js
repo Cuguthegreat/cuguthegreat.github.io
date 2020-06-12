@@ -13,6 +13,9 @@ export const getPieceNode = pieceId => document.getElementById(pieceId);
 
 export const getMultiSelect = () => document.getElementById('multi-select');
 
+export const getCellIndex = element => isCellNode(element) ? element.className.split('--')[1] : null;
+
+export const isTombstone = element => element.className.indexOf('tombstone-drop-zone') >= 0;
 export const isCellNode = element => element.className.indexOf('cell') >= 0;
 
 export const createHtmlElement = ({
