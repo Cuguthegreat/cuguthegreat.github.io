@@ -1,5 +1,4 @@
 import * as selectors from '../state/selectors.js';
-import * as dragAndDrop from './drag-and-drop.js';
 import * as colorPicker from './color-picker.js';
 import * as labelPicker from './label-picker.js';
 import * as htmlSelectors from '../services/html-helper.js';
@@ -45,6 +44,5 @@ export const renderBattleMap = () => {
     window.scrollBy(0, 0);
 };
 
-window.drag = dragAndDrop.drag;
 window.onColorPickerChange = colorPicker.onColorPickerChange;
 window.onLabelChange = labelPicker.onLabelChange;

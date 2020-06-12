@@ -11,7 +11,6 @@ export const renderPieceCreator = () => {
     pieceNode.id = uuid;
     pieceNode.textContent = 'New';
     pieceNode.setAttribute('draggable', 'true');
-    pieceNode.setAttribute('ondragstart', `drag(event, "${uuid}")`);
     pieceNode.style.color = '#' + colors.getColor(config.defaultPieceColor);
     pieceNode.style.backgroundColor = '#' + config.defaultPieceColor;
 };

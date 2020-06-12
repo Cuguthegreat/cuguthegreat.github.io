@@ -58,6 +58,14 @@ export const addDragAndDropEventListeners = () => {
             dragAndDrop.allowDrop(event);
         }
     });
+
+    document.body.addEventListener('dragstart', event => {
+        const target = event.target;
+
+        if (htmlSelectors.isPieceNode(target)) {
+            dragAndDrop.drag(event, htmlSelectors.getPieceId(target));
+        }
+    });
 };
 
 export const addMouseEventListeners = () => {
