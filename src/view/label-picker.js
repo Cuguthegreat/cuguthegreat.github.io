@@ -12,7 +12,10 @@ const renderLabelPicker = id => {
         : selectors.getCellLabel(id);
     cellLabelPicker.id = 'cell-label-picker';
     cellLabelPicker.className = 'cell-label-picker';
-    cellLabelPicker.setAttribute('onblur', `onLabelChange(event, "${id}")`);
+
+    cellLabelPicker.addEventListener('blur', event => {
+        onLabelChange(event, id);
+    });
 
     selectors.isPieceInState(id)
         ? htmlSelector.getPieceNode(id).appendChild(cellLabelPicker)

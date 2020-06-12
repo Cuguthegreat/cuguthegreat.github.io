@@ -11,19 +11,7 @@ import * as events from './event-handler.js';
 export const renderBattleMap = () => {
     sideBar.renderSideBar();
 
-    const colorPicker = htmlSelectors.createHtmlElement({
-        tagName: 'input',
-        className:
-            'jscolor {shadow:false, borderWidth:0, backgroundColor:"transparent"}',
-    });
-
-    import('../../ressources/jscolor.js').then(() => {
-        colorPicker.id = 'jscolor';
-
-        htmlSelectors
-            .getColorPickerNode()
-            .setAttribute('onblur', 'onColorPickerChange(this.jscolor)');
-    });
+    colorPicker.renderColorPicker();
 
     htmlSelectors.createHtmlElement({
         id: 'battle-map',
@@ -43,6 +31,3 @@ export const renderBattleMap = () => {
 
     window.scrollBy(0, 0);
 };
-
-window.onColorPickerChange = colorPicker.onColorPickerChange;
-window.onLabelChange = labelPicker.onLabelChange;

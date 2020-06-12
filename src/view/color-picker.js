@@ -5,6 +5,21 @@ import * as cell from './cell.js';
 import * as piece from './piece.js';
 import * as colors from '../services/color-helper.js';
 
+export const renderColorPicker = () => {
+    const colorPickerNode = htmlSelectors.createHtmlElement({
+        tagName: 'input',
+        className:
+            'jscolor {shadow:false, borderWidth:0, backgroundColor:"transparent"}',
+    });
+
+    import('../../ressources/jscolor.js').then(() => {
+        colorPickerNode.id = 'jscolor';
+        colorPickerNode.addEventListener('blur', function() {
+            onColorPickerChange(this.jscolor);
+        });
+    });
+};
+
 const isPiece = () =>
     selectors.isPieceInState(selectors.getCellNodeWithColorPicker());
 
