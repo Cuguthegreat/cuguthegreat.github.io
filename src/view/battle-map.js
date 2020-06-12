@@ -41,16 +41,11 @@ export const renderBattleMap = () => {
     }
 
     events.addDragAndDropEventListeners();
-
-    htmlSelectors
-        .getTombstoneNode()
-        .setAttribute('ondragover', 'allowDrop(event)');
 };
 
 window.drag = dragAndDrop.drag;
 window.onColorPickerChange = colorPicker.onColorPickerChange;
 window.onLabelChange = labelPicker.onLabelChange;
 
-window.allowDrop = dragAndDrop.allowDrop;
 window.showColorPicker = colorPicker.showColorPicker;
 window.showLabelPicker = labelPicker.showLabelPicker;

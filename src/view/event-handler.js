@@ -41,10 +41,17 @@ export const addDragAndDropEventListeners = () => {
             dragAndDrop.drop(event, htmlSelectors.getCellIndex(target));
         }
     });
+
+    document.body.addEventListener('dragover', event => {
+        const target = event.target;
+
+        if (htmlSelectors.isTombstone(target) || htmlSelectors.isCellNode(target)) {
+            dragAndDrop.allowDrop(event);
+        }
+    });
 };
 
 export const addCellEventListeners = (cellNode, cellIndex) => {
-    cellNode.setAttribute('ondragover', 'allowDrop(event)');
     cellNode.setAttribute(
         'oncontextmenu',
         `showColorPicker(event, ${cellIndex})`,
