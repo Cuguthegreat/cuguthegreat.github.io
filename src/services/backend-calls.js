@@ -23,6 +23,11 @@ const BOARDS = [
         name: 'Donforst',
         createDate: '2020-06-11T21:07:02.759Z',
     },
+    {
+        _id: '5eebe50f1a7b8c0017d37e1a',
+        name: 'Himmeli',
+        createDate: '2020-06-18T22:05:03.101Z',
+    },
 ];
 
 const addParameters = subpath =>
