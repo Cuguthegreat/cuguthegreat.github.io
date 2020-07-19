@@ -117,7 +117,7 @@ const setAffectedCells = (mouseupPosition, mousedownPosition) => {
             const backgroundColor = '#' + selectors.getCellColor(cellIndex);
             htmlSelectors.getCellNode(
                 cellIndex
-            ).style.background = `repeating-linear-gradient(45deg, ghostwhite, ghostwhite 10px, ${backgroundColor} 10px, ${backgroundColor} 20px)`;
+            ).style.background = `repeating-linear-gradient(45deg, black, black 10px, ${backgroundColor} 10px, ${backgroundColor} 20px)`;
         });
     }
 };
